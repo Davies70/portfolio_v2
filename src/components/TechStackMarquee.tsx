@@ -18,16 +18,15 @@ const technologies = [
 
 export const TechStackMarquee: React.FC = () => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
-
-  // Duplicate the array for seamless loop
-  const duplicatedTechs = [...technologies, ...technologies];
+  
+  const duplicatedTechs = [...technologies, ...technologies, ...technologies];
 
   return (
-    <section
-      className='relative py-24 overflow-hidden'
-      style={{ backgroundColor: '#0B0C10' }}
+    <section 
+      className="relative -mt-16 lg:mt-0 pt-16 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-[#0B0C10] z-20"
+      aria-label="Technology Stack"
     >
-      <div className='container mx-auto px-6 md:px-20 mb-12'>
+      <div className='container mx-auto px-6 md:px-20 mb-2 md:mb-6'>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,39 +42,23 @@ export const TechStackMarquee: React.FC = () => {
         </motion.h2>
       </div>
 
-      {/* Marquee Container with Fade Masks */}
-      <div className='relative'>
-        {/* Left Fade */}
-        <div
-          className='absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none'
-          style={{
-            background:
-              'linear-gradient(to right, #0B0C10 0%, transparent 100%)',
-          }}
-        />
+      <div className="relative group flex items-center">
+        {/* Edge Fade Masks (z-20) */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-48 z-20 pointer-events-none bg-gradient-to-r from-[#0B0C10] to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-48 z-20 pointer-events-none bg-gradient-to-l from-[#0B0C10] to-transparent" />
 
-        {/* Right Fade */}
-        <div
-          className='absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none'
-          style={{
-            background:
-              'linear-gradient(to left, #0B0C10 0%, transparent 100%)',
-          }}
-        />
-
-        {/* Scrolling Strip with Glassmorphism Reflection */}
-        <div className='relative'>
+        {/* Marquee Wrapper */}
+        <div className="flex select-none w-full py-12 md:py-20">
           <motion.div
-            className='flex gap-12 py-8'
-            animate={{
-              x: hoveredTech ? 0 : [0, -1800],
-            }}
+            className="flex items-center gap-6 md:gap-12 w-max"
+            style={{ willChange: 'transform' }}
+            animate={{ x: ["0%", "-33.33333%"] }}
             transition={{
               x: {
                 repeat: Infinity,
-                repeatType: 'loop',
-                duration: 40,
-                ease: 'linear',
+                repeatType: "loop",
+                duration: hoveredTech ? 70 : 35,
+                ease: "linear",
               },
             }}
           >
@@ -84,95 +67,85 @@ export const TechStackMarquee: React.FC = () => {
                 key={`${tech.name}-${idx}`}
                 tech={tech}
                 isHovered={hoveredTech === tech.name}
-                onHover={() => setHoveredTech(tech.name)}
+                onInteraction={() => setHoveredTech(tech.name)}
                 onLeave={() => setHoveredTech(null)}
               />
             ))}
           </motion.div>
-
-          {/* Glassmorphism Reflection Strip */}
-          <div
-            className='absolute inset-x-0 bottom-0 h-1/2 pointer-events-none'
-            style={{
-              background:
-                'linear-gradient(to top, rgba(255, 255, 255, 0.03), transparent)',
-              backdropFilter: 'blur(8px)',
-            }}
-          />
         </div>
+
+        {/* Minimalist Glass Divider */}
+        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       </div>
     </section>
   );
 };
 
+// ----- Helper Component -----
 interface TechLogoProps {
-  tech: { name: string; color: string; icon: string };
+  tech: typeof technologies[0];
   isHovered: boolean;
-  onHover: () => void;
+  onInteraction: () => void;
   onLeave: () => void;
 }
 
-const TechLogo: React.FC<TechLogoProps> = ({
-  tech,
-  isHovered,
-  onHover,
-  onLeave,
-}) => {
+const TechLogo: React.FC<TechLogoProps> = ({ tech, isHovered, onInteraction, onLeave }) => {
   return (
     <motion.div
-      className='flex-shrink-0 flex flex-col items-center justify-center gap-3 cursor-pointer'
-      onMouseEnter={onHover}
+      className="flex-shrink-0 flex flex-col items-center justify-start touch-manipulation cursor-pointer relative"
+      onMouseEnter={onInteraction}
       onMouseLeave={onLeave}
+      onTouchStart={onInteraction}
       animate={{
-        scale: isHovered ? 1.3 : 1,
         filter: isHovered ? 'grayscale(0%)' : 'grayscale(100%)',
+        opacity: isHovered ? 1 : 0.5,
       }}
-      transition={{ duration: 0.3 }}
-      style={{ width: '120px' }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      style={{ 
+        width: 'clamp(80px, 15vw, 120px)',
+        // FIX 1: Boosted from 10 to 30. Hovered items now securely pop over the black edge gradients!
+        zIndex: isHovered ? 30 : 1
+      }}
     >
-      {/* Icon/Logo */}
+      {/* The Glass Icon Box */}
       <motion.div
-        className='w-16 h-16 rounded-2xl glass flex items-center justify-center text-3xl relative'
-        style={{
-          border: isHovered
-            ? `2px solid ${tech.color}`
-            : '2px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: isHovered ? `0 0 30px ${tech.color}60` : 'none',
-        }}
+        className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center text-2xl md:text-3xl relative"
         animate={{
-          backgroundColor: isHovered
-            ? `${tech.color}20`
-            : 'rgba(255, 255, 255, 0.05)',
+          scale: isHovered ? 1.15 : 1, 
+          backgroundColor: isHovered ? `${tech.color}15` : 'rgba(255, 255, 255, 0.03)',
         }}
+        style={{
+          border: isHovered ? `1px solid ${tech.color}` : '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: isHovered ? `0 0 25px ${tech.color}60` : 'none',
+        }}
+        transition={{ duration: 0.3 }}
       >
-        <span style={{ color: isHovered ? tech.color : '#E0E0E0' }}>
+        <span style={{ color: isHovered ? tech.color : '#A0A0A0' }}>
           {tech.icon}
         </span>
-
-        {/* Glow effect on hover */}
-        {isHovered && (
-          <motion.div
-            className='absolute inset-0 rounded-2xl'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            style={{
-              border: `1px solid ${tech.color}`,
-            }}
-          />
-        )}
       </motion.div>
 
-      {/* Tech Name */}
-      <motion.span
-        className='text-sm tracking-wider font-mono'
-        style={{
-          color: isHovered ? tech.color : '#E0E0E0',
-          textShadow: isHovered ? `0 0 20px ${tech.color}` : 'none',
-        }}
-      >
-        {tech.name}
-      </motion.span>
+      {/* FIX 2: Removed "absolute" positioning! 
+        - w-[150px] ensures long words like PostgreSQL and Node.js never word-wrap horizontally.
+        - h-8 creates a safe physical block of space that the text can fade into without being clipped by the bottom. 
+      */}
+      <div className="h-8 mt-3 flex items-center justify-center w-[150px]">
+        <motion.span
+          initial={false}
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            y: isHovered ? 0 : -8,
+          }}
+          transition={{ duration: 0.2 }}
+          className="text-[10px] md:text-xs font-semibold tracking-widest uppercase text-center whitespace-nowrap block"
+          style={{ 
+            color: tech.color,
+            textShadow: `0 0 10px ${tech.color}80`
+          }}
+        >
+          {tech.name}
+        </motion.span>
+      </div>
     </motion.div>
   );
 };

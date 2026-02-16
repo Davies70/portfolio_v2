@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   motion,
   useScroll,
@@ -9,6 +9,15 @@ import {
 
 export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
+
+  // Hydration-safe mobile detection for parallax scaling
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // ----- Scroll setup (scoped to this section) -----
   const { scrollYProgress } = useScroll({
@@ -26,13 +35,14 @@ export const HeroSection: React.FC = () => {
   const heroOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
   // 2. Background Orbs float up
   const orbY = useTransform(smoothProgress, [0, 1], ['0%', '30%']);
-  // 3. Left Text Column pushes up faster
-  const textY = useTransform(smoothProgress, [0, 1], ['0%', '-40%']);
-  // 4. Right Image slowly sinks and scales down (depth effect)
-  const imageY = useTransform(smoothProgress, [0, 1], ['0%', '20%']);
+  
+  // 3. Left Text Column (Disabled on mobile to prevent the huge gap)
+  const textY = useTransform(smoothProgress, [0, 1], ['0%', isMobile ? '0%' : '-40%']);
+  // 4. Right Image slowly sinks and scales down
+  const imageY = useTransform(smoothProgress, [0, 1], ['0%', isMobile ? '0%' : '20%']);
   const imageScale = useTransform(smoothProgress, [0, 1], [1, 0.9]);
   // 5. Floating card lifts up away from the sinking image
-  const cardY = useTransform(smoothProgress, [0, 1], ['0%', '-60%']);
+  const cardY = useTransform(smoothProgress, [0, 1], ['0%', isMobile ? '-10%' : '-60%']);
 
   const shouldReduceMotion = useReducedMotion();
 
@@ -45,7 +55,8 @@ export const HeroSection: React.FC = () => {
     <section
       id='home'
       ref={containerRef as any}
-      className='relative min-h-screen flex items-center justify-center pt-20 overflow-hidden'
+      // Fixed layout: min-h-fit on mobile to stop overlapping, min-h-screen on desktop
+      className='relative min-h-fit lg:min-h-screen flex items-center justify-center pt-28 pb-12 lg:pt-20 lg:pb-0 overflow-hidden'
       style={{ backgroundColor: '#0B0C10' }}
       aria-label='Hero Section'
     >
@@ -84,14 +95,7 @@ export const HeroSection: React.FC = () => {
           aria-hidden
         >
           <defs>
-            {/* Dynamic gradient that shifts from Green -> Purple -> Green */}
-            <linearGradient
-              id='global-beam-grad'
-              x1='0%'
-              y1='0%'
-              x2='100%'
-              y2='0%'
-            >
+            <linearGradient id='global-beam-grad' x1='0%' y1='0%' x2='100%' y2='0%'>
               <stop offset='0%' stopColor='#C5F82A' stopOpacity='0' />
               <stop offset='15%' stopColor='#C5F82A' stopOpacity='0.9' />
               <stop offset='50%' stopColor='#8A2BE2' stopOpacity='0.7' />
@@ -114,13 +118,9 @@ export const HeroSection: React.FC = () => {
             strokeLinecap='round'
             fill='none'
             strokeDasharray='60 140'
-            initial={{ strokeDashoffset: 200 }}
-            animate={shouldReduceMotion ? {} : { strokeDashoffset: 0 }}
-            transition={
-              shouldReduceMotion
-                ? {}
-                : { duration: 4.5, repeat: Infinity, ease: 'linear' }
-            }
+            // Fixed using keyframe array to force continuous loop
+            animate={{ strokeDashoffset: [200, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
             style={{ filter: 'blur(3px)' }}
           />
           <motion.path
@@ -130,13 +130,9 @@ export const HeroSection: React.FC = () => {
             strokeLinecap='round'
             fill='none'
             strokeDasharray='60 140'
-            initial={{ strokeDashoffset: 200 }}
-            animate={shouldReduceMotion ? {} : { strokeDashoffset: 0 }}
-            transition={
-              shouldReduceMotion
-                ? {}
-                : { duration: 4.5, repeat: Infinity, ease: 'linear' }
-            }
+            // Fixed using keyframe array
+            animate={{ strokeDashoffset: [200, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
             style={{ filter: 'blur(0.5px)', opacity: 0.9 }}
           />
 
@@ -148,18 +144,15 @@ export const HeroSection: React.FC = () => {
             strokeLinecap='round'
             fill='none'
             strokeDasharray='40 160'
-            initial={{ strokeDashoffset: -200 }} // Moves in opposite direction
-            animate={shouldReduceMotion ? {} : { strokeDashoffset: 0 }}
-            transition={
-              shouldReduceMotion
-                ? {}
-                : { duration: 6, repeat: Infinity, ease: 'linear', delay: 1 }
-            }
+            // Fixed using keyframe array moving backwards
+            animate={{ strokeDashoffset: [-200, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'linear', delay: 1 }}
             style={{ filter: 'blur(2px)', opacity: 0.6 }}
           />
         </svg>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
+        {/* Adjusted to gap-8 on mobile to prevent empty space */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center'>
           {/* LEFT: dramatic name + micro copy */}
           <motion.div
             className='text-center md:text-left flex flex-col'
@@ -365,9 +358,10 @@ const TechnicalSnippet: React.FC<TechnicalSnippetProps> = ({ code, delay }) => {
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay, type: 'spring' }}
+      transition={{ duration: 0.6, delay, type: 'spring' }} // Exact original spring bounce
       className='glass px-3 md:px-4 py-2 rounded-lg border border-[#C5F82A]/30 inline-flex items-center gap-2 bg-[#1A1D23]/40 backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
     >
+      {/* Restored exact tailwind colors without the opacity modifier */}
       <span className='text-[#C5F82A]/70 font-mono text-xs'>{'>'}</span>
       <code className='text-[#C5F82A] text-[10px] md:text-xs font-mono tracking-wide'>
         {code}

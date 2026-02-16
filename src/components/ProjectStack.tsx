@@ -7,7 +7,7 @@ export const ProjectStack: React.FC = () => {
   return (
     <section
       id='work'
-      className='relative py-32'
+      className='relative py-16 md:py-32'
       style={{ backgroundColor: '#0B0C10' }}
     >
       <div className='container mx-auto px-6 md:px-20'>
@@ -16,7 +16,7 @@ export const ProjectStack: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className='font-clash text-white mb-20 tracking-tighter'
+          className='font-clash text-white mb-5 md:mb-16 tracking-tighter'
           style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
         >
           Selected Work

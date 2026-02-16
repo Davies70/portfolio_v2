@@ -262,3 +262,12 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #C5F82A;
 }
+
+/* Hide scrollbar but keep swipe functional */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
