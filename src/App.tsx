@@ -1,4 +1,3 @@
-
 import { NoiseOverlay } from "./components/NoiseOverlay";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";

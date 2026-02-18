@@ -175,30 +175,33 @@ export const projects: Project[] = [
     },
   },
   {
-    title: 'Sumbot',
-    description:
-      'Browser-based AI text summarizer using frequency-based scoring and Graph-based PageRank to extract key concepts from long-form text.',
-    src: 'https://images.unsplash.com/photo-1750969185331-e03829f72c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZXVyYWwlMjBuZXR3b3JrJTIwYWJzdHJhY3QlMjBibHVlfGVufDF8fHx8MTc3MDkyMzU4MXww&ixlib=rb-4.1.0&q=80&w=1080',
-    link: 'https://sumbot.netlify.app',
-    github: 'https://github.com/Davies70/sumbot',
-    color: '#4A90E2',
-    tech: ['HTML', 'CSS', 'JavaScript', 'Algorithms'],
-    architecture: {
-      nodes: [
-        { id: 'ui', label: 'Vanilla UI', x: 15, y: 50 },
-        { id: 'parser', label: 'Text Parser', x: 40, y: 50 },
-        { id: 'scorer', label: 'Freq Scorer', x: 65, y: 25 },
-        { id: 'graph', label: 'PageRank', x: 65, y: 75 },
-        { id: 'output', label: 'Summarizer', x: 90, y: 50 },
-      ],
-      connections: [
-        { from: 'ui', to: 'parser' },
-        { from: 'parser', to: 'scorer' },
-        { from: 'parser', to: 'graph' },
-        { from: 'scorer', to: 'output' },
-        { from: 'graph', to: 'output' },
-        { from: 'output', to: 'ui' },
-      ],
-    },
+  title: 'Sumbot.AI',
+  description:
+    'High-performance browser-based summarizer using Neural AI (Transformers.js) and Graph-based PageRank. Offloads heavy computation to Web Workers for a non-blocking UI experience.',
+  src: 'https://images.unsplash.com/photo-1750969185331-e03829f72c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZXVyYWwlMjBuZXR3b3JrJTIwYWJzdHJhY3QlMjBibHVlfGVufDF8fHx8MTc3MDkyMzU4MXww&ixlib=rb-4.1.0&q=80&w=1080',
+  link: 'https://sumbot.netlify.app',
+  github: 'https://github.com/Davies70/sumbot',
+  color: '#3B82F6', // Modern Blue
+  tech: ['Vite', 'Tailwind v4', 'Transformers.js', 'Web Workers', 'NLP'],
+  architecture: {
+    nodes: [
+      { id: 'ui', label: 'Main Thread (UI)', x: 10, y: 50 },
+      { id: 'worker', label: 'Web Worker', x: 35, y: 50 },
+      { id: 'neural', label: 'Neural Engine (BART)', x: 65, y: 20 },
+      { id: 'graph', label: 'PageRank Graph', x: 65, y: 50 },
+      { id: 'freq', label: 'Freq Scorer', x: 65, y: 80 },
+      { id: 'render', label: 'Typewriter Renderer', x: 90, y: 50 },
+    ],
+    connections: [
+      { from: 'ui', to: 'worker',  },
+      { from: 'worker', to: 'neural',  },
+      { from: 'worker', to: 'graph',  },
+      { from: 'worker', to: 'freq' },
+      { from: 'neural', to: 'render' },
+      { from: 'graph', to: 'render' },
+      { from: 'freq', to: 'render' },
+      { from: 'render', to: 'ui' },
+    ],
   },
+}
 ];
