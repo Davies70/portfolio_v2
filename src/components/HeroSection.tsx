@@ -1,5 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useReducedMotion,
+} from "motion/react";
 
 export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
@@ -39,19 +45,31 @@ export const HeroSection: React.FC = () => {
   );
   const imageScale = useTransform(smoothProgress, [0, 1], [1, 0.9]);
 
-  // ----- Helpers -----
+  const shouldReduceMotion = useReducedMotion();
+
   const orbStyle = {
     willChange: "transform, opacity",
   } as const;
+
+  // ----- UPDATED Scroll Click Handler -----
+  const handleScrollDown = () => {
+    const projectsSection = document.getElementById("work");
+
+    if (projectsSection) {
+      // Scrolls directly to the top of the element with id="work"
+      projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Safe fallback just in case the ID changes or hasn't rendered
+      window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <section
       id="home"
       ref={containerRef as any}
-      // FIX: Changed min-h to 100svh (mobile-friendly full height)
-      // FIX: Added `items-start lg:items-center` to push content to the top on mobile
-      // FIX: Added `pt-40 lg:pt-0` to guarantee massive clearance below the mobile navbar
-      className="pt-[400px] relative w-full min-h-svh lg:min-h-screen flex items-start lg:items-center justify-center pb-12 lg:pt-0 lg:pb-0 overflow-hidden"
+      // items-start & pt-[140px] for mobile navbar clearance, min-h-[100svh] for true mobile height
+      className="relative w-full min-h-[100svh] lg:min-h-screen flex items-start lg:items-center justify-center pt-[140px] pb-24 lg:pt-0 lg:pb-0 overflow-hidden"
       style={{ backgroundColor: "#0B0C10" }}
       aria-label="Hero Section"
     >
@@ -172,7 +190,6 @@ export const HeroSection: React.FC = () => {
               >
                 DAVIES
               </motion.h1>
-
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -219,9 +236,9 @@ export const HeroSection: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: headshot */}
+          {/* RIGHT: headshot ONLY (Status removed) */}
           <motion.div
-            className="relative flex justify-center items-center mt-6 lg:mt-0"
+            className="relative flex justify-center items-center mt-8 lg:mt-0"
             style={{ y: imageY, scale: imageScale }}
           >
             <div className="relative w-full max-w-[520px]">
@@ -235,6 +252,7 @@ export const HeroSection: React.FC = () => {
                 <img
                   src="/assets/me_2.png"
                   alt="Davies Ajayi"
+                  loading="eager"
                   className="w-full h-auto rounded-xl grayscale brightness-[0.85]"
                   style={{
                     maskImage:
@@ -244,7 +262,6 @@ export const HeroSection: React.FC = () => {
                     willChange: "transform",
                   }}
                 />
-
                 <div
                   className="absolute inset-0 pointer-events-none rounded-xl z-20"
                   style={{
@@ -255,6 +272,83 @@ export const HeroSection: React.FC = () => {
               </motion.div>
             </div>
           </motion.div>
+        </div>
+      </motion.div>
+
+      {/* ========================================================
+          THE CLICKABLE CYBER-MAGNETIC SCROLL INDICATOR
+          ======================================================== */}
+      <motion.div
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-[100] cursor-pointer group"
+        style={{ opacity: heroOpacity }}
+        onClick={handleScrollDown}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* HUD Typography Layout */}
+        <div className="flex items-center gap-2 font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold transition-all duration-300 group-hover:tracking-[0.25em]">
+          <span className="text-white/30 group-hover:text-[#C5F82A]/80 transition-colors duration-300">
+            [
+          </span>
+          <span
+            className="text-[#E0E0E0] group-hover:text-white transition-colors duration-300"
+            style={{
+              textShadow:
+                "0px 2px 4px rgba(0,0,0,1), 0px 0px 2px rgba(0,0,0,1)",
+            }}
+          >
+            SYS.
+          </span>
+          <span
+            className="text-[#C5F82A] group-hover:brightness-125 transition-all duration-300"
+            style={{ textShadow: "0px 0px 8px rgba(197, 248, 42, 0.6)" }}
+          >
+            SCROLL
+          </span>
+          <span className="text-white/30 group-hover:text-[#C5F82A]/80 transition-colors duration-300">
+            ]
+          </span>
+        </div>
+
+        {/* The Cyber-Pill Chassis */}
+        <div className="relative flex flex-col items-center">
+          <div className="w-[24px] h-[40px] md:w-[30px] md:h-[48px] rounded-full border border-white/10 bg-[#1A1D23]/60 backdrop-blur-md flex justify-center pt-[6px] relative overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.8)] group-hover:border-[#C5F82A]/40 group-hover:bg-[#1A1D23]/80 transition-all duration-300">
+            {/* Soft internal green gradient representing energy */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#C5F82A]/10 to-transparent group-hover:from-[#C5F82A]/20 transition-all duration-300" />
+
+            {/* The Plasma Drop Animation */}
+            <motion.div
+              className="w-[4px] md:w-[6px] rounded-full bg-[#C5F82A]"
+              style={{ boxShadow: "0 0 12px 2px rgba(197, 248, 42, 0.9)" }}
+              animate={
+                shouldReduceMotion
+                  ? { height: "8px", opacity: 1 }
+                  : {
+                      y: [0, 16, 26],
+                      height: ["8px", "14px", "4px"],
+                      opacity: [1, 1, 0],
+                    }
+              }
+              transition={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      duration: 1.6,
+                      repeat: Infinity,
+                      ease: [0.25, 1, 0.5, 1],
+                    }
+              }
+            />
+          </div>
+
+          {/* Energy Beam Exhaust - Connects the pill to the floor */}
+          <motion.div
+            className="w-[1px] h-8 md:h-12 mt-2 bg-gradient-to-b from-[#C5F82A]/60 to-transparent group-hover:from-[#C5F82A] group-hover:h-10 md:group-hover:h-16 transition-all duration-500"
+            animate={shouldReduceMotion ? {} : { opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          />
         </div>
       </motion.div>
     </section>

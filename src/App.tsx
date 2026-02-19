@@ -11,7 +11,7 @@ import { ContactSection } from "./components/ContactSection";
 function App() {
   return (
     <div
-      className="relative min-h-screen"
+      className="relative min-h-screen overflow-x-hidden"
       style={{ backgroundColor: "#0B0C10" }}
     >
       {/* Film Grain Overlay */}
