@@ -7,8 +7,11 @@ import { FloatingCodeEditor } from "./components/FloatingCodeEditor";
 import { AboutSection } from "./components/AboutSection";
 import { GitHubActivityGraph } from "./components/GitHubActivityGraph";
 import { ContactSection } from "./components/ContactSection";
+import { useEffect } from "react";
+import { useDevToolsEasterEgg } from "./hooks/useDevToolsEasterEgg"; // Adjust path
 
 function App() {
+  useDevToolsEasterEgg(); // Initialize the dev tools easter egg
   return (
     <div
       className="relative min-h-screen overflow-x-hidden"
