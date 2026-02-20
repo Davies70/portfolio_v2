@@ -242,7 +242,7 @@ export const ContactSection: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.8 }}
         className="absolute bottom-4 md:bottom-8 left-0 right-0 px-4 text-center text-[#E0E0E0]/40 text-[10px] md:text-xs tracking-widest font-mono"
       >
-        © {new Date().getFullYear()} CREATIVE DEVELOPER. ALL RIGHTS RESERVED.
+        © {new Date().getFullYear()} Davies Ajayi. ALL RIGHTS RESERVED.
       </motion.div>
     </section>
   );
