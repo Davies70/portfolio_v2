@@ -37,6 +37,7 @@ export interface AboutMe {
   image: string;
   email: string;
   social: { name: string; link: string }[];
+  recognitions: string[];
 }
 
 export const projects: Project[] = [
@@ -44,7 +45,7 @@ export const projects: Project[] = [
     title: "DocuGuard",
     description:
       "An automated RAG system that audits technical documentation against changelogs to detect and 'self-heal' breaking changes using Groq/Llama 3.",
-    src: "https://images.unsplash.com/photo-1761857352384-aaae23a714a4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwZGF0YSUyMHByb2Nlc3Npbmd8ZW58MXx8fHwxNzcwOTIzNTc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/1.jpg",
     link: "https://docu-guard-self-healing-rag.vercel.app/",
     github: "https://github.com/Davies70/DocuGuard-Self-Healing-RAG",
     color: "#BBACAF",
@@ -68,7 +69,7 @@ export const projects: Project[] = [
     title: "Secure File Pipeline",
     description:
       "Full-stack serverless application for securely uploading, optimizing, and managing files. Features a React dashboard and an AWS Lambda/S3 backend.",
-    src: "https://images.unsplash.com/photo-1744868562210-fffb7fa882d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tJTIwdGVjaG5vbG9neSUyMGluZnJhc3RydWN0dXJlfGVufDF8fHx8MTc3MDg2MDI0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/2.jpg",
     link: "https://secure-file-processing-ui.vercel.app/",
     github: "https://github.com/Davies70/secure-file-upload",
     color: "#977F6D",
@@ -93,7 +94,7 @@ export const projects: Project[] = [
     title: "CheapBites",
     description:
       "Geolocation-based discovery app for affordable restaurants nearby. Integrates Foursquare Places API and Leaflet maps for interactive filtering.",
-    src: "https://images.unsplash.com/photo-1659821589718-66ffaf73b920?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHJlZXQlMjBmb29kJTIwY2l0eSUyMG5pZ2h0fGVufDF8fHx8MTc3MDkyMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/3.jpg",
     link: "https://cheapbites.vercel.app",
     github: "https://github.com/Davies70/cheapbites",
     color: "#C2491D",
@@ -118,7 +119,7 @@ export const projects: Project[] = [
     title: "ShopApocalypse",
     description:
       "A parody eCommerce experience for doomsday gear. Showcases complex UI animation and immersive storytelling using Framer Motion and GSAP.",
-    src: "https://images.unsplash.com/photo-1758618851158-006674a63063?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0YWN0aWNhbCUyMGdlYXIlMjB1cmJhbnxlbnwxfHx8fDE3NzA5MjM1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/4.jpg",
     link: "https://shopapocalypse.netlify.app/",
     github: "https://github.com/Davies70/shopapocalypse",
     color: "#706D63",
@@ -143,7 +144,7 @@ export const projects: Project[] = [
     title: "ThrillerFiend",
     description:
       "Tracking platform for thriller fans integrating Google Books & NYT APIs. Features user ratings, reading logs, and Firebase persistence.",
-    src: "https://images.unsplash.com/photo-1586202690180-1967f682ef1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxteXN0ZXJ5JTIwYm9va3MlMjBub2lyJTIwc2hhZG93c3xlbnwxfHx8fDE3NzA5MjM1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/5.jpg",
     link: "https://thrillerfiend.netlify.app",
     github: "https://github.com/Davies70/ThrillerFiend",
     color: "#B62429",
@@ -168,7 +169,7 @@ export const projects: Project[] = [
     title: "InventoryManager API",
     description:
       "Serverless REST API for managing inventory at scale. Supports full CRUD operations and secure IAM-based access via AWS Lambda and DynamoDB.",
-    src: "https://images.unsplash.com/photo-1563884705074-7c8b15f16295?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjBjYWJsZXMlMjBuZXR3b3JrJTIwaW5mcmFzdHJ1Y3R1cmV8ZW58MXx8fHwxNzcwOTIzNTgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/6.jpg",
     link: "",
     github: "https://github.com/Davies70/inventory-manager",
     color: "#232F3E",
@@ -193,7 +194,7 @@ export const projects: Project[] = [
     title: "Sumbot.AI",
     description:
       "High-performance browser-based summarizer using Neural AI (Transformers.js) and Graph-based PageRank. Offloads heavy computation to Web Workers for a non-blocking UI experience.",
-    src: "https://images.unsplash.com/photo-1750969185331-e03829f72c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuZXVyYWwlMjBuZXR3b3JrJTIwYWJzdHJhY3QlMjBibHVlfGVufDF8fHx8MTc3MDkyMzU4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "/assets/projects/7.jpg",
     link: "https://sumbot.netlify.app",
     github: "https://github.com/Davies70/sumbot",
     color: "#3B82F6", // Modern Blue
@@ -230,7 +231,7 @@ export const aboutMe: AboutMe = {
               attention to detail and long-term maintainability.`,
   descriptionOne: `I'm a versatile full-stack developer passionate about crafting responsive interfaces and scalable back-end systems. With hands-on experience building end-to-end solutions, I specialize in transforming ambitious ideas into efficient, digital realities.`,
   descriptionTwo: `My approach combines technical optimization with user-focused design, ensuring every application not only functions flawlessly under the hood but also delivers a seamless, captivating experience for the user`,
-  image: "/assets/me_2.png",
+  image: "/assets/me.webp",
   tech: [
     "React & Next.js",
     "TypeScript",
@@ -245,5 +246,12 @@ export const aboutMe: AboutMe = {
   social: [
     { name: "LinkedIn", link: "https://www.linkedin.com/in/daviesajayi/" },
     { name: "GitHub", link: "https://github.com/Davies70" },
+  ],
+  recognitions: [
+    "Software Engineering Certificate – ALX Holberton School",
+
+    "Full-Stack Web Development Specialization – Coursera Certificate",
+
+    "WCAG Compliance: Web Accessibility Best Practices – Coursera Certificate of Completion.",
   ],
 };

@@ -45,7 +45,7 @@ export const AboutSection: React.FC = () => {
               <div className="pt-4 md:pt-6">
                 <motion.button
                   // Added w-full sm:w-auto for a better mobile tap target
-                  className="w-full sm:w-auto px-8 py-3.5 md:py-4 glass rounded-full text-[#C5F82A] text-sm md:text-base hover:bg-[#C5F82A] hover:text-[#0B0C10] transition-all duration-300"
+                  className="cursor-pointer w-full sm:w-auto px-8 py-3.5 md:py-4 glass rounded-full text-[#C5F82A] text-sm md:text-base hover:bg-[#C5F82A] hover:text-[#0B0C10] transition-all duration-300"
                   style={{
                     border: "1px solid rgba(197, 248, 42, 0.3)",
                     boxShadow: "0 0 30px rgba(197, 248, 42, 0.1)",
@@ -55,6 +55,15 @@ export const AboutSection: React.FC = () => {
                     boxShadow: "0 0 50px rgba(197, 248, 42, 0.3)",
                   }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    // Programmatically trigger the same download as the console command
+                    const link = document.createElement("a");
+                    link.href = "/resume/Davies_Ajayi_Resume.pdf";
+                    link.download = "Davies_Ajayi_Resume.pdf";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
                 >
                   Download Resume
                 </motion.button>
@@ -94,14 +103,10 @@ export const AboutSection: React.FC = () => {
 
               <div>
                 <h3 className="font-clash text-white mb-4 tracking-tight text-xl md:text-2xl">
-                  Awards & Recognition
+                  Certifications
                 </h3>
                 <div className="space-y-3">
-                  {[
-                    "Awwwards Site of the Day",
-                    "FWA Mobile of the Day",
-                    "CSS Design Awards Winner",
-                  ].map((award) => (
+                  {aboutMe.recognitions.map((award) => (
                     <div
                       key={award}
                       className="flex items-center gap-3 text-[#E0E0E0] text-sm md:text-base"

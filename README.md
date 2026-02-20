@@ -8,7 +8,7 @@
 
 A highly interactive, performance-optimized creative developer portfolio built with React, TypeScript, and Framer Motion. Designed with a distinct dark/cyber aesthetic, prioritizing fluid animations, responsive layouts, and hidden technical depth.
 
-**[View Live Site](YOUR_LIVE_LINK_HERE)**
+**[View Live Site](https://daviesajayi.com/)**
 
 ---
 

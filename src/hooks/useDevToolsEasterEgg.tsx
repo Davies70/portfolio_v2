@@ -46,7 +46,7 @@ export const useDevToolsEasterEgg = () => {
         // Programmatically trigger a file download
         const link = document.createElement("a");
         // UPDATE THIS PATH: Make sure your PDF is in your public folder!
-        link.href = "/Davies_Ajayi_Resume.pdf";
+        link.href = "/resume/Davies_Ajayi_Resume.pdf";
         link.download = "Davies_Ajayi_Resume.pdf";
         document.body.appendChild(link);
         link.click();

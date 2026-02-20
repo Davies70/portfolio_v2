@@ -70,7 +70,7 @@ export const HeroSection: React.FC = () => {
       id="home"
       ref={containerRef as any}
       // items-start & pt-[140px] for mobile navbar clearance, min-h-[100svh] for true mobile height
-      className="relative w-full min-h-[100svh] lg:min-h-screen flex items-start lg:items-center justify-center pt-[140px] pb-24 lg:pt-0 lg:pb-0 overflow-hidden"
+      className="relative w-full min-h-svh lg:min-h-screen flex items-start lg:items-center justify-center pt-[140px] pb-24 lg:pt-0 lg:pb-0 overflow-hidden"
       style={{ backgroundColor: "#0B0C10" }}
       aria-label="Hero Section"
     >

@@ -24,14 +24,14 @@ export const ProjectStack: React.FC = () => {
         </motion.h2>
 
         {/* Mobile: Simple List - kept the gap-10 for breathing room between cards */}
-        <div className="flex flex-col gap-10 md:hidden">
+        <div className="flex flex-col gap-10 md:hidden relative">
           {projects.map((project, index) => (
             <ProjectCardMobile key={index} project={project} index={index} />
           ))}
         </div>
 
         {/* Desktop: Sticky Stack */}
-        <div className="hidden md:block space-y-32">
+        <div className="hidden md:block space-y-32 relative">
           {projects.map((project, index) => (
             <ProjectCardDesktop key={index} project={project} index={index} />
           ))}

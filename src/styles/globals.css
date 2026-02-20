@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,12 +42,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  
+
   /* Portfolio Custom Colors */
-  --portfolio-bg: #0B0C10;
-  --portfolio-fg: #E0E0E0;
-  --portfolio-accent: #C5F82A;
-  --portfolio-card: #1A1D23;
+  --portfolio-bg: #0b0c10;
+  --portfolio-fg: #e0e0e0;
+  --portfolio-accent: #c5f82a;
+  --portfolio-card: #1a1d23;
+
+  position: relative;
 }
 
 .dark {
@@ -126,7 +128,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
+
   /* Custom Portfolio Colors */
   --color-portfolio-bg: var(--portfolio-bg);
   --color-portfolio-fg: var(--portfolio-fg);
@@ -143,7 +145,7 @@
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 }
 
@@ -151,7 +153,7 @@
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */
 @layer base {
-  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
     h1 {
       font-size: var(--text-2xl);
       font-weight: var(--font-weight-medium);
@@ -203,16 +205,37 @@ html {
 
 /* Film grain animation */
 @keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  20% { transform: translate(-15%, 5%); }
-  30% { transform: translate(7%, -25%); }
-  40% { transform: translate(-5%, 25%); }
-  50% { transform: translate(-15%, 10%); }
-  60% { transform: translate(15%, 0%); }
-  70% { transform: translate(0%, 15%); }
-  80% { transform: translate(3%, 35%); }
-  90% { transform: translate(-10%, 10%); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 35%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
 }
 
 .noise {
@@ -221,7 +244,7 @@ html {
 
 /* Clash Display fallback using Unbounded */
 .font-clash {
-  font-family: 'Unbounded', sans-serif;
+  font-family: "Unbounded", sans-serif;
 }
 
 /* Glassmorphism effect */
@@ -251,16 +274,16 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0C10;
+  background: #0b0c10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1A1D23;
+  background: #1a1d23;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C5F82A;
+  background: #c5f82a;
 }
 
 /* Hide scrollbar but keep swipe functional */
