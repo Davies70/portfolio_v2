@@ -52,7 +52,7 @@ export const useDevToolsEasterEgg = () => {
         link.click();
         document.body.removeChild(link);
 
-        return "Download complete. Looking forward to hearing from you at hello@creative.dev!";
+        return "Download complete. Looking forward to hearing from you at daviesajayi7@gmail.com!";
       },
     };
 

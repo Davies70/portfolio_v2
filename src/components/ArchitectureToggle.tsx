@@ -16,7 +16,7 @@ export const ArchitectureToggle: React.FC<ArchitectureToggleProps> = ({
     <motion.button
       onClick={onToggle}
       // Tightened base padding/gaps for tiny screens, expands smoothly on sm/md
-      className="glass px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full flex items-center gap-1 sm:gap-1.5 md:gap-3 text-[10px] sm:text-xs md:text-sm z-50 relative shrink-0"
+      className=" cursor-pointer glass px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full flex items-center gap-1 sm:gap-1.5 md:gap-3 text-[10px] sm:text-xs md:text-sm z-50 relative shrink-0"
       style={{
         border: `1px solid ${accentColor}40`,
       }}

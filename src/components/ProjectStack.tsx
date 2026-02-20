@@ -216,7 +216,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="sticky top-32"
     >
       <motion.div
-        className="relative rounded-[30px] overflow-hidden group cursor-pointer"
+        className="relative rounded-[30px] overflow-hidden group"
         style={{ backgroundColor: "#1A1D23" }}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}

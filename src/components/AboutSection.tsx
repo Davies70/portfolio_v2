@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import { aboutMe } from "../lib/data";
 
 export const AboutSection: React.FC = () => {
   return (
@@ -34,16 +35,11 @@ export const AboutSection: React.FC = () => {
             >
               {/* Used Tailwind responsive text instead of hardcoded 1.125rem */}
               <p className="text-[#E0E0E0] leading-relaxed text-base md:text-lg">
-                I'm a creative developer passionate about crafting pixel-perfect
-                interfaces and seamless user experiences. With over 8 years of
-                experience, I specialize in transforming ambitious ideas into
-                reality.
+                {aboutMe.descriptionOne}
               </p>
 
               <p className="text-[#E0E0E0] leading-relaxed text-base md:text-lg">
-                My approach combines technical excellence with creative vision,
-                ensuring every project not only functions flawlessly but also
-                captivates users.
+                {aboutMe.descriptionTwo}
               </p>
 
               <div className="pt-4 md:pt-6">
@@ -79,16 +75,7 @@ export const AboutSection: React.FC = () => {
                 </h3>
                 {/* Responsive grid gaps */}
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
-                  {[
-                    "React & Next.js",
-                    "TypeScript",
-                    "Node.js",
-                    "GraphQL",
-                    "Three.js",
-                    "WebGL",
-                    "Framer Motion",
-                    "Tailwind CSS",
-                  ].map((skill) => (
+                  {aboutMe.tech.map((skill) => (
                     <motion.div
                       key={skill}
                       // Reduced mobile padding and font size slightly

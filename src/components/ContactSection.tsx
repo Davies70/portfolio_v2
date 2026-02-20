@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { aboutMe } from "../lib/data";
 
 export const ContactSection: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -200,21 +201,18 @@ export const ContactSection: React.FC = () => {
           >
             {/* Added flex-wrap so links wrap on very small screens */}
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-[#E0E0E0] px-4">
-              {[
-                { name: "GitHub", url: "#" },
-                { name: "LinkedIn", url: "#" },
-                { name: "Twitter", url: "#" },
-                { name: "Dribbble", url: "#" },
-              ].map((social) => (
+              {aboutMe.social.map((social) => (
                 <a
                   key={social.name}
-                  href={social.url}
+                  href={social.link}
                   className="relative group py-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <span className="text-xs md:text-sm tracking-wider hover:text-[#C5F82A] transition-colors">
                     {social.name}
                   </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#C5F82A] group-hover:w-full transition-all duration-300" />
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-[#C5F82A] group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
             </div>
@@ -222,10 +220,10 @@ export const ContactSection: React.FC = () => {
             {/* Email styling improved to look more clickable/copyable */}
             <div className="inline-block relative group cursor-pointer">
               <a
-                href="mailto:hello@creative.dev"
+                href={`mailto:${aboutMe.email}`}
                 className="text-[#E0E0E0] text-sm md:text-base font-mono hover:text-white transition-colors relative z-10"
               >
-                hello@creative.dev
+                {aboutMe.email}
               </a>
               <motion.div
                 className="absolute inset-0 bg-white/5 rounded-lg -m-2 -z-10 opacity-0 group-hover:opacity-100"

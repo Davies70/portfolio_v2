@@ -6,6 +6,7 @@ import {
   useSpring,
   useReducedMotion,
 } from "motion/react";
+import { aboutMe } from "../lib/data";
 
 export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
@@ -180,7 +181,7 @@ export const HeroSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ amount: 0.25, once: true }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
-                className="font-clash text-white tracking-tight relative z-10"
+                className="font-clash text-white tracking-tight relative z-10 uppercase"
                 style={{
                   fontSize: "clamp(4.5rem, 11vw, 9rem)",
                   lineHeight: 0.9,
@@ -188,21 +189,21 @@ export const HeroSection: React.FC = () => {
                   marginBottom: "0.25rem",
                 }}
               >
-                DAVIES
+                {aboutMe.name}
               </motion.h1>
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ amount: 0.25, once: true }}
                 transition={{ duration: 0.75, delay: 0.12 }}
-                className="font-clash text-stroke text-[#E0E0E0] tracking-tight relative z-10"
+                className="font-clash text-stroke text-[#E0E0E0] tracking-tight relative z-10 uppercase"
                 style={{
                   fontSize: "clamp(4.5rem, 11vw, 9rem)",
                   lineHeight: 0.9,
                   letterSpacing: "-0.03em",
                 }}
               >
-                AJAYI
+                {aboutMe.lastName}
               </motion.h2>
             </div>
 
@@ -213,9 +214,7 @@ export const HeroSection: React.FC = () => {
               viewport={{ amount: 0.2, once: true }}
               transition={{ duration: 0.6, delay: 0.18 }}
             >
-              Crafting exceptional digital experiences through code, design, and
-              innovation. I build modern, high-performance applications with
-              attention to detail and long-term maintainability.
+              {aboutMe.heroText}
             </motion.p>
 
             <motion.div
@@ -250,7 +249,7 @@ export const HeroSection: React.FC = () => {
                 className="relative z-10"
               >
                 <img
-                  src="/assets/me_2.png"
+                  src={aboutMe.image}
                   alt="Davies Ajayi"
                   loading="eager"
                   className="w-full h-auto rounded-xl grayscale brightness-[0.85]"
@@ -345,7 +344,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Energy Beam Exhaust - Connects the pill to the floor */}
           <motion.div
-            className="w-[1px] h-8 md:h-12 mt-2 bg-gradient-to-b from-[#C5F82A]/60 to-transparent group-hover:from-[#C5F82A] group-hover:h-10 md:group-hover:h-16 transition-all duration-500"
+            className="w-[1px] h-8 md:h-12 mt-2 bg-gradient-to-b from-[#C5F82A]/60 to-transparent group-hover:from-[#8a995c] group-hover:h-10 md:group-hover:h-16 transition-all duration-500"
             animate={shouldReduceMotion ? {} : { opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           />
