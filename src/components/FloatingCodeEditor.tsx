@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
+// 1. Add useRef to React imports
+import React, { useState, useEffect, useRef } from "react";
+// 2. Add useInView to Framer Motion imports
+import { motion, useInView } from "motion/react";
 
 const codeSnippet = `interface UserAuth {
   id: string;
@@ -24,7 +26,18 @@ export const FloatingCodeEditor: React.FC = () => {
   const [typedCode, setTypedCode] = useState("");
   const [currentLine, setCurrentLine] = useState(0);
 
+  // 3. Create a ref for the container section
+  const containerRef = useRef(null);
+
+  // 4. Use the useInView hook.
+  // 'once: true' ensures the animation runs only the first time it comes into view.
+  // 'amount: 0.3' means it triggers when 30% of the section is visible.
+  const isInView = useInView(containerRef, { once: true, amount: 0.3 });
+
   useEffect(() => {
+    // 5. IMPORTANT: Exit early if the component is not yet in view.
+    if (!isInView) return;
+
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex < codeSnippet.length) {
@@ -39,10 +52,13 @@ export const FloatingCodeEditor: React.FC = () => {
     }, 30);
 
     return () => clearInterval(interval);
-  }, []);
+    // 6. Change dependency from [] to [isInView] so it re-runs when visibility changes
+  }, [isInView]);
 
   return (
     <section
+      // 7. Attach the ref to the section container
+      ref={containerRef}
       // Tightened mobile padding to match previous sections
       className="relative py-12 md:py-32 overflow-hidden"
       style={{ backgroundColor: "#0B0C10" }}

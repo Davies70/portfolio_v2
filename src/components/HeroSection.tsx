@@ -14,8 +14,9 @@ export const HeroSection: React.FC = () => {
   // Hydration-safe mobile detection for parallax scaling
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
+    // Increased mobile breakpoint to 1024px to catch tablets in portrait
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile(); // Check on mount
+    checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
@@ -23,6 +24,8 @@ export const HeroSection: React.FC = () => {
   // ----- Scroll setup (scoped to this section) -----
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    // "start start" = when top of Hero hits top of viewport
+    // "end start" = when bottom of Hero hits top of viewport
     offset: ["start start", "end start"],
   });
 
@@ -32,7 +35,16 @@ export const HeroSection: React.FC = () => {
   });
 
   // --- Advanced Scroll Parallax Animations ---
-  const heroOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
+
+  // FIX: Create separate opacity transforms for mobile and desktop.
+  // On mobile, we keep it fully visible (1) until 40% scroll, then fade it out by 80%.
+  const mobileOpacity = useTransform(smoothProgress, [0, 0.4, 0.8], [1, 1, 0]);
+  // On desktop, the original faster fade-out still looks good.
+  const desktopOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
+
+  // Apply the correct transform based on the isMobile state
+  const heroOpacity = isMobile ? mobileOpacity : desktopOpacity;
+
   const orbY = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
   const textY = useTransform(
     smoothProgress,
@@ -99,6 +111,7 @@ export const HeroSection: React.FC = () => {
       {/* ---- Content container ---- */}
       <motion.div
         className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20"
+        // This now uses the conditional heroOpacity based on device width
         style={{ opacity: heroOpacity }}
       >
         {/* GLOBAL ARTISTIC RIBBON OVERLAY */}
@@ -279,6 +292,7 @@ export const HeroSection: React.FC = () => {
           ======================================================== */}
       <motion.div
         className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-[100] cursor-pointer group"
+        // This also uses the new conditional opacity
         style={{ opacity: heroOpacity }}
         onClick={handleScrollDown}
         whileHover={{ scale: 1.05 }}
