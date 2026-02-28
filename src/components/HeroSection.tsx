@@ -37,15 +37,19 @@ export const HeroSection: React.FC = () => {
   // --- Advanced Scroll Parallax Animations ---
 
   // FIX: Create separate opacity transforms for mobile and desktop.
-  // On mobile, we keep it fully visible (1) until 40% scroll, then fade it out by 80%.
-  const mobileOpacity = useTransform(smoothProgress, [0, 0.4, 0.8], [1, 1, 0]);
+  // On mobile, we disable the fade to prevent glitchy scroll behavior.
+  const mobileOpacity = useTransform(smoothProgress, [0, 1], [1, 1]);
   // On desktop, the original faster fade-out still looks good.
   const desktopOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
 
   // Apply the correct transform based on the isMobile state
   const heroOpacity = isMobile ? mobileOpacity : desktopOpacity;
 
-  const orbY = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
+  const orbY = useTransform(
+    smoothProgress,
+    [0, 1],
+    ["0%", isMobile ? "0%" : "30%"],
+  );
   const textY = useTransform(
     smoothProgress,
     [0, 1],
@@ -56,7 +60,11 @@ export const HeroSection: React.FC = () => {
     [0, 1],
     ["0%", isMobile ? "0%" : "20%"],
   );
-  const imageScale = useTransform(smoothProgress, [0, 1], [1, 0.9]);
+  const imageScale = useTransform(
+    smoothProgress,
+    [0, 1],
+    [1, isMobile ? 1 : 0.9],
+  );
 
   const shouldReduceMotion = useReducedMotion();
 

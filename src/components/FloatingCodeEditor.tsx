@@ -214,7 +214,7 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({
         y: [0, -20, 0],
         rotate: [0, 10, 0],
       }}
-      // @ts-ignore - Framer motion type issue with multiple transitions
+      // @ts-expect-error - Framer motion type issue with multiple transitions
       transition={{
         duration: 4,
         repeat: Infinity,

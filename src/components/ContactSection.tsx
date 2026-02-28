@@ -87,7 +87,7 @@ export const ContactSection: React.FC = () => {
               className="font-clash text-white tracking-tighter leading-none"
               style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)" }}
             >
-              LET'S WORK
+              LET&apos;S WORK
               <br />
               TOGETHER
             </motion.h2>
@@ -99,9 +99,9 @@ export const ContactSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-[#E0E0E0] max-w-2xl mx-auto text-sm md:text-lg px-4"
             >
-              Have a project in mind? Let's create something extraordinary
-              together. From concept to launch, I'll help bring your vision to
-              life.
+              Have a project in mind? Let&apos;s create something extraordinary
+              together. From concept to launch, I&apos;ll help bring your vision
+              to life.
             </motion.p>
           </div>
 

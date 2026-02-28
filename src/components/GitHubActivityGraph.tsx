@@ -129,12 +129,11 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
   level,
   color,
   delay,
-  weekIdx,
   dayIdx,
 }) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
 
-  const getTooltipText = () => {
+  const tooltip = React.useMemo(() => {
     const commits = level === 0 ? 0 : Math.floor(Math.random() * 8) + 1;
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     return {
@@ -142,9 +141,7 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
       commits,
       project: level > 2 ? "Deployed feature" : "Bug fixes",
     };
-  };
-
-  const tooltip = getTooltipText();
+  }, [level, dayIdx]);
 
   return (
     <motion.div
