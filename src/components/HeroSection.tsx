@@ -36,35 +36,12 @@ export const HeroSection: React.FC = () => {
 
   // --- Advanced Scroll Parallax Animations ---
 
-  // FIX: Create separate opacity transforms for mobile and desktop.
-  // On mobile, we disable the fade to prevent glitchy scroll behavior.
-  const mobileOpacity = useTransform(smoothProgress, [0, 1], [1, 1]);
-  // On desktop, the original faster fade-out still looks good.
+  // On desktop, we use parallax. On mobile, we'll pass static values to avoid scroll glitches.
   const desktopOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
-
-  // Apply the correct transform based on the isMobile state
-  const heroOpacity = isMobile ? mobileOpacity : desktopOpacity;
-
-  const orbY = useTransform(
-    smoothProgress,
-    [0, 1],
-    ["0%", isMobile ? "0%" : "30%"],
-  );
-  const textY = useTransform(
-    smoothProgress,
-    [0, 1],
-    ["0%", isMobile ? "0%" : "-40%"],
-  );
-  const imageY = useTransform(
-    smoothProgress,
-    [0, 1],
-    ["0%", isMobile ? "0%" : "20%"],
-  );
-  const imageScale = useTransform(
-    smoothProgress,
-    [0, 1],
-    [1, isMobile ? 1 : 0.9],
-  );
+  const desktopOrbY = useTransform(smoothProgress, [0, 1], ["0%", "30%"]);
+  const desktopTextY = useTransform(smoothProgress, [0, 1], ["0%", "-40%"]);
+  const desktopImageY = useTransform(smoothProgress, [0, 1], ["0%", "20%"]);
+  const desktopImageScale = useTransform(smoothProgress, [0, 1], [1, 0.9]);
 
   const shouldReduceMotion = useReducedMotion();
 
@@ -100,7 +77,7 @@ export const HeroSection: React.FC = () => {
         style={{
           background:
             "radial-gradient(circle at 30% 30%, rgba(197,248,42,0.95) 0%, rgba(197,248,42,0.09) 18%, transparent 55%)",
-          y: orbY,
+          y: isMobile ? 0 : desktopOrbY,
           ...orbStyle,
         }}
         aria-hidden
@@ -110,7 +87,7 @@ export const HeroSection: React.FC = () => {
         style={{
           background:
             "radial-gradient(circle at 70% 30%, rgba(138,43,226,0.95) 0%, rgba(138,43,226,0.06) 24%, transparent 60%)",
-          y: orbY,
+          y: isMobile ? 0 : desktopOrbY,
           ...orbStyle,
         }}
         aria-hidden
@@ -119,8 +96,8 @@ export const HeroSection: React.FC = () => {
       {/* ---- Content container ---- */}
       <motion.div
         className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20"
-        // This now uses the conditional heroOpacity based on device width
-        style={{ opacity: heroOpacity }}
+        // Use static opacity on mobile to prevent scroll fighting
+        style={{ opacity: isMobile ? 1 : desktopOpacity }}
       >
         {/* GLOBAL ARTISTIC RIBBON OVERLAY */}
         <svg
@@ -194,7 +171,7 @@ export const HeroSection: React.FC = () => {
           {/* LEFT: dramatic name + micro copy */}
           <motion.div
             className="text-center md:text-left flex flex-col"
-            style={{ y: textY }}
+            style={{ y: isMobile ? 0 : desktopTextY }}
           >
             <div className="relative inline-block self-center md:self-start mb-2">
               <motion.h1
@@ -259,7 +236,10 @@ export const HeroSection: React.FC = () => {
           {/* RIGHT: headshot ONLY (Status removed) */}
           <motion.div
             className="relative flex justify-center items-center mt-8 lg:mt-0"
-            style={{ y: imageY, scale: imageScale }}
+            style={{
+              y: isMobile ? 0 : desktopImageY,
+              scale: isMobile ? 1 : desktopImageScale,
+            }}
           >
             <div className="relative w-full max-w-[520px]">
               <motion.div
@@ -300,8 +280,8 @@ export const HeroSection: React.FC = () => {
           ======================================================== */}
       <motion.div
         className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-[100] cursor-pointer group"
-        // This also uses the new conditional opacity
-        style={{ opacity: heroOpacity }}
+        // Use static opacity on mobile
+        style={{ opacity: isMobile ? 1 : desktopOpacity }}
         onClick={handleScrollDown}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

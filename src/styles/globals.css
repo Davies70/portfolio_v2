@@ -201,6 +201,8 @@
 html {
   font-size: var(--font-size);
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #c5f82a #0b0c10;
 }
 
 /* Film grain animation */
@@ -271,6 +273,7 @@ html {
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -284,13 +287,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #c5f82a;
-}
-
-/* Hide scrollbar but keep swipe functional */
-.custom-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.custom-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
