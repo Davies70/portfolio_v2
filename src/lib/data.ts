@@ -121,7 +121,7 @@ export const projects: Project[] = [
       "A parody eCommerce experience for doomsday gear. Showcases complex UI animation and immersive storytelling using Framer Motion and GSAP.",
     src: "/assets/projects/4.jpg",
     link: "https://shopapocalypse.netlify.app/",
-    github: "https://github.com/Davies70/shopapocalypse",
+    github: "https://github.com/Davies70/shopx",
     color: "#706D63",
     tech: ["React", "Framer Motion", "GSAP", "TypeScript"],
     architecture: {

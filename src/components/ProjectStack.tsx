@@ -7,31 +7,43 @@ export const ProjectStack: React.FC = () => {
   return (
     <section
       id="work"
-      // Adjusted top/bottom padding for mobile to be tighter (py-12)
-      className="relative py-12 md:py-32"
+      className="relative py-16 md:py-24 lg:py-32"
       style={{ backgroundColor: "#0B0C10" }}
     >
-      <div className="container mx-auto px-6 md:px-20">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="font-clash text-white mb-6 md:mb-16 tracking-tighter"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
-        >
-          Selected Work
-        </motion.h2>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20">
+        {/* Fixed Section Header - Removed conflicting margins */}
+        <div className="mb-12 lg:mb-20">
+          <div className="flex items-center gap-4 mb-4 lg:mb-6">
+            <span className="text-[#C5F82A] font-mono font-bold text-sm">
+              {"// 04"}
+            </span>
+            <h2 className="text-[#E0E0E0] font-mono tracking-widest uppercase text-sm font-bold">
+              SYS.EXECUTABLES
+            </h2>
+            <div className="h-[2px] flex-1 bg-[#E0E0E0]/10" />
+          </div>
 
-        {/* Mobile: Simple List - kept the gap-10 for breathing room between cards */}
-        <div className="flex flex-col gap-10 md:hidden relative">
+          <motion.h3
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="font-clash text-white tracking-tighter uppercase"
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1 }}
+          >
+            SELECTED_WORK
+          </motion.h3>
+        </div>
+
+        {/* Mobile & Tablet: Standard Vertical List (Hidden on lg+) */}
+        <div className="flex flex-col gap-12 md:gap-16 lg:hidden relative">
           {projects.map((project, index) => (
             <ProjectCardMobile key={index} project={project} index={index} />
           ))}
         </div>
 
-        {/* Desktop: Sticky Stack */}
-        <div className="hidden md:block space-y-32 relative">
+        {/* Desktop: Sticky Stack (Only visible on lg+) */}
+        <div className="hidden lg:block space-y-32 relative">
           {projects.map((project, index) => (
             <ProjectCardDesktop key={index} project={project} index={index} />
           ))}
@@ -46,7 +58,7 @@ interface ProjectCardProps {
   index: number;
 }
 
-// Mobile Card - Responsive List Layout
+// Mobile & Tablet Card
 const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
   const [isArchitectureView, setIsArchitectureView] = useState(false);
 
@@ -59,33 +71,21 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="relative w-full"
     >
       <div
-        className="relative rounded-2xl sm:rounded-[30px] overflow-hidden"
-        style={{ backgroundColor: "#1A1D23" }}
+        className="relative overflow-hidden bg-[#12141A] border-2 border-[#E0E0E0]/20"
+        style={{ boxShadow: `6px 6px 0px ${project.color}60` }}
       >
-        <div
-          className="absolute inset-0 rounded-2xl sm:rounded-[30px] pointer-events-none z-20"
-          style={{
-            border: `1px solid ${project.color}40`,
-            boxShadow: `0 0 40px ${project.color}15`,
-          }}
-        />
-
-        {/* Responsive Header Bar */}
-        <div className="glass p-4 sm:px-6 sm:py-4 border-b border-white/10 flex flex-col gap-3 relative z-30">
+        {/* Header Bar */}
+        <div className="glass p-4 sm:p-6 border-b-2 border-[#E0E0E0]/20 flex flex-col gap-4 relative z-30">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <span
-                className="font-mono text-xs sm:text-sm"
+                className="font-mono text-xs sm:text-sm font-bold"
                 style={{ color: project.color }}
               >
-                {String(index + 1).padStart(2, "0")}
+                [{String(index + 1).padStart(2, "0")}]
               </span>
-              <div
-                className="h-[1px] w-4 sm:w-8"
-                style={{ backgroundColor: project.color }}
-              />
-              <span className="text-white/60 text-[10px] sm:text-xs tracking-wider">
-                PROJECT
+              <span className="text-white/60 font-mono text-[10px] sm:text-xs tracking-widest uppercase">
+                DIR_PROJECT
               </span>
             </div>
             <ArchitectureToggle
@@ -95,11 +95,11 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
             />
           </div>
 
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <div className="flex flex-wrap gap-2">
             {project.tech.map((tag) => (
               <span
                 key={tag}
-                className="glass px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs tracking-wider"
+                className="px-2 py-1 border border-white/20 bg-[#0B0C10] font-mono text-[10px] uppercase tracking-wider"
                 style={{ color: project.color }}
               >
                 {tag}
@@ -109,23 +109,23 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#0B0C10]">
+          {/* Changed aspect ratio to 16/9 on tablet so images aren't massive */}
+          <div className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-[#0B0C10] border-b-2 border-[#E0E0E0]/20">
             <motion.div
               animate={{
-                scale: isArchitectureView ? 1.1 : 1,
-                opacity: isArchitectureView ? 0.15 : 1,
-                filter: isArchitectureView ? "blur(10px)" : "blur(0px)",
+                scale: isArchitectureView ? 1.05 : 1,
+                opacity: isArchitectureView ? 0 : 1,
               }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
               className="absolute inset-0 w-full h-full"
             >
               <img
                 src={project.src}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale contrast-125"
               />
               <div
-                className="absolute inset-0 mix-blend-overlay opacity-30"
+                className="absolute inset-0 mix-blend-multiply opacity-80"
                 style={{ background: project.color }}
               />
             </motion.div>
@@ -143,47 +143,51 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
             </AnimatePresence>
           </div>
 
-          {/* Adjusted padding to p-4 on small screens to maximize space */}
-          <div className="p-4 sm:p-6 space-y-3 sm:space-y-4 relative z-20">
+          {/* Adjusted padding and spacing for tablet breathing room */}
+          <div className="p-5 sm:p-6 md:p-8 space-y-4 md:space-y-6 relative z-20">
             <h3
-              className="font-clash text-white tracking-tight break-words"
+              className="font-clash text-white tracking-tight break-words uppercase"
               style={{
-                fontSize: "clamp(1.25rem, 6vw, 1.75rem)",
-                letterSpacing: "-0.04em",
+                fontSize: "clamp(1.25rem, 6vw, 2rem)",
                 lineHeight: "1.1",
               }}
             >
               {project.title}
             </h3>
 
-            <p className="text-[#E0E0E0] leading-relaxed text-xs sm:text-sm">
+            <p className="text-[#E0E0E0] leading-relaxed text-sm md:text-base">
               {project.description}
             </p>
 
-            {/* Adjusted buttons: stack on tiny screens, side-by-side on standard mobile */}
-            <div className="flex flex-col min-[350px]:flex-row gap-2 sm:gap-3 pt-2 sm:pt-4">
+            <div className="flex flex-col min-[400px]:flex-row gap-3 md:gap-4 pt-2 md:pt-4">
               {project.link && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass flex-1 justify-center px-4 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm text-center hover:bg-white hover:text-[#0B0C10] transition-all"
+                  className="flex-1 justify-center px-4 py-3 md:py-4 border-2 font-mono uppercase text-[10px] sm:text-xs text-center font-bold transition-all hover:-translate-y-1 hover:-translate-x-1"
                   style={{
-                    color: project.color,
-                    border: `1px solid ${project.color}40`,
+                    color: "#0B0C10",
+                    backgroundColor: project.color,
+                    borderColor: project.color,
+                    boxShadow: `4px 4px 0px rgba(255,255,255,0.1)`,
                   }}
                 >
-                  View Live
+                  Deploy_Live
                 </a>
               )}
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass flex-1 justify-center px-4 py-2.5 sm:py-3 rounded-full text-white text-xs sm:text-sm text-center hover:bg-white hover:text-[#0B0C10] transition-all"
-                style={{ border: "1px solid rgba(255, 255, 255, 0.2)" }}
+                className="flex-1 justify-center px-4 py-3 md:py-4 border-2 font-mono uppercase text-[10px] sm:text-xs text-center font-bold text-white transition-all hover:-translate-y-1 hover:-translate-x-1 hover:bg-white hover:text-black"
+                style={{
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  backgroundColor: "#12141A",
+                  boxShadow: `4px 4px 0px rgba(0,0,0,1)`,
+                }}
               >
-                GitHub
+                Source_Code
               </a>
             </div>
           </div>
@@ -193,7 +197,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
   );
 };
 
-// Desktop Card - Sticky Stack Layout (Kept largely unchanged as it targets md: and above)
+// Desktop Card - Sticky Stack Layout
 const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isArchitectureView, setIsArchitectureView] = useState(false);
@@ -216,36 +220,24 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="sticky top-32"
     >
       <motion.div
-        className="relative rounded-[30px] overflow-hidden group"
-        style={{ backgroundColor: "#1A1D23" }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.3 }}
+        className="relative overflow-hidden group bg-[#12141A] border-2 border-[#E0E0E0]/20"
+        style={{ boxShadow: `12px 12px 0px ${project.color}80` }}
+        whileHover={{
+          translate: "-4px -4px",
+          boxShadow: `16px 16px 0px ${project.color}`,
+        }}
+        transition={{ duration: 0.2 }}
       >
-        <motion.div
-          className="absolute inset-0 rounded-[30px] pointer-events-none z-20"
-          style={{
-            border: `1px solid ${project.color}40`,
-            boxShadow: `0 0 40px ${project.color}15, inset 0 0 40px ${project.color}05`,
-          }}
-          whileHover={{
-            boxShadow: `0 0 60px ${project.color}40, inset 0 0 60px ${project.color}10`,
-          }}
-        />
-
-        <div className="glass px-8 py-4 border-b border-white/10 flex items-center justify-between relative z-30">
-          <div className="flex items-center gap-3">
+        <div className="glass px-8 py-4 border-b-2 border-[#E0E0E0]/20 flex items-center justify-between relative z-30">
+          <div className="flex items-center gap-4">
             <span
-              className="font-mono text-sm"
+              className="font-mono text-sm font-bold"
               style={{ color: project.color }}
             >
-              {String(index + 1).padStart(2, "0")}
+              [{String(index + 1).padStart(2, "0")}]
             </span>
-            <div
-              className="h-[1px] w-12"
-              style={{ backgroundColor: project.color }}
-            />
-            <span className="text-white/60 text-sm tracking-wider">
-              PROJECT
+            <span className="text-white/60 font-mono text-xs tracking-widest uppercase">
+              DIR_PROJECT
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -253,7 +245,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
               {project.tech.map((tag) => (
                 <span
                   key={tag}
-                  className="glass px-3 py-1 rounded-full text-xs tracking-wider"
+                  className="px-2 py-1 border border-white/20 bg-[#0B0C10] font-mono text-[10px] uppercase tracking-wider"
                   style={{ color: project.color }}
                 >
                   {tag}
@@ -268,10 +260,11 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-0 items-center">
-          <div className="p-8 md:p-12 space-y-6 relative z-20">
+        {/* Upgraded to lg:grid-cols-2 so it doesn't trigger on narrow tablets */}
+        <div className="grid lg:grid-cols-2 gap-0 items-stretch">
+          <div className="p-8 lg:p-12 flex flex-col justify-center relative z-20 border-r-2 border-[#E0E0E0]/20">
             <h3
-              className="font-clash text-white tracking-tight"
+              className="font-clash text-white tracking-tight uppercase mb-6"
               style={{
                 fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
                 letterSpacing: "-0.04em",
@@ -281,56 +274,61 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
             </h3>
 
             <p
-              className="text-[#E0E0E0] leading-relaxed"
+              className="text-[#E0E0E0] leading-relaxed mb-8"
               style={{ fontSize: "1rem" }}
             >
               {project.description}
             </p>
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 mt-auto">
               {project.link && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass px-8 py-4 rounded-full hover:bg-white hover:text-[#0B0C10] transition-all"
+                  className="px-8 py-3 border-2 font-mono uppercase text-xs font-bold transition-all hover:-translate-y-1 hover:-translate-x-1"
                   style={{
-                    color: project.color,
-                    border: `1px solid ${project.color}40`,
+                    color: "#0B0C10",
+                    backgroundColor: project.color,
+                    borderColor: project.color,
+                    boxShadow: `4px 4px 0px rgba(255,255,255,0.1)`,
                   }}
                 >
-                  View Live
+                  Deploy_Live
                 </a>
               )}
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass px-8 py-4 rounded-full text-white hover:bg-white hover:text-[#0B0C10] transition-all"
-                style={{ border: "1px solid rgba(255, 255, 255, 0.2)" }}
+                className="px-8 py-3 border-2 font-mono uppercase text-xs font-bold text-white transition-all hover:-translate-y-1 hover:-translate-x-1 hover:bg-white hover:text-black"
+                style={{
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                  backgroundColor: "#12141A",
+                  boxShadow: `4px 4px 0px rgba(0,0,0,1)`,
+                }}
               >
-                GitHub
+                Source_Code
               </a>
             </div>
           </div>
 
-          <div className="relative w-full aspect-[4/3] md:h-full overflow-hidden bg-[#0B0C10]">
+          <div className="relative w-full aspect-[4/3] lg:h-full overflow-hidden bg-[#0B0C10]">
             <motion.div
               animate={{
-                scale: isArchitectureView ? 1.1 : 1,
-                opacity: isArchitectureView ? 0.15 : 1,
-                filter: isArchitectureView ? "blur(10px)" : "blur(0px)",
+                scale: isArchitectureView ? 1.05 : 1,
+                opacity: isArchitectureView ? 0 : 1,
               }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
               className="absolute inset-0 w-full h-full"
             >
               <img
                 src={project.src}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover grayscale contrast-125"
               />
               <div
-                className="absolute inset-0 mix-blend-overlay opacity-30"
+                className="absolute inset-0 mix-blend-multiply opacity-80"
                 style={{ background: project.color }}
               />
             </motion.div>
@@ -348,27 +346,6 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
             </AnimatePresence>
           </div>
         </div>
-
-        {index < projects.length - 1 && (
-          <>
-            <div
-              className="absolute inset-0 rounded-[30px] -z-10 translate-y-4"
-              style={{
-                backgroundColor: "#1A1D23",
-                opacity: 0.5,
-                transform: "translateY(16px) scale(0.95)",
-              }}
-            />
-            <div
-              className="absolute inset-0 rounded-[30px] -z-20 translate-y-8"
-              style={{
-                backgroundColor: "#1A1D23",
-                opacity: 0.25,
-                transform: "translateY(32px) scale(0.9)",
-              }}
-            />
-          </>
-        )}
       </motion.div>
     </motion.div>
   );

@@ -15,49 +15,49 @@ export const ArchitectureToggle: React.FC<ArchitectureToggleProps> = ({
   return (
     <motion.button
       onClick={onToggle}
-      // Tightened base padding/gaps for tiny screens, expands smoothly on sm/md
-      className=" cursor-pointer glass px-2 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 rounded-full flex items-center gap-1 sm:gap-1.5 md:gap-3 text-[10px] sm:text-xs md:text-sm z-50 relative shrink-0"
+      className="cursor-pointer glass px-2 sm:px-4 md:px-4 py-1.5 sm:py-2 md:py-2 flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs md:text-sm z-50 relative shrink-0"
       style={{
-        border: `1px solid ${accentColor}40`,
+        border: `2px solid ${accentColor}80`,
+        borderRadius: "0px", // Brutalist sharp edges
+        boxShadow: `4px 4px 0px ${accentColor}40`,
       }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{
+        translate: "-2px -2px",
+        boxShadow: `6px 6px 0px ${accentColor}80`,
+      }}
+      whileTap={{ translate: "2px 2px", boxShadow: `0px 0px 0px transparent` }}
     >
-      <span className="text-[#E0E0E0] hidden md:inline">View:</span>
-      <div className="flex items-center gap-1.5 md:gap-2">
+      <span className="text-[#E0E0E0] hidden md:inline font-mono uppercase tracking-widest text-[10px]">
+        Mode:
+      </span>
+      <div className="flex items-center gap-2 md:gap-3 font-mono uppercase tracking-wider text-[10px]">
         <span
-          className={!isArchitectureView ? "text-white" : "text-white/50"}
-          style={{ color: !isArchitectureView ? accentColor : undefined }}
+          className={!isArchitectureView ? "font-bold" : "opacity-50"}
+          style={{ color: !isArchitectureView ? accentColor : "#E0E0E0" }}
         >
-          Concept
+          Visual
         </span>
 
-        {/* Dynamic toggle track */}
+        {/* Brutalist mechanical toggle track */}
         <div
-          className="relative w-7 sm:w-10 md:w-12 h-3.5 sm:h-5 md:h-6 rounded-full flex items-center px-0.5"
+          className="relative w-8 sm:w-10 md:w-12 h-4 sm:h-5 md:h-5 flex items-center px-0.5 border border-white/20 bg-[#0B0C10]"
           style={{
-            backgroundColor: "#1A1D23",
             justifyContent: isArchitectureView ? "flex-end" : "flex-start",
           }}
         >
-          {/* Framer 'layout' automatically animates the flex position change */}
           <motion.div
             layout
-            className="w-2.5 h-2.5 sm:w-4 sm:h-4 rounded-full"
+            className="w-3 h-3 sm:w-4 sm:h-4"
             style={{ backgroundColor: accentColor }}
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 30,
-            }}
+            transition={{ type: "spring", stiffness: 600, damping: 30 }}
           />
         </div>
 
         <span
-          className={isArchitectureView ? "text-white" : "text-white/50"}
-          style={{ color: isArchitectureView ? accentColor : undefined }}
+          className={isArchitectureView ? "font-bold" : "opacity-50"}
+          style={{ color: isArchitectureView ? accentColor : "#E0E0E0" }}
         >
-          Arch
+          Data
         </span>
       </div>
     </motion.button>
@@ -82,42 +82,42 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
-      className="absolute inset-0 overflow-hidden flex flex-col"
+      transition={{ duration: 0.3 }}
+      className="absolute inset-0 overflow-hidden flex flex-col bg-[#0B0C10]"
     >
-      {/* Blueprint Dot Grid Background */}
-      <motion.div
-        className="absolute inset-0 opacity-20"
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.8 }}
+      {/* Brutalist Blueprint Grid */}
+      <div
+        className="absolute inset-0 opacity-30"
         style={{
-          backgroundImage: `radial-gradient(${accentColor} 1.5px, transparent 1.5px)`,
-          backgroundSize: "24px 24px",
+          backgroundImage: `
+            linear-gradient(${accentColor}40 1px, transparent 1px),
+            linear-gradient(90deg, ${accentColor}40 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
         }}
       />
 
-      {/* Title Section - Reduced top padding for mobile to maximize canvas space */}
-      <div className="text-center pt-4 md:pt-10 relative z-10 shrink-0">
-        <h4 className="text-white font-clash text-sm md:text-2xl mb-1 drop-shadow-lg">
-          {projectTitle}
+      {/* Title Section */}
+      <div
+        className="text-left pt-6 px-6 md:pt-8 md:px-10 relative z-10 shrink-0 border-b-2 border-dashed pb-4"
+        style={{ borderColor: `${accentColor}40` }}
+      >
+        <h4 className="text-white font-clash text-sm md:text-2xl mb-1 uppercase tracking-tight">
+          {projectTitle} // SCHEMATIC
         </h4>
-        <p className="text-[#E0E0E0]/80 text-[10px] md:text-sm tracking-widest uppercase font-mono">
-          System Architecture
+        <p className="text-[#E0E0E0]/80 text-[10px] md:text-xs tracking-widest uppercase font-mono">
+          System Architecture Topology
         </p>
       </div>
 
-      {/* Inner Canvas Bounding Box 
-          CRITICAL FIX: Changed mx-8 to mx-3 on mobile to prevent squished nodes 
-      */}
-      <div className="relative flex-1 mt-4 mb-4 mx-3 sm:mx-8 md:mt-12 md:mb-12 md:mx-20 z-10">
+      <div className="relative flex-1 mt-4 mb-4 mx-3 sm:mx-8 md:mt-8 md:mb-8 md:mx-12 z-10">
         {nodes.length === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center text-white/40 font-mono text-xs text-center px-4">
-            Architecture schematic pending...
+          <div className="absolute inset-0 flex items-center justify-center text-white/40 font-mono text-xs text-center px-4 uppercase">
+            [ Schematic Data Pending ]
           </div>
         )}
 
-        {/* SVG Canvas for connections */}
+        {/* Sharp SVG Connections */}
         <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none z-0">
           {connections.map((conn, idx) => {
             const fromNode = nodes.find((n) => n.id === conn.from);
@@ -132,57 +132,39 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
                 x2={`${toNode.x}%`}
                 y2={`${toNode.y}%`}
                 stroke={accentColor}
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-                opacity="0.5"
+                strokeWidth="2"
+                strokeDasharray="6 6"
+                opacity="0.8"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
-                transition={{
-                  duration: 1,
-                  delay: idx * 0.1,
-                  ease: "easeInOut",
-                }}
+                transition={{ duration: 0.8, delay: idx * 0.1, ease: "linear" }}
               />
             );
           })}
         </svg>
 
-        {/* Nodes */}
+        {/* Brutalist Solid Nodes */}
         {nodes.map((node, idx) => (
           <motion.div
             key={node.id}
-            // Tightened mobile padding (px-2 py-1) and rounded corners so nodes take up less physical width
-            className="absolute backdrop-blur-md rounded-md sm:rounded-lg md:rounded-xl px-2 py-1 sm:p-2 md:p-4 flex items-center justify-center z-10"
+            className="absolute px-2 py-1 sm:p-2 md:px-4 md:py-2 flex items-center justify-center z-10 bg-[#12141A]"
             style={{
               left: `${node.x}%`,
               top: `${node.y}%`,
-              backgroundColor: "rgba(26, 29, 35, 0.85)",
-              border: `1px solid ${accentColor}50`,
-              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), 0 0 15px ${accentColor}20`,
+              border: `2px solid ${accentColor}`,
+              boxShadow: `4px 4px 0px ${accentColor}80`, // Hard shadow instead of glow
             }}
             initial={{ scale: 0, opacity: 0, x: "-50%", y: "-40%" }}
             animate={{ scale: 1, opacity: 1, x: "-50%", y: "-50%" }}
-            transition={{ duration: 0.4, delay: idx * 0.1 }}
+            transition={{ duration: 0.3, delay: idx * 0.1 }}
           >
-            {/* Dropped mobile text down to 9px so long node labels fit safely */}
-            <div className="text-white text-[9px] sm:text-xs md:text-sm whitespace-nowrap font-mono font-medium drop-shadow-md">
+            <div className="text-white text-[9px] sm:text-xs md:text-sm whitespace-nowrap font-mono font-bold uppercase tracking-wider">
               {node.label}
             </div>
-            {/* Pulsing border effect */}
-            <motion.div
-              className="absolute inset-0 rounded-md sm:rounded-lg md:rounded-xl pointer-events-none"
-              style={{ border: `1px solid ${accentColor}` }}
-              animate={{ opacity: [0.1, 0.6, 0.1] }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
           </motion.div>
         ))}
 
-        {/* Data flow animation particles */}
+        {/* Mechanical Data Packets (Replacing glowing orbs) */}
         {connections.map((conn, idx) => {
           const fromNode = nodes.find((n) => n.id === conn.from);
           const toNode = nodes.find((n) => n.id === conn.to);
@@ -190,12 +172,9 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
 
           return (
             <motion.div
-              key={`particle-${idx}`}
-              className="absolute w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full z-20"
-              style={{
-                backgroundColor: accentColor,
-                boxShadow: `0 0 8px 1px ${accentColor}`,
-              }}
+              key={`packet-${idx}`}
+              className="absolute w-2 h-2 md:w-3 md:h-3 z-20"
+              style={{ backgroundColor: accentColor }}
               initial={{
                 left: `${fromNode.x}%`,
                 top: `${fromNode.y}%`,
@@ -209,7 +188,7 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
                 y: "-50%",
               }}
               transition={{
-                duration: 2.5,
+                duration: 2,
                 delay: idx * 0.2,
                 repeat: Infinity,
                 ease: "linear",

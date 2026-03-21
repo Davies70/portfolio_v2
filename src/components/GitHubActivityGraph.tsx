@@ -25,95 +25,113 @@ const contributions = generateContributions();
 export const GitHubActivityGraph: React.FC = () => {
   const getColorForLevel = (level: number) => {
     const colors = [
-      "#0B0C10", // No activity
+      "#0B0C10", // No activity (Background color)
       "#2D3A2E", // Low
       "#4A6B3F", // Medium-low
       "#7FA056", // Medium-high
-      "#C5F82A", // High activity
+      "#C5F82A", // High activity (Neon)
     ];
     return colors[level];
   };
 
   return (
-    <div className="relative py-12 md:py-32">
-      {/* Background subtle texture */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(197, 248, 42, 0.1) 1px, transparent 0)`,
-          backgroundSize: "20px 20px",
-        }}
-      />
+    <section className="relative py-16 md:py-24 lg:py-32 bg-[#0B0C10] overflow-hidden">
+      {/* Cyber Grid Background */}
+      <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
 
-      <div className="container mx-auto px-6 md:px-20 relative z-10">
-        <div className="flex flex-col items-center gap-6 md:gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h3 className="font-clash text-white text-xl md:text-2xl mb-1 md:mb-2 tracking-tight">
-              Coding Activity
-            </h3>
-            <p className="text-[#E0E0E0]/60 text-xs md:text-sm">
-              1,247 contributions in the last year
-            </p>
-          </motion.div>
+      <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+        {/* Neo-Brutalist Section Header */}
+        <div className="mb-10 md:mb-16">
+          <div className="flex items-center gap-4 mb-6">
+            <span className="text-[#C5F82A] font-mono font-bold text-sm">
+              {"// 06"}
+            </span>
+            <h2 className="text-[#E0E0E0] font-mono tracking-widest uppercase text-sm font-bold">
+              SYS.ACTIVITY
+            </h2>
+            <div className="h-[2px] flex-1 bg-[#E0E0E0]/10" />
+          </div>
 
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="font-clash text-white tracking-tighter uppercase"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1 }}
+            >
+              CODING_METRICS
+            </motion.h3>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-[#E0E0E0]/60 font-mono text-xs md:text-sm uppercase tracking-widest pb-2"
+            >
+              1,247 CONTRIBUTIONS // PAST 365 DAYS
+            </motion.p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center lg:items-start gap-8">
           {/* Horizontally Scrollable Wrapper for Mobile */}
-          <div className="w-full overflow-x-auto custom-scrollbar pb-4 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 flex md:justify-center">
-            {/* Contribution Graph - added w-max so it doesn't crush */}
+          <div className="w-full overflow-x-auto custom-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0">
+            {/* Heavy Brutalist Container */}
             <motion.div
-              className="flex gap-1 p-4 md:p-8 glass rounded-xl md:rounded-2xl w-max"
-              style={{
-                border: "1px solid rgba(197, 248, 42, 0.2)",
-                boxShadow: "0 0 40px rgba(197, 248, 42, 0.1)",
-              }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              className="flex flex-col gap-4 p-6 md:p-8 bg-[#12141A] border-2 border-[#E0E0E0]/20 w-max"
+              style={{ boxShadow: "12px 12px 0px rgba(0,0,0,1)" }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {contributions.map((week, weekIdx) => (
-                <div key={weekIdx} className="flex flex-col gap-1">
-                  {week.map((level, dayIdx) => (
-                    <ContributionSquare
-                      key={`${weekIdx}-${dayIdx}`}
-                      level={level}
-                      color={getColorForLevel(level)}
-                      delay={weekIdx * 0.005 + dayIdx * 0.001}
-                      weekIdx={weekIdx}
-                      dayIdx={dayIdx}
-                    />
-                  ))}
-                </div>
-              ))}
+              <div className="flex gap-1.5 md:gap-2">
+                {contributions.map((week, weekIdx) => (
+                  <div key={weekIdx} className="flex flex-col gap-1.5 md:gap-2">
+                    {week.map((level, dayIdx) => (
+                      <ContributionSquare
+                        key={`${weekIdx}-${dayIdx}`}
+                        level={level}
+                        color={getColorForLevel(level)}
+                        delay={weekIdx * 0.005 + dayIdx * 0.001}
+                        dayIdx={dayIdx}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
 
-          {/* Legend */}
+          {/* Terminal Style Legend */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center gap-2 text-[10px] md:text-xs text-[#E0E0E0]/60"
+            className="flex items-center gap-3 px-4 py-2 border-2 border-[#E0E0E0]/20 bg-[#12141A] w-fit"
+            style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
           >
-            <span>Less</span>
-            {[0, 1, 2, 3, 4].map((level) => (
-              <div
-                key={level}
-                className="w-2 h-2 md:w-3 md:h-3 rounded-[1px] md:rounded-sm"
-                style={{ backgroundColor: getColorForLevel(level) }}
-              />
-            ))}
-            <span>More</span>
+            <span className="font-mono text-[10px] md:text-xs text-[#E0E0E0]/60 uppercase tracking-widest">
+              MIN
+            </span>
+            <div className="flex gap-1">
+              {[0, 1, 2, 3, 4].map((level) => (
+                <div
+                  key={level}
+                  className="w-3 h-3 md:w-4 md:h-4 border border-white/5"
+                  style={{ backgroundColor: getColorForLevel(level) }}
+                />
+              ))}
+            </div>
+            <span className="font-mono text-[10px] md:text-xs text-[#E0E0E0]/60 uppercase tracking-widest">
+              MAX
+            </span>
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -121,7 +139,6 @@ interface ContributionSquareProps {
   level: number;
   color: string;
   delay: number;
-  weekIdx: number;
   dayIdx: number;
 }
 
@@ -135,31 +152,30 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
 
   const tooltip = React.useMemo(() => {
     const commits = level === 0 ? 0 : Math.floor(Math.random() * 8) + 1;
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     return {
       day: days[dayIdx],
       commits,
-      project: level > 2 ? "Deployed feature" : "Bug fixes",
+      status: level > 2 ? "CRITICAL_UPDATE" : "MINOR_PATCH",
     };
   }, [level, dayIdx]);
 
   return (
     <motion.div
-      // Responsive sizing: w-2 h-2 on mobile, w-3 h-3 on larger screens
-      className="relative w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 rounded-[1px] md:rounded-sm cursor-pointer"
+      // Brutalist strict squares, no border radius
+      className="relative w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 cursor-crosshair border border-white/5"
       style={{ backgroundColor: color }}
       initial={{ scale: 0, opacity: 0 }}
       whileInView={{ scale: 1, opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.2, delay }}
       whileHover={{
-        scale: 1.5,
-        boxShadow: level > 0 ? `0 0 10px ${color}` : "none",
+        scale: 1.4,
+        borderColor: level > 0 ? "#C5F82A" : "transparent",
         zIndex: 10,
       }}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
-      // Added touch events so mobile users can tap to see the tooltip!
       onTouchStart={() => setShowTooltip(true)}
       onTouchEnd={() => setTimeout(() => setShowTooltip(false), 1500)}
     >
@@ -169,22 +185,20 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
           animate={{ opacity: 1, y: 0 }}
           className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap z-[100]"
         >
+          {/* Brutalist Command-Line Tooltip */}
           <div
-            className="glass px-2 md:px-3 py-1.5 md:py-2 rounded-md md:rounded-lg text-[10px] md:text-xs"
-            style={{
-              border: "1px solid rgba(197, 248, 42, 0.3)",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)",
-            }}
+            className="bg-[#0B0C10] border-2 border-[#C5F82A] px-3 py-2 flex flex-col"
+            style={{ boxShadow: "4px 4px 0px rgba(197, 248, 42, 0.4)" }}
           >
-            <div className="text-[#C5F82A]">{tooltip.commits} commits</div>
-            <div className="text-[#E0E0E0] text-[8px] md:text-[10px]">
-              {tooltip.project}
+            <div className="text-[#C5F82A] font-mono text-[10px] md:text-xs font-bold uppercase">
+              {tooltip.commits} COMMITS // {tooltip.day}
+            </div>
+            <div className="text-[#E0E0E0]/70 font-mono text-[8px] md:text-[10px] uppercase mt-1">
+              [{tooltip.status}]
             </div>
           </div>
-          <div
-            className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 w-1.5 h-1.5 md:w-2 md:h-2 rotate-45"
-            style={{ backgroundColor: "#1A1D23" }}
-          />
+          {/* Sharp Triangle Pointer */}
+          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] w-2 h-2 border-r-2 border-b-2 border-[#C5F82A] rotate-45 bg-[#0B0C10]" />
         </motion.div>
       )}
     </motion.div>
