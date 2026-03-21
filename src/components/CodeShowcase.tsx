@@ -9,7 +9,7 @@ const initializeDeveloper = async () => {
   try {
     const profile = new Engineer({
       name: "Davies Ajayi",
-      role: "Full-Stack System Architect",
+      role: "Full-Stack Developer",
       status: "ONLINE"
     });
 

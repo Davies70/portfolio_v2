@@ -28,8 +28,8 @@ export const ProjectStack: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-clash text-white tracking-tighter uppercase"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1 }}
+            className="font-clash text-white tracking-tighter uppercase break-words"
+            style={{ fontSize: "clamp(1.75rem, 6vw, 5rem)", lineHeight: 1 }}
           >
             SELECTED_WORK
           </motion.h3>
