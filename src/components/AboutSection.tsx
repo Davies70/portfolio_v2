@@ -59,7 +59,7 @@ export const AboutSection: React.FC = () => {
               </div>
 
               <div className="pt-4 mt-auto">
-                <motion.button
+                <motion.a
                   className="cursor-pointer w-full sm:w-auto px-8 py-4 bg-[#C5F82A] text-[#0B0C10] font-mono text-xs md:text-sm uppercase font-bold border-2 border-[#C5F82A] transition-all flex items-center justify-center gap-3 group"
                   style={{ boxShadow: "6px 6px 0px rgba(197, 248, 42, 0.4)" }}
                   whileHover={{
@@ -95,7 +95,7 @@ export const AboutSection: React.FC = () => {
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                   EXECUTE // DOWNLOAD_RESUME
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
 
