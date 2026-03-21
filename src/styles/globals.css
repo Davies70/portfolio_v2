@@ -203,6 +203,7 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #c5f82a #0b0c10;
+  background-color: #0b0c10;
 }
 
 /* Film grain animation */
