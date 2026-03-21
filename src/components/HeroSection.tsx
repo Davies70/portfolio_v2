@@ -205,7 +205,7 @@ export const HeroSection: React.FC = () => {
 
       {/* ---- CLICKABLE CYBER-MAGNETIC SCROLL INDICATOR ---- */}
       <motion.div
-        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[100] cursor-pointer group"
+        className="absolute bottom-[-6px] md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[100] cursor-pointer group"
         style={{ opacity: isMobile ? 1 : desktopOpacity }}
         onClick={handleScrollDown}
         whileHover={{ scale: 1.05 }}
