@@ -146,6 +146,7 @@
   .hard-shadow-accent {
     box-shadow: 6px 6px 0 rgba(197, 248, 42, 0.4);
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -160,6 +161,44 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+.marquee-track {
+  animation-duration: var(--marquee-duration, 18s) !important;
+  animation-iteration-count: infinite !important;
+  animation-timing-function: ease-in-out !important;
+  animation-direction: alternate !important;
+  transform: translate3d(0, 0, 0);
+}
+
+.marquee-forward {
+  --marquee-duration: 10s;
+  animation-name: marquee-forward !important;
+}
+
+.marquee-reverse {
+  --marquee-duration: 12s;
+  animation-name: marquee-reverse !important;
+}
+
+@keyframes marquee-forward {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-28%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-28%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
   }
 }
 

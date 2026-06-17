@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  AnimatePresence,
+} from "motion/react";
 import { ArchitectureToggle, SystemArchitecture } from "./ArchitectureToggle";
 import { projects, Project } from "../lib/data";
 
@@ -7,12 +13,12 @@ export const ProjectStack: React.FC = () => {
   return (
     <section
       id="work"
-      className="relative py-16 md:py-24 lg:py-32"
+      className="relative py-14 md:py-20 lg:py-24"
       style={{ backgroundColor: "var(--portfolio-bg)" }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         {/* Fixed Section Header - Removed conflicting margins */}
-        <div className="mb-12 lg:mb-20">
+        <div className="mb-10 lg:mb-14">
           <div className="flex items-center gap-4 mb-4 lg:mb-6">
             <span className="text-portfolio-accent font-mono font-bold text-sm">
               {"// 04"}
@@ -36,14 +42,14 @@ export const ProjectStack: React.FC = () => {
         </div>
 
         {/* Mobile & Tablet: Standard Vertical List (Hidden on lg+) */}
-        <div className="flex flex-col gap-12 md:gap-16 lg:hidden relative">
+        <div className="flex flex-col gap-10 md:gap-12 lg:hidden relative">
           {projects.map((project, index) => (
             <ProjectCardMobile key={index} project={project} index={index} />
           ))}
         </div>
 
         {/* Desktop: Sticky Stack (Only visible on lg+) */}
-        <div className="hidden lg:block space-y-32 relative">
+        <div className="hidden lg:block space-y-20 relative">
           {projects.map((project, index) => (
             <ProjectCardDesktop key={index} project={project} index={index} />
           ))}
@@ -208,12 +214,18 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.95]);
-  const opacity = useTransform(
+  const rawScale = useTransform(scrollYProgress, [0, 0.45, 1], [0.96, 1, 0.98]);
+  const rawOpacity = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0, 1, 1, 0.5],
+    [0, 0.25, 0.75, 1],
+    [0.75, 1, 1, 0.85],
   );
+  const scale = useSpring(rawScale, { stiffness: 120, damping: 28, mass: 0.5 });
+  const opacity = useSpring(rawOpacity, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.5,
+  });
 
   return (
     <motion.div
@@ -225,10 +237,10 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
         className="relative overflow-hidden group bg-portfolio-surface border-2 border-portfolio-fg/20"
         style={{ boxShadow: `12px 12px 0px ${project.color}80` }}
         whileHover={{
-          translate: "-4px -4px",
-          boxShadow: `16px 16px 0px ${project.color}`,
+          translate: "-2px -2px",
+          boxShadow: `14px 14px 0px ${project.color}`,
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
         <div className="glass px-8 py-4 border-b-2 border-portfolio-fg/20 flex items-center justify-between relative z-30">
           <div className="flex items-center gap-4">

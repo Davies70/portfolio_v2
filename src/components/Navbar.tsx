@@ -9,7 +9,10 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const nextIsScrolled = window.scrollY > 50;
+      setIsScrolled((current) =>
+        current === nextIsScrolled ? current : nextIsScrolled,
+      );
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });

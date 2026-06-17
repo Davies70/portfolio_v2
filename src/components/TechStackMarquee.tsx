@@ -1,5 +1,4 @@
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
 
 // You can swap these out for the actual technologies you use
 const TOP_ROW = [
@@ -23,19 +22,17 @@ const BOTTOM_ROW = [
   "VERCEL",
 ];
 
-export const TechStackMarquee: React.FC = () => {
-  const shouldReduceMotion = useReducedMotion();
-  // Duplicating the arrays so the marquee loops seamlessly without resetting
-  const topMarquee = [...TOP_ROW, ...TOP_ROW, ...TOP_ROW, ...TOP_ROW];
-  const bottomMarquee = [
-    ...BOTTOM_ROW,
-    ...BOTTOM_ROW,
-    ...BOTTOM_ROW,
-    ...BOTTOM_ROW,
-  ];
+const TOP_MARQUEE = [...TOP_ROW, ...TOP_ROW, ...TOP_ROW, ...TOP_ROW];
+const BOTTOM_MARQUEE = [
+  ...BOTTOM_ROW,
+  ...BOTTOM_ROW,
+  ...BOTTOM_ROW,
+  ...BOTTOM_ROW,
+];
 
+export const TechStackMarquee: React.FC = () => {
   return (
-    <section className="relative py-16 md:py-24 bg-portfolio-bg overflow-hidden flex flex-col gap-4 md:gap-6 border-t-2 border-portfolio-fg/10">
+    <section className="relative py-14 md:py-20 bg-portfolio-bg overflow-hidden flex flex-col gap-4 md:gap-6 border-t-2 border-portfolio-fg/10">
       {/* Background Cyber Grid */}
       <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
 
@@ -58,16 +55,8 @@ export const TechStackMarquee: React.FC = () => {
           className="relative w-full border-y-4 border-portfolio-surface bg-portfolio-accent py-3 md:py-4 overflow-hidden"
           style={{ boxShadow: "0px 10px 30px rgba(197,248,42,0.1)" }}
         >
-          <motion.div
-            className="flex whitespace-nowrap items-center w-max"
-            animate={shouldReduceMotion ? { x: "0%" } : { x: ["0%", "-25%"] }}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 15, repeat: Infinity, ease: "linear" }
-            }
-          >
-            {topMarquee.map((tech, index) => (
+          <div className="marquee-track marquee-forward flex whitespace-nowrap items-center w-max will-change-transform">
+            {TOP_MARQUEE.map((tech, index) => (
               <div key={`top-${index}`} className="flex items-center">
                 <span className="font-clash text-portfolio-bg text-3xl md:text-5xl font-black uppercase tracking-tighter px-6 md:px-10">
                   {tech}
@@ -77,7 +66,7 @@ export const TechStackMarquee: React.FC = () => {
                 </span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* --- BOTTOM TICKER (Dark Terminal Style) --- */}
@@ -85,16 +74,8 @@ export const TechStackMarquee: React.FC = () => {
           className="relative w-full border-y-2 border-portfolio-fg/20 bg-portfolio-surface py-3 md:py-4 overflow-hidden"
           style={{ boxShadow: "0px 10px 30px rgba(0,0,0,0.8)" }}
         >
-          <motion.div
-            className="flex whitespace-nowrap items-center w-max"
-            animate={shouldReduceMotion ? { x: "0%" } : { x: ["-25%", "0%"] }}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 20, repeat: Infinity, ease: "linear" }
-            }
-          >
-            {bottomMarquee.map((tech, index) => (
+          <div className="marquee-track marquee-reverse flex whitespace-nowrap items-center w-max will-change-transform">
+            {BOTTOM_MARQUEE.map((tech, index) => (
               <div key={`bottom-${index}`} className="flex items-center">
                 {/* Using the text-stroke class we defined in index.css */}
                 <span className="font-clash text-stroke text-portfolio-fg text-3xl md:text-5xl font-black uppercase tracking-tighter px-6 md:px-10 opacity-80">
@@ -105,7 +86,7 @@ export const TechStackMarquee: React.FC = () => {
                 </span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

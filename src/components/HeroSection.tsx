@@ -38,9 +38,9 @@ export const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   const handleScrollDown = () => {
-    const projectsSection = document.getElementById("work");
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    const codeSection = document.getElementById("code");
+    if (codeSection) {
+      codeSection.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
     }

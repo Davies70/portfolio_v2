@@ -6,7 +6,7 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-32 bg-portfolio-bg border-t-2 border-b-2 border-portfolio-fg/10 overflow-hidden"
+      className="relative py-16 md:py-24 bg-portfolio-bg border-t-2 border-b-2 border-portfolio-fg/10 overflow-hidden"
     >
       {/* Cyber Grid Background */}
       <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
@@ -14,7 +14,7 @@ export const AboutSection: React.FC = () => {
       <div className="container mx-auto px-6 md:px-20 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Neo-Brutalist Section Header */}
-          <div className="mb-10 md:mb-16">
+          <div className="mb-10 md:mb-12">
             <div className="flex items-center gap-4 mb-6">
               <span className="text-portfolio-accent font-mono font-bold text-sm">
                 {"// 05"}

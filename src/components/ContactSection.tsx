@@ -1,48 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { aboutMe } from "../lib/data";
 
 export const ContactSection: React.FC = () => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!buttonRef.current || !isHovering) return;
-      const button = buttonRef.current.getBoundingClientRect();
-      const buttonCenterX = button.left + button.width / 2;
-      const buttonCenterY = button.top + button.height / 2;
-      const distanceX = e.clientX - buttonCenterX;
-      const distanceY = e.clientY - buttonCenterY;
-      const magnetStrength = 0.3;
-      setMousePosition({
-        x: distanceX * magnetStrength,
-        y: distanceY * magnetStrength,
-      });
-    };
-
-    if (isHovering) {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isHovering, shouldReduceMotion]);
-
-  const handleMouseEnter = () => {
-    if (!shouldReduceMotion) setIsHovering(true);
-  };
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
 
   return (
     <section
       id="contact"
-      className="relative pt-20 pb-28 md:py-32 overflow-hidden flex flex-col justify-center min-h-[80vh] border-t-2 border-portfolio-fg/10"
+      className="relative pt-16 pb-24 md:py-24 overflow-hidden flex flex-col justify-center min-h-[70vh] border-t-2 border-portfolio-fg/10"
       style={{ backgroundColor: "var(--portfolio-bg)" }}
     >
       {/* Cyber Grid Background */}
@@ -92,19 +58,13 @@ export const ContactSection: React.FC = () => {
           >
             <motion.button
               type="button"
-              ref={buttonRef}
               onClick={() => {
                 window.location.href = `mailto:${aboutMe.email}`;
               }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
               className="relative cursor-pointer"
-              animate={
-                shouldReduceMotion
-                  ? { x: 0, y: 0 }
-                  : { x: mousePosition.x, y: mousePosition.y }
-              }
-              transition={{ type: "spring", stiffness: 150, damping: 15 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
             >
               <motion.div
                 className="w-[min(88vw,400px)] h-[clamp(96px,18vw,120px)] flex items-center justify-center text-portfolio-bg font-clash tracking-tight relative overflow-hidden group text-xl md:text-3xl border-2 border-portfolio-accent"
