@@ -73,7 +73,7 @@ export const CustomCursor: React.FC = () => {
       >
         {/* Left Bracket '[' */}
         <motion.div
-          className="absolute left-0 border-l-2 border-y-2 border-[#C5F82A]"
+          className="absolute left-0 border-l-2 border-y-2 border-portfolio-accent"
           animate={{
             height: isHovering ? "24px" : "100%",
             width: isHovering ? "8px" : "50%",
@@ -84,7 +84,7 @@ export const CustomCursor: React.FC = () => {
 
         {/* Right Bracket ']' */}
         <motion.div
-          className="absolute right-0 border-r-2 border-y-2 border-[#C5F82A]"
+          className="absolute right-0 border-r-2 border-y-2 border-portfolio-accent"
           animate={{
             height: isHovering ? "24px" : "100%",
             width: isHovering ? "8px" : "50%",
@@ -95,7 +95,7 @@ export const CustomCursor: React.FC = () => {
 
         {/* Center Dot (Disappears on hover) */}
         <motion.div
-          className="w-1.5 h-1.5 bg-[#C5F82A]"
+          className="w-1.5 h-1.5 bg-portfolio-accent"
           animate={{ opacity: isHovering ? 0 : 1, scale: isHovering ? 0 : 1 }}
           transition={{ duration: 0.2 }}
         />

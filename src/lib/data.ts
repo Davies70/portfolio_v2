@@ -1,5 +1,3 @@
-import { link } from "fs";
-
 export interface ArchNode {
   id: string;
   label: string;
@@ -248,10 +246,10 @@ export const aboutMe: AboutMe = {
     { name: "GitHub", link: "https://github.com/Davies70" },
   ],
   recognitions: [
-    "Software Engineering Certificate – ALX Holberton School",
+    "Software Engineering Certificate - ALX Holberton School",
 
-    "Full-Stack Web Development Specialization – Coursera Certificate",
+    "Full-Stack Web Development Specialization - Coursera Certificate",
 
-    "WCAG Compliance: Web Accessibility Best Practices – Coursera Certificate of Completion.",
+    "WCAG Compliance: Web Accessibility Best Practices - Coursera Certificate of Completion.",
   ],
 };

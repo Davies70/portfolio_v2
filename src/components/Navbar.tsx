@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  useBodyScrollLock(isMobileMenuOpen);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,17 +15,6 @@ export const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isMobileMenuOpen]);
 
   const handleLinkClick = () => setIsMobileMenuOpen(false);
 
@@ -58,7 +49,7 @@ export const Navbar: React.FC = () => {
       >
         <div className="container mx-auto px-4 md:px-20">
           <div
-            className="bg-[#12141A] border-2 border-[#E0E0E0]/20 px-4 md:px-8 py-3 flex items-center justify-between mx-auto w-full md:w-auto md:max-w-fit transition-all duration-300"
+            className="bg-portfolio-surface border-2 border-portfolio-fg/20 px-4 md:px-8 py-3 flex items-center justify-between mx-auto w-full md:w-auto md:max-w-fit transition-all duration-300"
             style={{
               boxShadow: isScrolled
                 ? "4px 4px 0px rgba(197, 248, 42, 0.4)"
@@ -71,9 +62,9 @@ export const Navbar: React.FC = () => {
                 <a
                   key={item}
                   href={`#${item}`}
-                  className="text-[#E0E0E0] hover:text-[#C5F82A] transition-colors duration-200 relative group flex items-center gap-1"
+                  className="text-portfolio-fg hover:text-portfolio-accent transition-colors duration-200 relative group flex items-center gap-1"
                 >
-                  <span className="text-[#C5F82A] opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-portfolio-accent opacity-0 group-hover:opacity-100 transition-opacity">
                     {">"}
                   </span>
                   {item}
@@ -85,7 +76,7 @@ export const Navbar: React.FC = () => {
             <div className="flex md:hidden items-center justify-between w-full">
               <a
                 href="#home"
-                className="text-[#C5F82A] text-sm font-mono font-bold tracking-widest uppercase"
+                className="text-portfolio-accent text-sm font-mono font-bold tracking-widest uppercase"
               >
                 [ SYS.PORTFOLIO ]
               </a>
@@ -93,16 +84,17 @@ export const Navbar: React.FC = () => {
               {/* Square Brutalist Hamburger */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="text-[#E0E0E0] hover:text-[#0B0C10] hover:bg-[#C5F82A] border-2 border-transparent hover:border-[#C5F82A] transition-all p-1.5"
+                className="text-portfolio-fg hover:text-portfolio-bg hover:bg-portfolio-accent border-2 border-transparent hover:border-portfolio-accent transition-all p-1.5"
                 aria-label="Open menu"
               >
                 <svg
+                  aria-hidden="true"
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="square"
                 >
                   <line x1="3" y1="12" x2="21" y2="12" />
@@ -124,7 +116,7 @@ export const Navbar: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             /* Removed 'noise' from here, kept the solid background */
-            className="fixed inset-0 z-[1000] flex items-center justify-center bg-[#0B0C10]"
+            className="fixed inset-0 z-[1000] flex items-center justify-center bg-portfolio-bg"
           >
             {/* Added noise as a separate background layer behind the links */}
             <div className="absolute inset-0 noise pointer-events-none z-0" />
@@ -132,17 +124,18 @@ export const Navbar: React.FC = () => {
             {/* Brutalist Close Button */}
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute top-6 right-6 sm:top-8 sm:right-8 text-[#E0E0E0] hover:text-[#0B0C10] hover:bg-[#C5F82A] border-2 border-[#E0E0E0]/20 hover:border-[#C5F82A] transition-all p-3 bg-[#12141A] z-20"
+              className="absolute top-6 right-6 sm:top-8 sm:right-8 text-portfolio-fg hover:text-portfolio-bg hover:bg-portfolio-accent border-2 border-portfolio-fg/20 hover:border-portfolio-accent transition-all p-3 bg-portfolio-surface z-20"
               style={{ boxShadow: "4px 4px 0px rgba(197, 248, 42, 0.4)" }}
               aria-label="Close menu"
             >
               <svg
+                aria-hidden="true"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="square"
               >
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -164,9 +157,9 @@ export const Navbar: React.FC = () => {
                   key={item}
                   href={`#${item}`}
                   onClick={handleLinkClick}
-                  className="text-white hover:text-[#0B0C10] hover:bg-[#C5F82A] transition-colors duration-200 font-mono font-bold text-3xl sm:text-4xl tracking-widest uppercase w-full p-4 border-l-4 border-[#C5F82A] bg-[#12141A]/90 shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+                  className="text-white hover:text-portfolio-bg hover:bg-portfolio-accent transition-colors duration-200 font-mono font-bold text-3xl sm:text-4xl tracking-widest uppercase w-full p-4 border-l-4 border-portfolio-accent bg-portfolio-surface/90 shadow-[4px_4px_0px_rgba(0,0,0,1)]"
                 >
-                  <span className="text-[#C5F82A] mr-4 text-xl mix-blend-difference">
+                  <span className="text-portfolio-accent mr-4 text-xl mix-blend-difference">
                     0{idx + 1}.
                   </span>
                   {item}

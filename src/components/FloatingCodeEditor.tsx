@@ -1,7 +1,7 @@
 // 1. Add useRef to React imports
 import React, { useState, useEffect, useRef } from "react";
 // 2. Add useInView to Framer Motion imports
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 
 const codeSnippet = `interface UserAuth {
   id: string;
@@ -25,6 +25,7 @@ const useAuth = () => {
 export const FloatingCodeEditor: React.FC = () => {
   const [typedCode, setTypedCode] = useState("");
   const [currentLine, setCurrentLine] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   // 3. Create a ref for the container section
   const containerRef = useRef(null);
@@ -37,6 +38,12 @@ export const FloatingCodeEditor: React.FC = () => {
   useEffect(() => {
     // 5. IMPORTANT: Exit early if the component is not yet in view.
     if (!isInView) return;
+
+    if (shouldReduceMotion) {
+      setTypedCode(codeSnippet);
+      setCurrentLine(codeSnippet.split("\n").length);
+      return;
+    }
 
     let currentIndex = 0;
     const interval = setInterval(() => {
@@ -53,7 +60,7 @@ export const FloatingCodeEditor: React.FC = () => {
 
     return () => clearInterval(interval);
     // 6. Change dependency from [] to [isInView] so it re-runs when visibility changes
-  }, [isInView]);
+  }, [isInView, shouldReduceMotion]);
 
   return (
     <section
@@ -61,7 +68,7 @@ export const FloatingCodeEditor: React.FC = () => {
       ref={containerRef}
       // Tightened mobile padding to match previous sections
       className="relative py-12 md:py-32 overflow-hidden"
-      style={{ backgroundColor: "#0B0C10" }}
+      style={{ backgroundColor: "var(--portfolio-bg)" }}
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-20">
         <motion.h2
@@ -81,11 +88,41 @@ export const FloatingCodeEditor: React.FC = () => {
         <div className="flex items-center justify-center relative">
           {/* Floating 3D Symbols - Hidden on mobile to reduce clutter */}
           <div className="hidden md:block">
-            <FloatingSymbol symbol="{" delay={0} x={-200} y={-100} />
-            <FloatingSymbol symbol="}" delay={0.5} x={-150} y={100} />
-            <FloatingSymbol symbol="</" delay={1} x={200} y={-80} />
-            <FloatingSymbol symbol="/>" delay={1.5} x={250} y={120} />
-            <FloatingSymbol symbol=";" delay={2} x={-100} y={-150} />
+            <FloatingSymbol
+              symbol="{"
+              delay={0}
+              x={-200}
+              y={-100}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+            <FloatingSymbol
+              symbol="}"
+              delay={0.5}
+              x={-150}
+              y={100}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+            <FloatingSymbol
+              symbol="</"
+              delay={1}
+              x={200}
+              y={-80}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+            <FloatingSymbol
+              symbol="/>"
+              delay={1.5}
+              x={250}
+              y={120}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+            <FloatingSymbol
+              symbol=";"
+              delay={2}
+              x={-100}
+              y={-150}
+              shouldReduceMotion={shouldReduceMotion}
+            />
           </div>
 
           {/* VS Code Style Editor Window */}
@@ -115,7 +152,7 @@ export const FloatingCodeEditor: React.FC = () => {
                 <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500" />
                 <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500" />
               </div>
-              <div className="text-[#E0E0E0] text-xs md:text-sm font-mono truncate px-2">
+              <div className="text-portfolio-fg text-xs md:text-sm font-mono truncate px-2">
                 useAuth.ts
               </div>
               <div className="w-12 md:w-16" /> {/* Spacer for centering */}
@@ -131,7 +168,7 @@ export const FloatingCodeEditor: React.FC = () => {
             >
               <div className="flex gap-3 md:gap-4 min-w-max">
                 {/* Line Numbers */}
-                <div className="text-[#E0E0E0]/30 select-none text-right min-w-[1.5rem]">
+                <div className="text-portfolio-fg/30 select-none text-right min-w-[1.5rem]">
                   {typedCode.split("\n").map((_, idx) => (
                     <div key={idx} className="leading-6">
                       {String(idx + 1)}
@@ -141,7 +178,7 @@ export const FloatingCodeEditor: React.FC = () => {
 
                 {/* Code Content with Syntax Highlighting */}
                 <pre className="flex-1 m-0 p-0">
-                  <code className="text-[#E0E0E0] leading-6 block">
+                  <code className="text-portfolio-fg leading-6 block">
                     {typedCode.split("\n").map((line, idx) => (
                       <div key={idx} className="min-h-[1.5rem]">
                         <SyntaxHighlightedLine line={line} />
@@ -149,9 +186,16 @@ export const FloatingCodeEditor: React.FC = () => {
                     ))}
                     {/* Blinking Cursor */}
                     <motion.span
-                      className="inline-block w-1.5 md:w-2 h-4 md:h-5 bg-[#C5F82A] ml-1 align-middle"
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
+                      className="inline-block w-1.5 md:w-2 h-4 md:h-5 bg-portfolio-accent ml-1 align-middle"
+                      animate={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { opacity: [1, 0, 1] }
+                      }
+                      transition={{
+                        duration: 0.8,
+                        repeat: shouldReduceMotion ? 0 : Infinity,
+                      }}
                     />
                   </code>
                 </pre>
@@ -164,7 +208,7 @@ export const FloatingCodeEditor: React.FC = () => {
               style={{
                 backgroundColor: "#1A1D23",
                 borderColor: "rgba(255, 255, 255, 0.1)",
-                color: "#E0E0E0",
+                color: "var(--portfolio-fg)",
               }}
             >
               <div className="flex items-center gap-2 md:gap-4">
@@ -173,8 +217,8 @@ export const FloatingCodeEditor: React.FC = () => {
               </div>
               <div className="flex items-center gap-2 md:gap-4">
                 <span>Ln {currentLine}, Col 1</span>
-                <span className="text-[#C5F82A] hidden sm:inline">
-                  ✓ Formatted
+                <span className="text-portfolio-accent hidden sm:inline">
+                  OK Formatted
                 </span>
               </div>
             </div>
@@ -190,6 +234,7 @@ interface FloatingSymbolProps {
   delay: number;
   x: number;
   y: number;
+  shouldReduceMotion: boolean | null;
 }
 
 const FloatingSymbol: React.FC<FloatingSymbolProps> = ({
@@ -197,6 +242,7 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({
   delay,
   x,
   y,
+  shouldReduceMotion,
 }) => {
   return (
     <motion.div
@@ -209,15 +255,18 @@ const FloatingSymbol: React.FC<FloatingSymbolProps> = ({
       initial={{ opacity: 0, scale: 0, rotate: -45 }}
       whileInView={{ opacity: 0.15, scale: 1, rotate: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, delay }}
-      animate={{
-        y: [0, -20, 0],
-        rotate: [0, 10, 0],
-      }}
-      // @ts-expect-error - Framer motion type issue with multiple transitions
+      animate={
+        shouldReduceMotion
+          ? { y: 0, rotate: 0 }
+          : {
+              y: [0, -20, 0],
+              rotate: [0, 10, 0],
+            }
+      }
       transition={{
-        duration: 4,
-        repeat: Infinity,
+        duration: shouldReduceMotion ? 0.01 : 4,
+        delay,
+        repeat: shouldReduceMotion ? 0 : Infinity,
         ease: "easeInOut",
       }}
     >

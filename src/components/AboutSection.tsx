@@ -6,7 +6,7 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative py-20 md:py-32 bg-[#0B0C10] border-t-2 border-b-2 border-[#E0E0E0]/10 overflow-hidden"
+      className="relative py-20 md:py-32 bg-portfolio-bg border-t-2 border-b-2 border-portfolio-fg/10 overflow-hidden"
     >
       {/* Cyber Grid Background */}
       <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
@@ -16,13 +16,13 @@ export const AboutSection: React.FC = () => {
           {/* Neo-Brutalist Section Header */}
           <div className="mb-10 md:mb-16">
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-[#C5F82A] font-mono font-bold text-sm">
+              <span className="text-portfolio-accent font-mono font-bold text-sm">
                 {"// 05"}
               </span>
-              <h2 className="text-[#E0E0E0] font-mono tracking-widest uppercase text-sm font-bold">
+              <h2 className="text-portfolio-fg font-mono tracking-widest uppercase text-sm font-bold">
                 SYS.IDENTITY
               </h2>
-              <div className="h-[2px] flex-1 bg-[#E0E0E0]/10" />
+              <div className="h-[2px] flex-1 bg-portfolio-fg/10" />
             </div>
 
             <motion.h3
@@ -47,20 +47,20 @@ export const AboutSection: React.FC = () => {
               className="space-y-6 md:space-y-8 flex flex-col"
             >
               <div
-                className="bg-[#12141A] p-6 md:p-8 border-2 border-[#E0E0E0]/20"
+                className="bg-portfolio-surface p-6 md:p-8 border-2 border-portfolio-fg/20"
                 style={{ boxShadow: "8px 8px 0px rgba(0,0,0,1)" }}
               >
-                <p className="text-[#E0E0E0] leading-relaxed text-sm md:text-base mb-6 font-mono">
+                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base mb-6 font-mono">
                   {aboutMe.descriptionOne}
                 </p>
-                <p className="text-[#E0E0E0] leading-relaxed text-sm md:text-base font-mono">
+                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base font-mono">
                   {aboutMe.descriptionTwo}
                 </p>
               </div>
 
               <div className="pt-4 mt-auto">
                 <motion.a
-                  className="cursor-pointer w-full sm:w-auto px-8 py-4 bg-[#C5F82A] text-[#0B0C10] font-mono text-xs md:text-sm uppercase font-bold border-2 border-[#C5F82A] transition-all flex items-center justify-center gap-3 group"
+                  className="cursor-pointer w-full sm:w-auto px-8 py-4 bg-portfolio-accent text-portfolio-bg font-mono text-xs md:text-sm uppercase font-bold border-2 border-portfolio-accent transition-all flex items-center justify-center gap-3 group"
                   style={{ boxShadow: "6px 6px 0px rgba(197, 248, 42, 0.4)" }}
                   whileHover={{
                     translate: "-4px -4px",
@@ -109,20 +109,20 @@ export const AboutSection: React.FC = () => {
             >
               {/* Skills Grid */}
               <div>
-                <h3 className="font-mono text-[#C5F82A] mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#C5F82A] animate-pulse" />
+                <h3 className="font-mono text-portfolio-accent mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-portfolio-accent animate-pulse" />
                   LOADED_MODULES
                 </h3>
                 <div className="flex flex-wrap gap-2 md:gap-3">
                   {aboutMe.tech.map((skill) => (
                     <motion.div
                       key={skill}
-                      className="px-3 md:px-4 py-2 bg-[#12141A] border-2 border-[#E0E0E0]/20 text-[#E0E0E0] font-mono text-[10px] md:text-xs uppercase font-bold transition-colors cursor-default"
+                      className="px-3 md:px-4 py-2 bg-portfolio-surface border-2 border-portfolio-fg/20 text-portfolio-fg font-mono text-[10px] md:text-xs uppercase font-bold transition-colors cursor-default"
                       style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
                       whileHover={{
                         translate: "-2px -2px",
                         boxShadow: "6px 6px 0px rgba(197, 248, 42, 0.4)",
-                        borderColor: "#C5F82A",
+                        borderColor: "var(--portfolio-accent)",
                         color: "#C5F82A",
                       }}
                     >
@@ -134,8 +134,8 @@ export const AboutSection: React.FC = () => {
 
               {/* Certifications / Logs */}
               <div>
-                <h3 className="font-mono text-[#C5F82A] mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-2 h-2 bg-[#C5F82A] animate-pulse" />
+                <h3 className="font-mono text-portfolio-accent mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+                  <span className="w-2 h-2 bg-portfolio-accent animate-pulse" />
                   VERIFIED_CREDENTIALS
                 </h3>
                 <div className="space-y-3">
@@ -146,12 +146,12 @@ export const AboutSection: React.FC = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5 + idx * 0.1 }}
-                      className="flex items-start gap-3 bg-[#12141A] border-l-4 border-[#C5F82A] p-3 md:p-4 group hover:bg-[#1a1d23] transition-colors"
+                      className="flex items-start gap-3 bg-portfolio-surface border-l-4 border-portfolio-accent p-3 md:p-4 group hover:bg-portfolio-surface-2 transition-colors"
                     >
-                      <span className="text-[#C5F82A] font-mono text-sm mt-0.5 group-hover:translate-x-1 transition-transform">
+                      <span className="text-portfolio-accent font-mono text-sm mt-0.5 group-hover:translate-x-1 transition-transform">
                         {">"}
                       </span>
-                      <span className="text-[#E0E0E0] text-[10px] md:text-xs font-mono leading-relaxed tracking-wide">
+                      <span className="text-portfolio-fg text-[10px] md:text-xs font-mono leading-relaxed tracking-wide">
                         {award}
                       </span>
                     </motion.div>

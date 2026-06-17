@@ -52,7 +52,7 @@ export const HeroSection: React.FC = () => {
       ref={containerRef as any}
       // Fixed height/padding issues. Tablets and up get standard centering.
       className="relative w-full min-h-svh flex items-start md:items-center justify-center pt-[140px] pb-24 md:pt-0 md:pb-0 overflow-hidden"
-      style={{ backgroundColor: "#0B0C10" }}
+      style={{ backgroundColor: "var(--portfolio-bg)" }}
       aria-label="Hero Section"
     >
       {/* ---- HIGH PERFORMANCE ACCENT LIGHTING ----
@@ -132,7 +132,7 @@ export const HeroSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ amount: 0.25, once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-clash text-stroke text-[#E0E0E0] tracking-tight relative z-10 uppercase"
+                className="font-clash text-stroke text-portfolio-fg tracking-tight relative z-10 uppercase"
                 style={{
                   fontSize: "clamp(3rem, 6vw + 1rem, 7rem)",
                   lineHeight: 0.9,
@@ -144,7 +144,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             <motion.p
-              className="mt-4 text-[#E0E0E0] max-w-xl mx-auto md:mx-0 text-sm md:text-base lg:text-lg relative z-10"
+              className="mt-4 text-portfolio-fg max-w-xl mx-auto md:mx-0 text-sm md:text-base lg:text-lg relative z-10"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ amount: 0.2, once: true }}
@@ -192,7 +192,9 @@ export const HeroSection: React.FC = () => {
                   src={aboutMe.image}
                   alt="Davies Ajayi"
                   loading="eager"
-                  className="w-full h-auto grayscale brightness-[0.8] contrast-125 border-2 border-[#12141A]"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-auto grayscale brightness-[0.8] contrast-125 border-2 border-portfolio-surface"
                   style={{
                     boxShadow: "8px 8px 0px rgba(197, 248, 42, 0.8)",
                   }}
@@ -212,16 +214,16 @@ export const HeroSection: React.FC = () => {
         whileTap={{ scale: 0.95 }}
       >
         <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase font-bold transition-all duration-300">
-          <span className="text-[#C5F82A]">[</span>
-          <span className="text-[#E0E0E0]">SYS.SCROLL</span>
-          <span className="text-[#C5F82A]">]</span>
+          <span className="text-portfolio-accent">[</span>
+          <span className="text-portfolio-fg">SYS.SCROLL</span>
+          <span className="text-portfolio-accent">]</span>
         </div>
 
         {/* Brutalist Pill */}
         <div className="relative flex flex-col items-center mt-1">
-          <div className="w-[24px] h-[36px] border-2 border-[#E0E0E0]/20 bg-[#12141A] flex justify-center pt-1 transition-all duration-300 group-hover:border-[#C5F82A]">
+          <div className="w-[24px] h-[36px] border-2 border-portfolio-fg/20 bg-portfolio-surface flex justify-center pt-1 transition-all duration-300 group-hover:border-portfolio-accent">
             <motion.div
-              className="w-[4px] h-[4px] bg-[#C5F82A]"
+              className="w-[4px] h-[4px] bg-portfolio-accent"
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
@@ -235,7 +237,7 @@ export const HeroSection: React.FC = () => {
             />
           </div>
           {/* Sharp connector line */}
-          <div className="w-[2px] h-6 bg-[#C5F82A]/50 mt-1 group-hover:bg-[#C5F82A] transition-colors" />
+          <div className="w-[2px] h-6 bg-portfolio-accent/50 mt-1 group-hover:bg-portfolio-accent transition-colors" />
         </div>
       </motion.div>
     </section>
@@ -258,8 +260,10 @@ const TechnicalSnippet: React.FC<TechnicalSnippetProps> = ({ code, delay }) => {
       // Updated to utilize our brutalist `.glass` class effectively
       className="glass px-3 py-2 text-left w-fit max-w-full overflow-hidden"
     >
-      <span className="text-[#C5F82A] font-mono text-xs mr-2">{">"}</span>
-      <code className="text-[#E0E0E0] text-[10px] sm:text-xs font-mono tracking-wide break-words whitespace-pre-wrap">
+      <span className="text-portfolio-accent font-mono text-xs mr-2">
+        {">"}
+      </span>
+      <code className="text-portfolio-fg text-[10px] sm:text-xs font-mono tracking-wide break-words whitespace-pre-wrap">
         {code}
       </code>
     </motion.div>

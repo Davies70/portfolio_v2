@@ -8,19 +8,19 @@ export const ProjectStack: React.FC = () => {
     <section
       id="work"
       className="relative py-16 md:py-24 lg:py-32"
-      style={{ backgroundColor: "#0B0C10" }}
+      style={{ backgroundColor: "var(--portfolio-bg)" }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         {/* Fixed Section Header - Removed conflicting margins */}
         <div className="mb-12 lg:mb-20">
           <div className="flex items-center gap-4 mb-4 lg:mb-6">
-            <span className="text-[#C5F82A] font-mono font-bold text-sm">
+            <span className="text-portfolio-accent font-mono font-bold text-sm">
               {"// 04"}
             </span>
-            <h2 className="text-[#E0E0E0] font-mono tracking-widest uppercase text-sm font-bold">
+            <h2 className="text-portfolio-fg font-mono tracking-widest uppercase text-sm font-bold">
               SYS.EXECUTABLES
             </h2>
-            <div className="h-[2px] flex-1 bg-[#E0E0E0]/10" />
+            <div className="h-[2px] flex-1 bg-portfolio-fg/10" />
           </div>
 
           <motion.h3
@@ -71,11 +71,11 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="relative w-full"
     >
       <div
-        className="relative overflow-hidden bg-[#12141A] border-2 border-[#E0E0E0]/20"
+        className="relative overflow-hidden bg-portfolio-surface border-2 border-portfolio-fg/20"
         style={{ boxShadow: `6px 6px 0px ${project.color}60` }}
       >
         {/* Header Bar */}
-        <div className="glass p-4 sm:p-6 border-b-2 border-[#E0E0E0]/20 flex flex-col gap-4 relative z-30">
+        <div className="glass p-4 sm:p-6 border-b-2 border-portfolio-fg/20 flex flex-col gap-4 relative z-30">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <span
@@ -99,7 +99,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
             {project.tech.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-1 border border-white/20 bg-[#0B0C10] font-mono text-[10px] uppercase tracking-wider"
+                className="px-2 py-1 border border-white/20 bg-portfolio-bg font-mono text-[10px] uppercase tracking-wider"
                 style={{ color: project.color }}
               >
                 {tag}
@@ -110,7 +110,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
 
         <div className="flex flex-col">
           {/* Changed aspect ratio to 16/9 on tablet so images aren't massive */}
-          <div className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-[#0B0C10] border-b-2 border-[#E0E0E0]/20">
+          <div className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden bg-portfolio-bg border-b-2 border-portfolio-fg/20">
             <motion.div
               animate={{
                 scale: isArchitectureView ? 1.05 : 1,
@@ -122,6 +122,8 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
               <img
                 src={project.src}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover grayscale contrast-125"
               />
               <div
@@ -155,7 +157,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
               {project.title}
             </h3>
 
-            <p className="text-[#E0E0E0] leading-relaxed text-sm md:text-base">
+            <p className="text-portfolio-fg leading-relaxed text-sm md:text-base">
               {project.description}
             </p>
 
@@ -167,7 +169,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
                   rel="noopener noreferrer"
                   className="flex-1 justify-center px-4 py-3 md:py-4 border-2 font-mono uppercase text-[10px] sm:text-xs text-center font-bold transition-all hover:-translate-y-1 hover:-translate-x-1"
                   style={{
-                    color: "#0B0C10",
+                    color: "var(--portfolio-bg)",
                     backgroundColor: project.color,
                     borderColor: project.color,
                     boxShadow: `4px 4px 0px rgba(255,255,255,0.1)`,
@@ -183,7 +185,7 @@ const ProjectCardMobile: React.FC<ProjectCardProps> = ({ project, index }) => {
                 className="flex-1 justify-center px-4 py-3 md:py-4 border-2 font-mono uppercase text-[10px] sm:text-xs text-center font-bold text-white transition-all hover:-translate-y-1 hover:-translate-x-1 hover:bg-white hover:text-black"
                 style={{
                   borderColor: "rgba(255, 255, 255, 0.4)",
-                  backgroundColor: "#12141A",
+                  backgroundColor: "var(--portfolio-surface)",
                   boxShadow: `4px 4px 0px rgba(0,0,0,1)`,
                 }}
               >
@@ -220,7 +222,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
       className="sticky top-32"
     >
       <motion.div
-        className="relative overflow-hidden group bg-[#12141A] border-2 border-[#E0E0E0]/20"
+        className="relative overflow-hidden group bg-portfolio-surface border-2 border-portfolio-fg/20"
         style={{ boxShadow: `12px 12px 0px ${project.color}80` }}
         whileHover={{
           translate: "-4px -4px",
@@ -228,7 +230,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
         }}
         transition={{ duration: 0.2 }}
       >
-        <div className="glass px-8 py-4 border-b-2 border-[#E0E0E0]/20 flex items-center justify-between relative z-30">
+        <div className="glass px-8 py-4 border-b-2 border-portfolio-fg/20 flex items-center justify-between relative z-30">
           <div className="flex items-center gap-4">
             <span
               className="font-mono text-sm font-bold"
@@ -245,7 +247,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
               {project.tech.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 border border-white/20 bg-[#0B0C10] font-mono text-[10px] uppercase tracking-wider"
+                  className="px-2 py-1 border border-white/20 bg-portfolio-bg font-mono text-[10px] uppercase tracking-wider"
                   style={{ color: project.color }}
                 >
                   {tag}
@@ -262,7 +264,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
 
         {/* Upgraded to lg:grid-cols-2 so it doesn't trigger on narrow tablets */}
         <div className="grid lg:grid-cols-2 gap-0 items-stretch">
-          <div className="p-8 lg:p-12 flex flex-col justify-center relative z-20 border-r-2 border-[#E0E0E0]/20">
+          <div className="p-8 lg:p-12 flex flex-col justify-center relative z-20 border-r-2 border-portfolio-fg/20">
             <h3
               className="font-clash text-white tracking-tight uppercase mb-6"
               style={{
@@ -274,7 +276,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
             </h3>
 
             <p
-              className="text-[#E0E0E0] leading-relaxed mb-8"
+              className="text-portfolio-fg leading-relaxed mb-8"
               style={{ fontSize: "1rem" }}
             >
               {project.description}
@@ -288,7 +290,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
                   rel="noopener noreferrer"
                   className="px-8 py-3 border-2 font-mono uppercase text-xs font-bold transition-all hover:-translate-y-1 hover:-translate-x-1"
                   style={{
-                    color: "#0B0C10",
+                    color: "var(--portfolio-bg)",
                     backgroundColor: project.color,
                     borderColor: project.color,
                     boxShadow: `4px 4px 0px rgba(255,255,255,0.1)`,
@@ -304,7 +306,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
                 className="px-8 py-3 border-2 font-mono uppercase text-xs font-bold text-white transition-all hover:-translate-y-1 hover:-translate-x-1 hover:bg-white hover:text-black"
                 style={{
                   borderColor: "rgba(255, 255, 255, 0.4)",
-                  backgroundColor: "#12141A",
+                  backgroundColor: "var(--portfolio-surface)",
                   boxShadow: `4px 4px 0px rgba(0,0,0,1)`,
                 }}
               >
@@ -313,7 +315,7 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
             </div>
           </div>
 
-          <div className="relative w-full aspect-[4/3] lg:h-full overflow-hidden bg-[#0B0C10]">
+          <div className="relative w-full aspect-[4/3] lg:h-full overflow-hidden bg-portfolio-bg">
             <motion.div
               animate={{
                 scale: isArchitectureView ? 1.05 : 1,
@@ -325,6 +327,8 @@ const ProjectCardDesktop: React.FC<ProjectCardProps> = ({ project, index }) => {
               <img
                 src={project.src}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover grayscale contrast-125"
               />
               <div

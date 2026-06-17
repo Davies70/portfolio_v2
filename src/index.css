@@ -1,13 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&display=swap");
-
 /* Tailwind v4 Import */
 @import "tailwindcss";
 
+:root {
+  --portfolio-bg: #0b0c10;
+  --portfolio-surface: #12141a;
+  --portfolio-surface-2: #1a1d23;
+  --portfolio-fg: #e0e0e0;
+  --portfolio-muted: #8f96a3;
+  --portfolio-accent: #c5f82a;
+  --portfolio-violet: #8a2be2;
+  --portfolio-danger: #ff4d5a;
+  --portfolio-border: rgba(224, 224, 224, 0.12);
+  --portfolio-shadow: rgba(0, 0, 0, 0.85);
+  --motion-fast: 160ms;
+  --motion-standard: 240ms;
+}
+
+@theme inline {
+  --color-portfolio-bg: var(--portfolio-bg);
+  --color-portfolio-surface: var(--portfolio-surface);
+  --color-portfolio-surface-2: var(--portfolio-surface-2);
+  --color-portfolio-fg: var(--portfolio-fg);
+  --color-portfolio-muted: var(--portfolio-muted);
+  --color-portfolio-accent: var(--portfolio-accent);
+  --color-portfolio-violet: var(--portfolio-violet);
+  --color-portfolio-danger: var(--portfolio-danger);
+}
+
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   body {
-    background-color: #0b0c10;
-    color: #e0e0e0;
+    background-color: var(--portfolio-bg);
+    color: var(--portfolio-fg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: "Inter", sans-serif;
@@ -17,7 +46,15 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #0b0c10;
+    background-color: var(--portfolio-bg);
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
   }
 }
 
@@ -29,7 +66,9 @@
     hard-edged panel. This is what cures 90% of your tablet/mobile scroll lag.
   */
   .glass {
-    background-color: #12141a; /* Solid, slightly lighter than bg */
+    background-color: var(
+      --portfolio-surface
+    ); /* Solid, slightly lighter than bg */
     border: 1px solid rgba(197, 248, 42, 0.2);
     /* Hard brutalist shadow instead of a soft glowing box-shadow */
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
@@ -54,8 +93,8 @@
     Replaces soft blurry glows with sharp, high-tech accents.
   */
   .glow-accent {
-    background-color: #c5f82a;
-    color: #0b0c10;
+    background-color: var(--portfolio-accent);
+    color: var(--portfolio-bg);
     box-shadow: 4px 4px 0px rgba(197, 248, 42, 0.4);
     border: 1px solid #c5f82a;
     font-weight: 600;
@@ -94,6 +133,34 @@
     background-color: transparent;
     animation: none; /* Kill the expensive JS/CSS animation */
   }
+
+  .section-container {
+    width: min(100% - 3rem, 1400px);
+    margin-inline: auto;
+  }
+
+  .hard-shadow {
+    box-shadow: 6px 6px 0 var(--portfolio-shadow);
+  }
+
+  .hard-shadow-accent {
+    box-shadow: 6px 6px 0 rgba(197, 248, 42, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 /* ========================================
@@ -106,7 +173,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0c10;
+  background: var(--portfolio-bg);
   border-left: 1px solid rgba(197, 248, 42, 0.1);
 }
 
@@ -116,5 +183,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c5f82a;
+  background: var(--portfolio-accent);
 }

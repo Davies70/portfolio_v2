@@ -1,6 +1,17 @@
 import React from "react";
 import { motion } from "motion/react";
 
+const seededLevel = (week: number, day: number) => {
+  const seed = Math.sin((week + 1) * 12.9898 + (day + 1) * 78.233) * 43758.5453;
+  const value = seed - Math.floor(seed);
+
+  if (value < 0.3) return 0;
+  if (value < 0.52) return 1;
+  if (value < 0.72) return 2;
+  if (value < 0.9) return 3;
+  return 4;
+};
+
 // Generate mock contribution data
 const generateContributions = () => {
   const weeks = 52;
@@ -10,9 +21,7 @@ const generateContributions = () => {
   for (let week = 0; week < weeks; week++) {
     const weekData: number[] = [];
     for (let day = 0; day < daysPerWeek; day++) {
-      // Random contribution level 0-4 with higher probability of activity
-      const level = Math.random() > 0.3 ? Math.floor(Math.random() * 5) : 0;
-      weekData.push(level);
+      weekData.push(seededLevel(week, day));
     }
     contributions.push(weekData);
   }
@@ -21,6 +30,10 @@ const generateContributions = () => {
 };
 
 const contributions = generateContributions();
+const totalContributions = contributions.flat().reduce((sum, level) => {
+  if (level === 0) return sum;
+  return sum + level * 2 + 1;
+}, 0);
 
 export const GitHubActivityGraph: React.FC = () => {
   const getColorForLevel = (level: number) => {
@@ -35,7 +48,7 @@ export const GitHubActivityGraph: React.FC = () => {
   };
 
   return (
-    <section className="relative py-16 md:py-24 lg:py-32 bg-[#0B0C10] overflow-hidden">
+    <section className="relative py-16 md:py-24 lg:py-32 bg-portfolio-bg overflow-hidden">
       {/* Cyber Grid Background */}
       <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
 
@@ -43,13 +56,13 @@ export const GitHubActivityGraph: React.FC = () => {
         {/* Neo-Brutalist Section Header */}
         <div className="mb-10 md:mb-16">
           <div className="flex items-center gap-4 mb-6">
-            <span className="text-[#C5F82A] font-mono font-bold text-sm">
+            <span className="text-portfolio-accent font-mono font-bold text-sm">
               {"// 06"}
             </span>
-            <h2 className="text-[#E0E0E0] font-mono tracking-widest uppercase text-sm font-bold">
+            <h2 className="text-portfolio-fg font-mono tracking-widest uppercase text-sm font-bold">
               SYS.ACTIVITY
             </h2>
-            <div className="h-[2px] flex-1 bg-[#E0E0E0]/10" />
+            <div className="h-[2px] flex-1 bg-portfolio-fg/10" />
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -67,9 +80,9 @@ export const GitHubActivityGraph: React.FC = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-[#E0E0E0]/60 font-mono text-xs md:text-sm uppercase tracking-widest pb-2"
+              className="text-portfolio-fg/60 font-mono text-xs md:text-sm uppercase tracking-widest pb-2"
             >
-              1,247 CONTRIBUTIONS // PAST 365 DAYS
+              {totalContributions.toLocaleString()} SIGNALS // PAST 365 DAYS
             </motion.p>
           </div>
         </div>
@@ -79,7 +92,7 @@ export const GitHubActivityGraph: React.FC = () => {
           <div className="w-full overflow-x-auto custom-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0">
             {/* Heavy Brutalist Container */}
             <motion.div
-              className="flex flex-col gap-4 p-6 md:p-8 bg-[#12141A] border-2 border-[#E0E0E0]/20 w-max"
+              className="flex flex-col gap-4 p-6 md:p-8 bg-portfolio-surface border-2 border-portfolio-fg/20 w-max"
               style={{ boxShadow: "12px 12px 0px rgba(0,0,0,1)" }}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -110,10 +123,10 @@ export const GitHubActivityGraph: React.FC = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center gap-3 px-4 py-2 border-2 border-[#E0E0E0]/20 bg-[#12141A] w-fit"
+            className="flex items-center gap-3 px-4 py-2 border-2 border-portfolio-fg/20 bg-portfolio-surface w-fit"
             style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
           >
-            <span className="font-mono text-[10px] md:text-xs text-[#E0E0E0]/60 uppercase tracking-widest">
+            <span className="font-mono text-[10px] md:text-xs text-portfolio-fg/60 uppercase tracking-widest">
               MIN
             </span>
             <div className="flex gap-1">
@@ -125,7 +138,7 @@ export const GitHubActivityGraph: React.FC = () => {
                 />
               ))}
             </div>
-            <span className="font-mono text-[10px] md:text-xs text-[#E0E0E0]/60 uppercase tracking-widest">
+            <span className="font-mono text-[10px] md:text-xs text-portfolio-fg/60 uppercase tracking-widest">
               MAX
             </span>
           </motion.div>
@@ -151,7 +164,7 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   const tooltip = React.useMemo(() => {
-    const commits = level === 0 ? 0 : Math.floor(Math.random() * 8) + 1;
+    const commits = level === 0 ? 0 : level * 2 + ((dayIdx + level) % 3);
     const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     return {
       day: days[dayIdx],
@@ -187,18 +200,18 @@ const ContributionSquare: React.FC<ContributionSquareProps> = ({
         >
           {/* Brutalist Command-Line Tooltip */}
           <div
-            className="bg-[#0B0C10] border-2 border-[#C5F82A] px-3 py-2 flex flex-col"
+            className="bg-portfolio-bg border-2 border-portfolio-accent px-3 py-2 flex flex-col"
             style={{ boxShadow: "4px 4px 0px rgba(197, 248, 42, 0.4)" }}
           >
-            <div className="text-[#C5F82A] font-mono text-[10px] md:text-xs font-bold uppercase">
+            <div className="text-portfolio-accent font-mono text-[10px] md:text-xs font-bold uppercase">
               {tooltip.commits} COMMITS // {tooltip.day}
             </div>
-            <div className="text-[#E0E0E0]/70 font-mono text-[8px] md:text-[10px] uppercase mt-1">
+            <div className="text-portfolio-fg/70 font-mono text-[8px] md:text-[10px] uppercase mt-1">
               [{tooltip.status}]
             </div>
           </div>
           {/* Sharp Triangle Pointer */}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] w-2 h-2 border-r-2 border-b-2 border-[#C5F82A] rotate-45 bg-[#0B0C10]" />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[2px] w-2 h-2 border-r-2 border-b-2 border-portfolio-accent rotate-45 bg-portfolio-bg" />
         </motion.div>
       )}
     </motion.div>

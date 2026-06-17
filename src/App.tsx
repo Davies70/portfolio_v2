@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, lazy, useState, useEffect, useCallback } from "react";
 
 // Layout & Global Components
 import { NoiseOverlay } from "./components/NoiseOverlay";
@@ -8,18 +8,50 @@ import { NotFound } from "./page/NotFound";
 
 // Sections
 import { HeroSection } from "./components/HeroSection";
-import { CodeShowcase } from "./components/CodeShowcase";
-import { TechStackMarquee } from "./components/TechStackMarquee";
-import { ProjectStack } from "./components/ProjectStack";
-import { AboutSection } from "./components/AboutSection";
-import { GitHubActivityGraph } from "./components/GitHubActivityGraph";
-import { ContactSection } from "./components/ContactSection";
 import { useDevToolsEasterEgg } from "./hooks/useDevToolsEasterEgg";
+import { useBodyScrollLock } from "./hooks/useBodyScrollLock";
+
+const CodeShowcase = lazy(() =>
+  import("./components/CodeShowcase").then((module) => ({
+    default: module.CodeShowcase,
+  })),
+);
+const TechStackMarquee = lazy(() =>
+  import("./components/TechStackMarquee").then((module) => ({
+    default: module.TechStackMarquee,
+  })),
+);
+const ProjectStack = lazy(() =>
+  import("./components/ProjectStack").then((module) => ({
+    default: module.ProjectStack,
+  })),
+);
+const AboutSection = lazy(() =>
+  import("./components/AboutSection").then((module) => ({
+    default: module.AboutSection,
+  })),
+);
+// const GitHubActivityGraph = lazy(() =>
+//   import("./components/GitHubActivityGraph").then((module) => ({
+//     default: module.GitHubActivityGraph,
+//   })),
+// );
+const ContactSection = lazy(() =>
+  import("./components/ContactSection").then((module) => ({
+    default: module.ContactSection,
+  })),
+);
+
+const SectionFallback = () => (
+  <div className="min-h-32 bg-portfolio-bg" aria-hidden="true" />
+);
 
 function App() {
   // --- STATE MANAGEMENT ---
   const [isBooting, setIsBooting] = useState(true);
   const [show404, setShow404] = useState(false);
+  useDevToolsEasterEgg();
+  useBodyScrollLock(isBooting || show404);
 
   // --- MANUAL ROUTER (404 DETECTOR) ---
   useEffect(() => {
@@ -30,21 +62,15 @@ function App() {
     }
   }, []);
 
-  const handleReturnHome = () => {
+  const handleReturnHome = useCallback(() => {
     // Clean the URL and go back to main site
     window.history.pushState({}, "", "/");
     setShow404(false);
-  };
+  }, []);
 
-  // --- SCROLL LOCKING ---
-  useEffect(() => {
-    // Lock scroll if either the Boot Screen or the 404 Game is active
-    if (isBooting || show404) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isBooting, show404]);
+  const handleBootComplete = useCallback(() => {
+    setIsBooting(false);
+  }, []);
 
   // --- 404 OVERLAY RENDERING ---
   // If the path is wrong, we stop everything and show the Snake Game
@@ -52,16 +78,10 @@ function App() {
     return <NotFound onReturn={handleReturnHome} />;
   }
 
-  // --- DEVTOOLS EASTER EGG ---
-  useDevToolsEasterEgg();
-
   return (
-    <div
-      className="relative min-h-screen overflow-x-hidden selection:bg-[#C5F82A] selection:text-[#0B0C10]"
-      style={{ backgroundColor: "#0B0C10" }}
-    >
+    <div className="relative min-h-screen overflow-x-hidden bg-portfolio-bg selection:bg-portfolio-accent selection:text-portfolio-bg">
       {/* --- LAYER 0: PRELOADER --- */}
-      {isBooting && <BootSequence onComplete={() => setIsBooting(false)} />}
+      {isBooting && <BootSequence onComplete={handleBootComplete} />}
       {/* --- LAYER 1: BACKGROUND & OVERLAYS --- */}
       <NoiseOverlay />
       {/* <CustomCursor /> */}{" "}
@@ -73,29 +93,31 @@ function App() {
         {/* // 01 HERO SECTION */}
         <HeroSection />
 
-        {/* // 02 INITIALIZATION (Typed Code Editor) */}
-        <CodeShowcase />
+        <Suspense fallback={<SectionFallback />}>
+          {/* // 02 INITIALIZATION (Typed Code Editor) */}
+          <CodeShowcase />
 
-        {/* // 03 CAPABILITIES (Ticker/Marquee) */}
-        <TechStackMarquee />
+          {/* // 03 CAPABILITIES (Ticker/Marquee) */}
+          <TechStackMarquee />
 
-        {/* // 04 EXECUTABLES (Sticky Projects Stack) */}
-        <ProjectStack />
+          {/* // 04 EXECUTABLES (Sticky Projects Stack) */}
+          <ProjectStack />
 
-        {/* // 05 IDENTITY (About Me / Skills) */}
-        <AboutSection />
+          {/* // 05 IDENTITY (About Me / Skills) */}
+          <AboutSection />
 
-        {/* // 06 ACTIVITY (GitHub Style Contributions) */}
-        <GitHubActivityGraph />
+          {/* // 06 ACTIVITY (GitHub Style Contributions) */}
+          {/* <GitHubActivityGraph /> */}
 
-        {/* // 07 COMMUNICATION (Contact CTA) */}
-        <ContactSection />
+          {/* // 07 COMMUNICATION (Contact CTA) */}
+          <ContactSection />
+        </Suspense>
       </main>
       {/* --- LAYER 4: FLOATING WIDGETS --- */}
       {/* Only show the floating editor after booting is finished */}
       {/* --- LAYER 5: FOOTER DECORATION --- */}
-      <footer className="bg-[#0B0C10] py-8 border-t border-[#E0E0E0]/5 text-center">
-        <p className="font-mono text-[10px] text-[#E0E0E0]/30 uppercase tracking-[0.3em]">
+      <footer className="bg-portfolio-bg py-8 border-t border-portfolio-fg/5 text-center">
+        <p className="font-mono text-[10px] text-portfolio-fg/30 uppercase tracking-[0.3em]">
           End_of_Transmission // {new Date().getFullYear()}
         </p>
       </footer>

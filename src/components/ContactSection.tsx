@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { aboutMe } from "../lib/data";
 
 export const ContactSection: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!buttonRef.current || !isHovering) return;
       const button = buttonRef.current.getBoundingClientRect();
@@ -26,9 +29,11 @@ export const ContactSection: React.FC = () => {
       window.addEventListener("mousemove", handleMouseMove);
     }
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isHovering]);
+  }, [isHovering, shouldReduceMotion]);
 
-  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseEnter = () => {
+    if (!shouldReduceMotion) setIsHovering(true);
+  };
   const handleMouseLeave = () => {
     setIsHovering(false);
     setMousePosition({ x: 0, y: 0 });
@@ -37,8 +42,8 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative pt-20 pb-28 md:py-32 overflow-hidden flex flex-col justify-center min-h-[80vh] border-t-2 border-[#E0E0E0]/10"
-      style={{ backgroundColor: "#0B0C10" }}
+      className="relative pt-20 pb-28 md:py-32 overflow-hidden flex flex-col justify-center min-h-[80vh] border-t-2 border-portfolio-fg/10"
+      style={{ backgroundColor: "var(--portfolio-bg)" }}
     >
       {/* Cyber Grid Background */}
       <div className="absolute inset-0 noise opacity-50 pointer-events-none" />
@@ -51,14 +56,14 @@ export const ContactSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex justify-center items-center gap-2 md:gap-3 bg-[#12141A] border-2 border-[#E0E0E0]/20 w-fit mx-auto px-4 py-2"
+              className="flex justify-center items-center gap-2 md:gap-3 bg-portfolio-surface border-2 border-portfolio-fg/20 w-fit mx-auto px-4 py-2"
               style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
             >
               <div className="relative flex h-2.5 w-2.5 md:h-3 md:w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full bg-[#C5F82A] opacity-75"></span>
-                <span className="relative inline-flex h-2.5 w-2.5 md:h-3 md:w-3 bg-[#C5F82A]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full bg-portfolio-accent opacity-75"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 md:h-3 md:w-3 bg-portfolio-accent"></span>
               </div>
-              <span className="text-[#E0E0E0] text-[10px] md:text-xs tracking-widest uppercase font-mono font-bold">
+              <span className="text-portfolio-fg text-[10px] md:text-xs tracking-widest uppercase font-mono font-bold">
                 SYSTEM.READY // ACCEPTING_PROJECTS
               </span>
             </motion.div>
@@ -86,17 +91,25 @@ export const ContactSection: React.FC = () => {
             className="pt-8 md:pt-12 flex justify-center"
           >
             <motion.button
+              type="button"
               ref={buttonRef}
+              onClick={() => {
+                window.location.href = `mailto:${aboutMe.email}`;
+              }}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               className="relative cursor-pointer"
-              animate={{ x: mousePosition.x, y: mousePosition.y }}
+              animate={
+                shouldReduceMotion
+                  ? { x: 0, y: 0 }
+                  : { x: mousePosition.x, y: mousePosition.y }
+              }
               transition={{ type: "spring", stiffness: 150, damping: 15 }}
             >
               <motion.div
-                className="w-[280px] h-[100px] md:w-[400px] md:h-[120px] flex items-center justify-center text-[#0B0C10] font-clash tracking-tight relative overflow-hidden group text-xl md:text-3xl border-2 border-[#C5F82A]"
+                className="w-[min(88vw,400px)] h-[clamp(96px,18vw,120px)] flex items-center justify-center text-portfolio-bg font-clash tracking-tight relative overflow-hidden group text-xl md:text-3xl border-2 border-portfolio-accent"
                 style={{
-                  backgroundColor: "#C5F82A",
+                  backgroundColor: "var(--portfolio-accent)",
                   boxShadow: "8px 8px 0px rgba(197, 248, 42, 0.4)",
                 }}
                 whileHover={{
@@ -153,7 +166,7 @@ export const ContactSection: React.FC = () => {
                 <a
                   key={social.name}
                   href={social.link}
-                  className="border-2 border-[#E0E0E0]/20 bg-[#12141A] px-4 py-2 hover:border-[#C5F82A] hover:bg-[#C5F82A] hover:text-[#0B0C10] text-[#E0E0E0] transition-all font-mono text-xs uppercase font-bold"
+                  className="border-2 border-portfolio-fg/20 bg-portfolio-surface px-4 py-2 hover:border-portfolio-accent hover:bg-portfolio-accent hover:text-portfolio-bg text-portfolio-fg transition-all font-mono text-xs uppercase font-bold"
                   style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -164,12 +177,12 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div
-              className="inline-block relative group cursor-pointer bg-[#12141A] border-2 border-[#E0E0E0]/20 px-6 py-3"
+              className="inline-block relative group cursor-pointer bg-portfolio-surface border-2 border-portfolio-fg/20 px-6 py-3"
               style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
             >
               <a
                 href={`mailto:${aboutMe.email}`}
-                className="text-[#C5F82A] text-sm md:text-base font-mono font-bold hover:text-white transition-colors relative z-10"
+                className="text-portfolio-accent text-sm md:text-base font-mono font-bold hover:text-white transition-colors relative z-10"
               >
                 {aboutMe.email}
               </a>
@@ -184,9 +197,9 @@ export const ContactSection: React.FC = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.7 }}
-        className="absolute bottom-4 md:bottom-8 left-0 right-0 px-4 text-center text-[#E0E0E0]/40 text-[10px] md:text-xs tracking-widest font-mono border-t-2 border-[#E0E0E0]/10 pt-4 w-11/12 mx-auto"
+        className="absolute bottom-4 md:bottom-8 left-0 right-0 px-4 text-center text-portfolio-fg/40 text-[10px] md:text-xs tracking-widest font-mono border-t-2 border-portfolio-fg/10 pt-4 w-11/12 mx-auto"
       >
-        © {new Date().getFullYear()} DAVIES_AJAYI // ALL_SYSTEMS_NOMINAL.
+        (c) {new Date().getFullYear()} DAVIES_AJAYI // ALL_SYSTEMS_NOMINAL.
       </motion.div>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 interface BootSequenceProps {
   onComplete: () => void;
@@ -20,8 +20,21 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
   const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      setVisibleLogs(BOOT_LOGS);
+      setProgress(100);
+
+      const finishTimeout = setTimeout(() => {
+        setIsDone(true);
+        onComplete();
+      }, 500);
+
+      return () => clearTimeout(finishTimeout);
+    }
+
     // 1. Rapid-fire the boot logs with safety checks
     let currentLog = 0;
     const logInterval = setInterval(() => {
@@ -60,7 +73,7 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
       clearInterval(progressInterval);
       clearTimeout(finishTimeout);
     };
-  }, [onComplete]);
+  }, [onComplete, shouldReduceMotion]);
 
   // Generate ASCII progress bar with safe Range values
   const renderProgressBar = () => {
@@ -72,7 +85,7 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
     );
     const emptyBlocks = Math.max(0, totalBlocks - filledBlocks);
 
-    return `[${"█".repeat(filledBlocks)}${"-".repeat(emptyBlocks)}] ${Math.min(
+    return `[${"#".repeat(filledBlocks)}${"-".repeat(emptyBlocks)}] ${Math.min(
       progress,
       100,
     )}%`;
@@ -85,14 +98,17 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
           key="boot-screen"
           initial={{ y: 0 }}
           exit={{ y: "-100vh" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#0B0C10] flex flex-col justify-end p-6 md:p-12 overflow-hidden border-b-4 border-[#C5F82A]"
+          transition={{
+            duration: shouldReduceMotion ? 0.01 : 0.8,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+          className="fixed inset-0 z-[9999] bg-portfolio-bg flex flex-col justify-end p-6 md:p-12 overflow-hidden border-b-4 border-portfolio-accent"
         >
           {/* Cyber Grid Background */}
           <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
 
           {/* Terminal Window */}
-          <div className="relative z-10 w-full max-w-3xl font-mono text-xs md:text-sm text-[#E0E0E0] uppercase tracking-wider">
+          <div className="relative z-10 w-full max-w-3xl font-mono text-xs md:text-sm text-portfolio-fg uppercase tracking-wider">
             {/* Rapid-firing logs with optional chaining safety */}
             <div className="flex flex-col gap-1 mb-4">
               {visibleLogs.map((log, index) => (
@@ -102,7 +118,7 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
                   animate={{ opacity: 1, x: 0 }}
                   className={
                     log?.includes("ACCESS GRANTED") || log?.includes("READY")
-                      ? "text-[#C5F82A] font-bold"
+                      ? "text-portfolio-accent font-bold"
                       : ""
                   }
                 >
@@ -112,21 +128,23 @@ export const BootSequence: React.FC<BootSequenceProps> = ({ onComplete }) => {
             </div>
 
             {/* ASCII Progress Bar */}
-            <div className="text-[#C5F82A] font-bold mb-2">
+            <div className="text-portfolio-accent font-bold mb-2">
               {renderProgressBar()}
             </div>
 
             {/* Blinking Cursor */}
             <div className="flex items-center gap-2">
-              <span className="text-[#C5F82A]">{">"}</span>
+              <span className="text-portfolio-accent">{">"}</span>
               <motion.div
-                animate={{ opacity: [1, 0] }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: [1, 0] }
+                }
                 transition={{
                   duration: 0.8,
-                  repeat: Infinity,
+                  repeat: shouldReduceMotion ? 0 : Infinity,
                   ease: "linear",
                 }}
-                className="w-2 md:w-3 h-4 md:h-5 bg-[#C5F82A]"
+                className="w-2 md:w-3 h-4 md:h-5 bg-portfolio-accent"
               />
             </div>
           </div>

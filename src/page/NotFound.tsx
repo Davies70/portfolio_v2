@@ -131,7 +131,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
   }, [gameStarted, isGameOver, moveSnake]);
 
   return (
-    <div className="fixed inset-0 bg-[#0B0C10] z-[10001] flex flex-col items-center justify-center p-6 font-mono overflow-hidden">
+    <div className="fixed inset-0 bg-portfolio-bg z-[10001] flex flex-col items-center justify-center p-6 font-mono overflow-hidden">
       <div className="absolute inset-0 noise opacity-20 pointer-events-none" />
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
@@ -141,21 +141,21 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
         <h1 className="text-[#FF3366] text-4xl md:text-6xl font-black mb-2 tracking-tighter uppercase">
           FATAL_ERROR: 404
         </h1>
-        <p className="text-[#E0E0E0] text-sm md:text-base uppercase tracking-widest opacity-60">
+        <p className="text-portfolio-fg text-sm md:text-base uppercase tracking-widest opacity-60">
           Directory not found. System compromised.
         </p>
       </motion.div>
 
       <div
-        className="relative bg-[#12141A] border-4 border-[#FF3366] p-4 flex flex-col items-center"
+        className="relative bg-portfolio-surface border-4 border-[#FF3366] p-4 flex flex-col items-center"
         style={{ boxShadow: "16px 16px 0px rgba(255, 51, 102, 0.3)" }}
       >
         <div className="w-full flex justify-between mb-4 border-b-2 border-[#FF3366]/20 pb-2 text-[10px] md:text-xs">
-          <span className="text-[#E0E0E0]">SCORE: {score}</span>
-          <span className="text-[#C5F82A]">HIGH_SCORE: {highScore}</span>
+          <span className="text-portfolio-fg">SCORE: {score}</span>
+          <span className="text-portfolio-accent">HIGH_SCORE: {highScore}</span>
         </div>
         <div
-          className="grid gap-0 bg-[#0B0C10] border-2 border-[#E0E0E0]/10"
+          className="grid gap-0 bg-portfolio-bg border-2 border-portfolio-fg/10"
           style={{
             gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
             width: "min(70vw, 400px)",
@@ -171,9 +171,9 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
             return (
               <div key={i} className="flex items-center justify-center">
                 {isHead ? (
-                  <div className="w-full h-full bg-[#C5F82A] animate-pulse" />
+                  <div className="w-full h-full bg-portfolio-accent animate-pulse" />
                 ) : isSnake ? (
-                  <div className="w-[80%] h-[80%] bg-[#C5F82A]/60" />
+                  <div className="w-[80%] h-[80%] bg-portfolio-accent/60" />
                 ) : isFood ? (
                   <div className="w-[60%] h-[60%] bg-[#FF3366] rotate-45" />
                 ) : null}
@@ -182,13 +182,13 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
           })}
         </div>
         {!gameStarted && (
-          <div className="absolute inset-0 bg-[#0B0C10]/95 flex flex-col items-center justify-center p-6 text-center z-20">
-            <p className="text-[#C5F82A] text-lg mb-4 animate-pulse uppercase font-black">
+          <div className="absolute inset-0 bg-portfolio-bg/95 flex flex-col items-center justify-center p-6 text-center z-20">
+            <p className="text-portfolio-accent text-lg mb-4 animate-pulse uppercase font-black">
               [ SNAKE_ENGINE_READY ]
             </p>
             <button
               onClick={resetGame}
-              className="px-6 py-2 bg-[#C5F82A] text-[#0B0C10] font-bold uppercase text-xs"
+              className="px-6 py-2 bg-portfolio-accent text-portfolio-bg font-bold uppercase text-xs"
             >
               Initialize (Enter)
             </button>
@@ -201,7 +201,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
             </p>
             <button
               onClick={resetGame}
-              className="px-6 py-2 bg-[#0B0C10] text-white font-bold uppercase text-xs"
+              className="px-6 py-2 bg-portfolio-bg text-white font-bold uppercase text-xs"
             >
               Reboot
             </button>
@@ -212,7 +212,7 @@ export const NotFound: React.FC<NotFoundProps> = ({ onReturn }) => {
       <div className="mt-12 flex flex-col items-center gap-4">
         <button
           onClick={onReturn}
-          className="text-[#C5F82A] border-b-2 border-[#C5F82A] pb-1 font-bold text-sm uppercase hover:text-white hover:border-white transition-all"
+          className="text-portfolio-accent border-b-2 border-portfolio-accent pb-1 font-bold text-sm uppercase hover:text-white hover:border-white transition-all"
         >
           Return_to_Main_Frame
         </button>
