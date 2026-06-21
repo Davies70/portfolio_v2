@@ -88,31 +88,31 @@ export const projects: Project[] = [
       ],
     },
   },
-  {
-    title: "CheapBites",
-    description:
-      "Geolocation-based discovery app for affordable restaurants nearby. Integrates Foursquare Places API and Leaflet maps for interactive filtering.",
-    src: "/assets/projects/3.jpg",
-    link: "https://cheapbites.vercel.app",
-    github: "https://github.com/Davies70/cheapbites",
-    color: "#C2491D",
-    tech: ["NextJS", "TypeScript", "MongoDB", "Leaflet"],
-    architecture: {
-      nodes: [
-        { id: "ui", label: "NextJS App", x: 20, y: 50 },
-        { id: "maps", label: "Leaflet Maps", x: 50, y: 20 },
-        { id: "places", label: "Foursquare API", x: 50, y: 80 },
-        { id: "api", label: "Next API", x: 60, y: 50 },
-        { id: "db", label: "MongoDB", x: 85, y: 50 },
-      ],
-      connections: [
-        { from: "ui", to: "maps" },
-        { from: "ui", to: "places" },
-        { from: "ui", to: "api" },
-        { from: "api", to: "db" },
-      ],
-    },
-  },
+  // {
+  //   title: "CheapBites",
+  //   description:
+  //     "Geolocation-based discovery app for affordable restaurants nearby. Integrates Foursquare Places API and Leaflet maps for interactive filtering.",
+  //   src: "/assets/projects/3.jpg",
+  //   link: "https://cheapbites.vercel.app",
+  //   github: "https://github.com/Davies70/cheapbites",
+  //   color: "#C2491D",
+  //   tech: ["NextJS", "TypeScript", "MongoDB", "Leaflet"],
+  //   architecture: {
+  //     nodes: [
+  //       { id: "ui", label: "NextJS App", x: 20, y: 50 },
+  //       { id: "maps", label: "Leaflet Maps", x: 50, y: 20 },
+  //       { id: "places", label: "Foursquare API", x: 50, y: 80 },
+  //       { id: "api", label: "Next API", x: 60, y: 50 },
+  //       { id: "db", label: "MongoDB", x: 85, y: 50 },
+  //     ],
+  //     connections: [
+  //       { from: "ui", to: "maps" },
+  //       { from: "ui", to: "places" },
+  //       { from: "ui", to: "api" },
+  //       { from: "api", to: "db" },
+  //     ],
+  //   },
+  // },
   {
     title: "ShopApocalypse",
     description:
