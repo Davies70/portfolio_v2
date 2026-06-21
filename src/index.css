@@ -146,7 +146,6 @@
   .hard-shadow-accent {
     box-shadow: 6px 6px 0 rgba(197, 248, 42, 0.4);
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -173,12 +172,12 @@
 }
 
 .marquee-forward {
-  --marquee-duration: 10s;
+  --marquee-duration: 20s;
   animation-name: marquee-forward !important;
 }
 
 .marquee-reverse {
-  --marquee-duration: 12s;
+  --marquee-duration: 24s;
   animation-name: marquee-reverse !important;
 }
 

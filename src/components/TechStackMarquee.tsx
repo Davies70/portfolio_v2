@@ -1,5 +1,3 @@
-import React from "react";
-
 // You can swap these out for the actual technologies you use
 const TOP_ROW = [
   "REACT",

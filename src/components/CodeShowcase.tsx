@@ -51,7 +51,7 @@ export const CodeShowcase: React.FC = () => {
     setIsTyping(true);
 
     let currentIndex = 0;
-    const typingDelay = shouldReduceMotion ? 5 : 18;
+    const typingDelay = shouldReduceMotion ? 50 : 150;
     const typingInterval = window.setInterval(() => {
       currentIndex += 1;
       setDisplayedCode(CODE_SNIPPET.slice(0, currentIndex));
