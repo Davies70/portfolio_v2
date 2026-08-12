@@ -6,10 +6,9 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative py-16 md:py-24 bg-portfolio-bg border-t-2 border-b-2 border-portfolio-fg/10 overflow-hidden"
+      className="relative py-16 md:py-24 bg-portfolio-bg border-t border-b border-portfolio-fg/10 overflow-hidden"
     >
-      {/* Cyber Grid Background */}
-      <div className="absolute inset-0 noise opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 noise opacity-15 pointer-events-none" />
 
       <div className="container mx-auto px-6 md:px-20 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -20,7 +19,7 @@ export const AboutSection: React.FC = () => {
                 {"// 05"}
               </span>
               <h2 className="text-portfolio-fg font-mono tracking-widest uppercase text-sm font-bold">
-                SYS.IDENTITY
+                About
               </h2>
               <div className="h-[2px] flex-1 bg-portfolio-fg/10" />
             </div>
@@ -33,7 +32,7 @@ export const AboutSection: React.FC = () => {
               className="font-clash text-white tracking-tighter uppercase"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1 }}
             >
-              ABOUT_ME
+              How I Work
             </motion.h3>
           </div>
 
@@ -47,28 +46,27 @@ export const AboutSection: React.FC = () => {
               className="space-y-6 md:space-y-8 flex flex-col"
             >
               <div
-                className="bg-portfolio-surface p-6 md:p-8 border-2 border-portfolio-fg/20"
-                style={{ boxShadow: "8px 8px 0px rgba(0,0,0,1)" }}
+                className="bg-portfolio-surface p-6 md:p-8 border border-portfolio-fg/10"
+                style={{ boxShadow: "0 18px 60px rgba(0,0,0,0.25)" }}
               >
-                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base mb-6 font-mono">
+                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base mb-6">
                   {aboutMe.descriptionOne}
                 </p>
-                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base font-mono">
+                <p className="text-portfolio-fg leading-relaxed text-sm md:text-base">
                   {aboutMe.descriptionTwo}
                 </p>
               </div>
 
               <div className="pt-4 mt-auto">
                 <motion.a
-                  className="cursor-pointer w-full sm:w-auto px-8 py-4 bg-portfolio-accent text-portfolio-bg font-mono text-xs md:text-sm uppercase font-bold border-2 border-portfolio-accent transition-all flex items-center justify-center gap-3 group"
-                  style={{ boxShadow: "6px 6px 0px rgba(197, 248, 42, 0.4)" }}
+                  className="cursor-pointer w-full sm:w-auto px-8 py-4 bg-portfolio-accent text-portfolio-bg font-mono text-xs md:text-sm uppercase font-bold border border-portfolio-accent transition-all flex items-center justify-center gap-3 group"
+                  style={{ boxShadow: "0 14px 42px rgba(185, 245, 66, 0.18)" }}
                   whileHover={{
-                    translate: "-4px -4px",
-                    boxShadow: "10px 10px 0px rgba(197, 248, 42, 0.8)",
+                    y: -2,
+                    boxShadow: "0 18px 52px rgba(185, 245, 66, 0.24)",
                   }}
                   whileTap={{
-                    translate: "4px 4px",
-                    boxShadow: "0px 0px 0px transparent",
+                    y: 1,
                   }}
                   onClick={() => {
                     const link = document.createElement("a");
@@ -94,7 +92,7 @@ export const AboutSection: React.FC = () => {
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                  EXECUTE // DOWNLOAD_RESUME
+                  Download Resume
                 </motion.a>
               </div>
             </motion.div>
@@ -110,20 +108,17 @@ export const AboutSection: React.FC = () => {
               {/* Skills Grid */}
               <div>
                 <h3 className="font-mono text-portfolio-accent mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-2 h-2 bg-portfolio-accent animate-pulse" />
-                  LOADED_MODULES
+                  <span className="w-2 h-2 bg-portfolio-accent" />
+                  Core Stack
                 </h3>
                 <div className="flex flex-wrap gap-2 md:gap-3">
                   {aboutMe.tech.map((skill) => (
                     <motion.div
                       key={skill}
-                      className="px-3 md:px-4 py-2 bg-portfolio-surface border-2 border-portfolio-fg/20 text-portfolio-fg font-mono text-[10px] md:text-xs uppercase font-bold transition-colors cursor-default"
-                      style={{ boxShadow: "4px 4px 0px rgba(0,0,0,1)" }}
+                      className="px-3 md:px-4 py-2 bg-portfolio-surface border border-portfolio-fg/10 text-portfolio-fg font-mono text-[10px] md:text-xs uppercase font-bold transition-colors cursor-default"
                       whileHover={{
-                        translate: "-2px -2px",
-                        boxShadow: "6px 6px 0px rgba(197, 248, 42, 0.4)",
                         borderColor: "var(--portfolio-accent)",
-                        color: "#C5F82A",
+                        color: "#B9F542",
                       }}
                     >
                       {skill}
@@ -135,8 +130,8 @@ export const AboutSection: React.FC = () => {
               {/* Certifications / Logs */}
               <div>
                 <h3 className="font-mono text-portfolio-accent mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-2 h-2 bg-portfolio-accent animate-pulse" />
-                  VERIFIED_CREDENTIALS
+                  <span className="w-2 h-2 bg-portfolio-accent" />
+                  Credentials
                 </h3>
                 <div className="space-y-3">
                   {aboutMe.recognitions.map((award, idx) => (
@@ -146,7 +141,7 @@ export const AboutSection: React.FC = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5 + idx * 0.1 }}
-                      className="flex items-start gap-3 bg-portfolio-surface border-l-4 border-portfolio-accent p-3 md:p-4 group hover:bg-portfolio-surface-2 transition-colors"
+                      className="flex items-start gap-3 bg-portfolio-surface border-l-2 border-portfolio-accent p-3 md:p-4 group hover:bg-portfolio-surface-2 transition-colors"
                     >
                       <span className="text-portfolio-accent font-mono text-sm mt-0.5 group-hover:translate-x-1 transition-transform">
                         {">"}

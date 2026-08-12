@@ -55,16 +55,16 @@ export const Navbar: React.FC = () => {
             className="bg-portfolio-surface border-2 border-portfolio-fg/20 px-4 md:px-8 py-3 flex items-center justify-between mx-auto w-full md:w-auto md:max-w-fit transition-all duration-300"
             style={{
               boxShadow: isScrolled
-                ? "4px 4px 0px rgba(197, 248, 42, 0.4)"
-                : "8px 8px 0px rgba(0, 0, 0, 0.8)",
+                ? "0 14px 40px rgba(0, 0, 0, 0.28)"
+                : "0 18px 60px rgba(0, 0, 0, 0.22)",
             }}
           >
             {/* Desktop Links */}
             <div className="hidden md:flex items-center gap-8 font-mono text-xs font-bold tracking-widest uppercase">
-              {["home", "work", "about", "contact"].map((item) => (
+              {["Home", "Work", "About", "Contact"].map((item) => (
                 <a
                   key={item}
-                  href={`#${item}`}
+                  href={`#${item.toLowerCase()}`}
                   className="text-portfolio-fg hover:text-portfolio-accent transition-colors duration-200 relative group flex items-center gap-1"
                 >
                   <span className="text-portfolio-accent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
                 href="#home"
                 className="text-portfolio-accent text-sm font-mono font-bold tracking-widest uppercase"
               >
-                [ SYS.PORTFOLIO ]
+                Davies Ajayi
               </a>
 
               {/* Square Brutalist Hamburger */}
@@ -128,7 +128,7 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="absolute top-6 right-6 sm:top-8 sm:right-8 text-portfolio-fg hover:text-portfolio-bg hover:bg-portfolio-accent border-2 border-portfolio-fg/20 hover:border-portfolio-accent transition-all p-3 bg-portfolio-surface z-20"
-              style={{ boxShadow: "4px 4px 0px rgba(197, 248, 42, 0.4)" }}
+              style={{ boxShadow: "0 16px 50px rgba(0, 0, 0, 0.28)" }}
               aria-label="Close menu"
             >
               <svg
@@ -154,13 +154,13 @@ export const Navbar: React.FC = () => {
               exit="exit"
               className="flex flex-col items-start gap-8 relative z-10 w-full px-12"
             >
-              {["home", "work", "about", "contact"].map((item, idx) => (
+              {["Home", "Work", "About", "Contact"].map((item, idx) => (
                 <motion.a
                   variants={linkVars}
                   key={item}
-                  href={`#${item}`}
+                  href={`#${item.toLowerCase()}`}
                   onClick={handleLinkClick}
-                  className="text-white hover:text-portfolio-bg hover:bg-portfolio-accent transition-colors duration-200 font-mono font-bold text-3xl sm:text-4xl tracking-widest uppercase w-full p-4 border-l-4 border-portfolio-accent bg-portfolio-surface/90 shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+                  className="text-white hover:text-portfolio-accent transition-colors duration-200 font-mono font-bold text-3xl sm:text-4xl tracking-widest uppercase w-full p-4 border-l-2 border-portfolio-accent bg-portfolio-surface/90"
                 >
                   <span className="text-portfolio-accent mr-4 text-xl mix-blend-difference">
                     0{idx + 1}.

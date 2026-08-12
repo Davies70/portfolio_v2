@@ -14,18 +14,19 @@ export const ArchitectureToggle: React.FC<ArchitectureToggleProps> = ({
 }) => {
   return (
     <motion.button
+      type="button"
       onClick={onToggle}
-      className="cursor-pointer glass px-2 sm:px-4 md:px-4 py-1.5 sm:py-2 md:py-2 flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs md:text-sm z-50 relative shrink-0"
+      aria-pressed={isArchitectureView}
+      className="glass relative z-50 flex shrink-0 cursor-pointer items-center gap-2 px-2 py-1.5 text-[10px] sm:gap-3 sm:px-4 sm:py-2 md:px-4 md:py-2 md:text-sm"
       style={{
-        border: `2px solid ${accentColor}80`,
-        borderRadius: "0px", // Brutalist sharp edges
-        boxShadow: `4px 4px 0px ${accentColor}40`,
+        border: `1px solid ${accentColor}66`,
+        boxShadow: "none",
       }}
       whileHover={{
-        translate: "-2px -2px",
-        boxShadow: `6px 6px 0px ${accentColor}80`,
+        y: -1,
+        borderColor: accentColor,
       }}
-      whileTap={{ translate: "2px 2px", boxShadow: `0px 0px 0px transparent` }}
+      whileTap={{ y: 1 }}
     >
       <span className="text-portfolio-fg hidden md:inline font-mono uppercase tracking-widest text-[10px]">
         Mode:
@@ -38,7 +39,6 @@ export const ArchitectureToggle: React.FC<ArchitectureToggleProps> = ({
           Visual
         </span>
 
-        {/* Brutalist mechanical toggle track */}
         <div
           className="relative w-8 sm:w-10 md:w-12 h-4 sm:h-5 md:h-5 flex items-center px-0.5 border border-white/20 bg-portfolio-bg"
           style={{
@@ -105,10 +105,10 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
         style={{ borderColor: `${accentColor}40` }}
       >
         <h4 className="text-white font-clash text-sm md:text-2xl mb-1 uppercase tracking-tight">
-          {projectTitle} // SCHEMATIC
+          {projectTitle} Architecture
         </h4>
         <p className="text-portfolio-fg/80 text-[10px] md:text-xs tracking-widest uppercase font-mono">
-          System Architecture Topology
+          System topology
         </p>
       </div>
 
@@ -119,7 +119,6 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
           </div>
         )}
 
-        {/* Sharp SVG Connections */}
         <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none z-0">
           {connections.map((conn, idx) => {
             const fromNode = nodes.find((n) => n.id === conn.from);
@@ -149,7 +148,6 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
           })}
         </svg>
 
-        {/* Brutalist Solid Nodes */}
         {nodes.map((node, idx) => (
           <motion.div
             key={node.id}
@@ -158,7 +156,7 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
               left: `${node.x}%`,
               top: `${node.y}%`,
               border: `2px solid ${accentColor}`,
-              boxShadow: `4px 4px 0px ${accentColor}80`, // Hard shadow instead of glow
+              boxShadow: `0 14px 36px ${accentColor}30`,
             }}
             initial={{ scale: 0, opacity: 0, x: "-50%", y: "-40%" }}
             animate={{ scale: 1, opacity: 1, x: "-50%", y: "-50%" }}
@@ -170,7 +168,6 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
           </motion.div>
         ))}
 
-        {/* Mechanical Data Packets (Replacing glowing orbs) */}
         {!shouldReduceMotion &&
           connections.map((conn, idx) => {
             const fromNode = nodes.find((n) => n.id === conn.from);

@@ -13,6 +13,11 @@ export interface ArchConnection {
 export interface Project {
   title: string;
   description: string;
+  role: string;
+  highlight: string;
+  problem: string;
+  impact: string;
+  proofPoints: string[];
   src: string;
   link: string;
   github: string;
@@ -39,55 +44,55 @@ export interface AboutMe {
 }
 
 export const projects: Project[] = [
-  {
-    title: "DocuGuard",
-    description:
-      "An automated RAG system that audits technical documentation against changelogs to detect and 'self-heal' breaking changes using Groq/Llama 3.",
-    src: "/assets/projects/1.jpg",
-    link: "https://docu-guard-self-healing-rag.vercel.app/",
-    github: "https://github.com/Davies70/DocuGuard-Self-Healing-RAG",
-    color: "#BBACAF",
-    tech: ["NextJS", "FastAPI", "Python", "LangChain", "Llama 3"],
-    architecture: {
-      nodes: [
-        { id: "ui", label: "Next.js UI", x: 15, y: 50 },
-        { id: "api", label: "FastAPI", x: 45, y: 50 },
-        { id: "rag", label: "LangChain RAG", x: 80, y: 25 },
-        { id: "llm", label: "Llama 3", x: 80, y: 75 },
-      ],
-      connections: [
-        { from: "ui", to: "api" },
-        { from: "api", to: "rag" },
-        { from: "api", to: "llm" },
-        { from: "rag", to: "llm" },
-      ],
-    },
-  },
-  {
-    title: "Secure File Pipeline",
-    description:
-      "Full-stack serverless application for securely uploading, optimizing, and managing files. Features a React dashboard and an AWS Lambda/S3 backend.",
-    src: "/assets/projects/2.jpg",
-    link: "https://secure-file-processing-ui.vercel.app/",
-    github: "https://github.com/Davies70/secure-file-upload",
-    color: "#977F6D",
-    tech: ["NextJS", "AWS Lambda", "S3", "DynamoDB", "Tailwind"],
-    architecture: {
-      nodes: [
-        { id: "client", label: "React Client", x: 15, y: 50 },
-        { id: "gateway", label: "API Gateway", x: 45, y: 50 },
-        { id: "lambda", label: "Lambda Worker", x: 75, y: 50 },
-        { id: "s3", label: "S3 Storage", x: 75, y: 15 },
-        { id: "db", label: "DynamoDB", x: 75, y: 85 },
-      ],
-      connections: [
-        { from: "client", to: "gateway" },
-        { from: "gateway", to: "lambda" },
-        { from: "client", to: "s3" },
-        { from: "lambda", to: "db" },
-      ],
-    },
-  },
+  // {
+  //   title: "DocuGuard",
+  //   description:
+  //     "An automated RAG system that audits technical documentation against changelogs to detect and 'self-heal' breaking changes using Groq/Llama 3.",
+  //   src: "/assets/projects/1.jpg",
+  //   link: "https://docu-guard-self-healing-rag.vercel.app/",
+  //   github: "https://github.com/Davies70/DocuGuard-Self-Healing-RAG",
+  //   color: "#BBACAF",
+  //   tech: ["NextJS", "FastAPI", "Python", "LangChain", "Llama 3"],
+  //   architecture: {
+  //     nodes: [
+  //       { id: "ui", label: "Next.js UI", x: 15, y: 50 },
+  //       { id: "api", label: "FastAPI", x: 45, y: 50 },
+  //       { id: "rag", label: "LangChain RAG", x: 80, y: 25 },
+  //       { id: "llm", label: "Llama 3", x: 80, y: 75 },
+  //     ],
+  //     connections: [
+  //       { from: "ui", to: "api" },
+  //       { from: "api", to: "rag" },
+  //       { from: "api", to: "llm" },
+  //       { from: "rag", to: "llm" },
+  //     ],
+  //   },
+  // },
+  // {
+  //   title: "Secure File Pipeline",
+  //   description:
+  //     "Full-stack serverless application for securely uploading, optimizing, and managing files. Features a React dashboard and an AWS Lambda/S3 backend.",
+  //   src: "/assets/projects/2.jpg",
+  //   link: "https://secure-file-processing-ui.vercel.app/",
+  //   github: "https://github.com/Davies70/secure-file-upload",
+  //   color: "#977F6D",
+  //   tech: ["NextJS", "AWS Lambda", "S3", "DynamoDB", "Tailwind"],
+  //   architecture: {
+  //     nodes: [
+  //       { id: "client", label: "React Client", x: 15, y: 50 },
+  //       { id: "gateway", label: "API Gateway", x: 45, y: 50 },
+  //       { id: "lambda", label: "Lambda Worker", x: 75, y: 50 },
+  //       { id: "s3", label: "S3 Storage", x: 75, y: 15 },
+  //       { id: "db", label: "DynamoDB", x: 75, y: 85 },
+  //     ],
+  //     connections: [
+  //       { from: "client", to: "gateway" },
+  //       { from: "gateway", to: "lambda" },
+  //       { from: "client", to: "s3" },
+  //       { from: "lambda", to: "db" },
+  //     ],
+  //   },
+  // },
   // {
   //   title: "CheapBites",
   //   description:
@@ -114,9 +119,69 @@ export const projects: Project[] = [
   //   },
   // },
   {
+    title: "ReDi Events",
+    description:
+      "An event management web app for creating, joining, and coordinating community events. Features JWT-authenticated endpoints, structured design tokens, and a decoupled 3-tier architecture.",
+    role: "Full-stack development, API routing, database schema design",
+    highlight:
+      "Built a modular system combining Next.js 16 App Router and Tailwind v4 on the front end with an Express/Prisma 7 layered architecture on PostgreSQL.",
+    problem:
+      "Community teams need a simple way to publish events, manage attendance, and keep authenticated user actions separated from public browsing.",
+    impact:
+      "Shows end-to-end product thinking: a typed UI, protected API surface, relational data model, and deployment-ready architecture.",
+    proofPoints: [
+      "JWT-protected endpoints for authenticated event actions",
+      "Prisma schema structured around users, events, and participation",
+      "Dockerized PostgreSQL setup for repeatable local development",
+    ],
+    src: "/assets/projects/8.svg",
+    link: "https://redi-events.vercel.app/sign-in",
+    github: "https://github.com/ReDI-School/S26-Full-Stack-Circle",
+    color: "#2E8B8B",
+    tech: [
+      "Next.js 16",
+      "React 19",
+      "Express.js",
+      "TypeScript",
+      "Prisma 7",
+      "PostgreSQL",
+      "Tailwind v4",
+      "Docker",
+    ],
+    architecture: {
+      nodes: [
+        { id: "client", label: "Next.js UI", x: 12, y: 50 },
+        { id: "routes", label: "Express Routes", x: 38, y: 20 },
+        { id: "controller", label: "Controllers", x: 38, y: 50 },
+        { id: "service", label: "Services", x: 38, y: 80 },
+        { id: "prisma", label: "Prisma ORM", x: 65, y: 80 },
+        { id: "db", label: "PostgreSQL", x: 88, y: 50 },
+      ],
+      connections: [
+        { from: "client", to: "routes" },
+        { from: "routes", to: "controller" },
+        { from: "controller", to: "service" },
+        { from: "service", to: "prisma" },
+        { from: "prisma", to: "db" },
+      ],
+    },
+  },
+  {
     title: "ShopApocalypse",
     description:
-      "A parody eCommerce experience for doomsday gear. Showcases complex UI animation and immersive storytelling using Framer Motion and GSAP.",
+      "A concept eCommerce experience built around cinematic product storytelling, responsive shopping flows, and polished front-end motion.",
+    role: "Front-end architecture, interaction design, animation systems",
+    highlight:
+      "Built a highly branded React experience with coordinated Framer Motion and GSAP interactions without losing page clarity.",
+    problem:
+      "The goal was to make a product catalogue feel memorable without turning the shopping path into a confusing animation demo.",
+    impact:
+      "Demonstrates taste, motion restraint, responsive layout decisions, and the ability to build a strong brand moment in React.",
+    proofPoints: [
+      "Coordinated page transitions and product interactions",
+      "Responsive shopping flow across mobile and desktop",
+      "Motion used to support product storytelling instead of hiding content",
+    ],
     src: "/assets/projects/4.jpg",
     link: "https://shopapocalypse.netlify.app/",
     github: "https://github.com/Davies70/shopx",
@@ -141,7 +206,19 @@ export const projects: Project[] = [
   {
     title: "ThrillerFiend",
     description:
-      "Tracking platform for thriller fans integrating Google Books & NYT APIs. Features user ratings, reading logs, and Firebase persistence.",
+      "A reading tracker for thriller fans that combines book discovery, saved reading logs, user ratings, and persistent account data.",
+    role: "Product UI, API integration, Firebase persistence",
+    highlight:
+      "Integrated Google Books and NYT data with Firebase-backed user state for a focused, repeatable reading workflow.",
+    problem:
+      "Readers needed one place to discover thriller books, keep a personal log, and return to saved ratings across sessions.",
+    impact:
+      "Shows practical product design, third-party API handling, authenticated state, and persistent user workflows.",
+    proofPoints: [
+      "Google Books and NYT API integration",
+      "Firebase-backed user ratings and reading logs",
+      "Material UI interface tuned for repeated browsing",
+    ],
     src: "/assets/projects/5.jpg",
     link: "https://thrillerfiend.netlify.app",
     github: "https://github.com/Davies70/ThrillerFiend",
@@ -166,7 +243,19 @@ export const projects: Project[] = [
   {
     title: "InventoryManager API",
     description:
-      "Serverless REST API for managing inventory at scale. Supports full CRUD operations and secure IAM-based access via AWS Lambda and DynamoDB.",
+      "A serverless REST API for inventory operations with CRUD endpoints, IAM-based access, and DynamoDB-backed persistence.",
+    role: "API design, AWS Lambda, DynamoDB data modeling",
+    highlight:
+      "Designed a lean cloud backend that separates client access, authorization, Lambda handlers, and database operations.",
+    problem:
+      "Inventory data needs predictable CRUD operations, secure access, and a backend that can scale without server maintenance.",
+    impact:
+      "Signals backend depth through cloud architecture, IAM-aware access, API Gateway routing, and DynamoDB persistence.",
+    proofPoints: [
+      "Serverless Lambda handlers for inventory operations",
+      "API Gateway boundary with IAM-based access",
+      "DynamoDB data model for low-maintenance persistence",
+    ],
     src: "/assets/projects/6.jpg",
     link: "",
     github: "https://github.com/Davies70/inventory-manager",
@@ -191,7 +280,19 @@ export const projects: Project[] = [
   {
     title: "Sumbot.AI",
     description:
-      "High-performance browser-based summarizer using Neural AI (Transformers.js) and Graph-based PageRank. Offloads heavy computation to Web Workers for a non-blocking UI experience.",
+      "A browser-based summarizer that combines neural NLP, graph scoring, and Web Workers to keep heavy text processing off the main UI thread.",
+    role: "AI workflow, worker architecture, front-end performance",
+    highlight:
+      "Used Transformers.js and PageRank-style scoring in a non-blocking worker pipeline for fast, responsive summarization.",
+    problem:
+      "Long text summarization can freeze browser interfaces when model and scoring work runs on the main thread.",
+    impact:
+      "Shows AI experimentation with practical front-end engineering: responsive UI, worker boundaries, and multiple scoring strategies.",
+    proofPoints: [
+      "Transformers.js pipeline for neural summarization",
+      "PageRank-style graph scoring as a complementary method",
+      "Web Worker architecture to keep the interface responsive",
+    ],
     src: "/assets/projects/7.jpg",
     link: "https://sumbot.netlify.app",
     github: "https://github.com/Davies70/sumbot",
@@ -224,11 +325,9 @@ export const aboutMe: AboutMe = {
   name: "Davies",
   lastName: "Ajayi",
   title: "Full-Stack Developer",
-  heroText: ` Crafting exceptional digital experiences through code, design, and
-              innovation. I build modern, high-performance applications with
-              attention to detail and long-term maintainability.`,
-  descriptionOne: `I'm a versatile full-stack developer passionate about crafting responsive interfaces and scalable back-end systems. With hands-on experience building end-to-end solutions, I specialize in transforming ambitious ideas into efficient, digital realities.`,
-  descriptionTwo: `My approach combines technical optimization with user-focused design, ensuring every application not only functions flawlessly under the hood but also delivers a seamless, captivating experience for the user`,
+  heroText: `Full-stack developer building fast React, Node, and cloud applications with clear UX, maintainable architecture, and enough product taste to make interfaces feel alive.`,
+  descriptionOne: `I build end-to-end web applications with a practical mix of front-end craft, API design, and cloud fundamentals. My strongest work sits where product clarity and technical structure meet.`,
+  descriptionTwo: `I care about readable code, responsive interfaces, accessible details, and systems another engineer can understand without needing extra context from the original builder.`,
   image: "/assets/me.webp",
   tech: [
     "React & Next.js",
@@ -246,10 +345,11 @@ export const aboutMe: AboutMe = {
     { name: "GitHub", link: "https://github.com/Davies70" },
   ],
   recognitions: [
+    "Advanced Full-Stack Circle - ReDI School of Digital Integration",
     "Software Engineering Certificate - ALX Holberton School",
 
     "Full-Stack Web Development Specialization - Coursera Certificate",
 
-    "WCAG Compliance: Web Accessibility Best Practices - Coursera Certificate of Completion.",
+    "WCAG Compliance: Web Accessibility Best Practices - Coursera Certificate of Completion",
   ],
 };

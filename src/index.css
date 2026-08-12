@@ -2,16 +2,16 @@
 @import "tailwindcss";
 
 :root {
-  --portfolio-bg: #0b0c10;
-  --portfolio-surface: #12141a;
-  --portfolio-surface-2: #1a1d23;
-  --portfolio-fg: #e0e0e0;
-  --portfolio-muted: #8f96a3;
-  --portfolio-accent: #c5f82a;
-  --portfolio-violet: #8a2be2;
+  --portfolio-bg: #0d0f12;
+  --portfolio-surface: #15181d;
+  --portfolio-surface-2: #1d2229;
+  --portfolio-fg: #ece7dc;
+  --portfolio-muted: #9aa3ad;
+  --portfolio-accent: #b9f542;
+  --portfolio-violet: #7f8cff;
   --portfolio-danger: #ff4d5a;
-  --portfolio-border: rgba(224, 224, 224, 0.12);
-  --portfolio-shadow: rgba(0, 0, 0, 0.85);
+  --portfolio-border: rgba(236, 231, 220, 0.12);
+  --portfolio-shadow: rgba(0, 0, 0, 0.7);
   --motion-fast: 160ms;
   --motion-standard: 240ms;
 }
@@ -56,22 +56,24 @@
     display: block;
     max-width: 100%;
   }
+
+  a,
+  button {
+    outline-color: transparent;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--portfolio-accent);
+    outline-offset: 4px;
+  }
 }
 
 @layer utilities {
-  /* ========================================
-    1. THE CYBER-INDUSTRIAL "GLASS" REPLACEMENT
-    ========================================
-    Replaces the highly expensive backdrop-filter blur with a solid, 
-    hard-edged panel. This is what cures 90% of your tablet/mobile scroll lag.
-  */
   .glass {
-    background-color: var(
-      --portfolio-surface
-    ); /* Solid, slightly lighter than bg */
-    border: 1px solid rgba(197, 248, 42, 0.2);
-    /* Hard brutalist shadow instead of a soft glowing box-shadow */
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+    background-color: color-mix(in srgb, var(--portfolio-surface) 92%, white);
+    border: 1px solid var(--portfolio-border);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     transition:
@@ -81,28 +83,22 @@
   }
 
   .glass:hover {
-    border-color: rgba(197, 248, 42, 0.6);
-    /* Push the shadow out further and shift the element up on hover */
-    box-shadow: 6px 6px 0px rgba(197, 248, 42, 0.2);
-    transform: translate(-2px, -2px);
+    border-color: rgba(185, 245, 66, 0.5);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+    transform: translateY(-2px);
   }
 
-  /* ========================================
-    2. SHARP ACCENTS 
-    ========================================
-    Replaces soft blurry glows with sharp, high-tech accents.
-  */
   .glow-accent {
     background-color: var(--portfolio-accent);
     color: var(--portfolio-bg);
-    box-shadow: 4px 4px 0px rgba(197, 248, 42, 0.4);
-    border: 1px solid #c5f82a;
+    box-shadow: 0 12px 40px rgba(185, 245, 66, 0.18);
+    border: 1px solid var(--portfolio-accent);
     font-weight: 600;
   }
 
   .glow-accent:hover {
-    box-shadow: 6px 6px 0px rgba(197, 248, 42, 0.6);
-    transform: translate(-2px, -2px);
+    box-shadow: 0 18px 50px rgba(185, 245, 66, 0.24);
+    transform: translateY(-2px);
   }
 
   /* Hollow stroke text - Kept for your dramatic headers */
@@ -118,20 +114,14 @@
     font-family: "Unbounded", sans-serif;
   }
 
-  /* ========================================
-    3. THE PERFORMANCE-FRIENDLY NOISE (CYBER GRID)
-    ========================================
-    Pure CSS. 0% GPU strain compared to SVG feTurbulence.
-  */
   .noise {
     background-image:
-      linear-gradient(rgba(197, 248, 42, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(197, 248, 42, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(rgba(236, 231, 220, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(236, 231, 220, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
     background-position: center center;
-    /* Optional: Add a subtle scanline effect */
     background-color: transparent;
-    animation: none; /* Kill the expensive JS/CSS animation */
+    animation: none;
   }
 
   .section-container {
@@ -140,11 +130,11 @@
   }
 
   .hard-shadow {
-    box-shadow: 6px 6px 0 var(--portfolio-shadow);
+    box-shadow: 0 20px 70px var(--portfolio-shadow);
   }
 
   .hard-shadow-accent {
-    box-shadow: 6px 6px 0 rgba(197, 248, 42, 0.4);
+    box-shadow: 0 18px 48px rgba(185, 245, 66, 0.18);
   }
 }
 
@@ -163,48 +153,6 @@
   }
 }
 
-.marquee-track {
-  animation-duration: var(--marquee-duration, 18s) !important;
-  animation-iteration-count: infinite !important;
-  animation-timing-function: ease-in-out !important;
-  animation-direction: alternate !important;
-  transform: translate3d(0, 0, 0);
-}
-
-.marquee-forward {
-  --marquee-duration: 20s;
-  animation-name: marquee-forward !important;
-}
-
-.marquee-reverse {
-  --marquee-duration: 24s;
-  animation-name: marquee-reverse !important;
-}
-
-@keyframes marquee-forward {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-28%, 0, 0);
-  }
-}
-
-@keyframes marquee-reverse {
-  from {
-    transform: translate3d(-28%, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-/* ========================================
-  4. HARD-EDGED SCROLLBAR
-  ========================================
-*/
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -212,12 +160,12 @@
 
 ::-webkit-scrollbar-track {
   background: var(--portfolio-bg);
-  border-left: 1px solid rgba(197, 248, 42, 0.1);
+  border-left: 1px solid rgba(236, 231, 220, 0.08);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(197, 248, 42, 0.3);
-  border-radius: 0px; /* Square edges for the cyber look */
+  background: rgba(185, 245, 66, 0.24);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

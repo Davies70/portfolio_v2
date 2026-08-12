@@ -1,36 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 
-const CODE_SNIPPET = `// SYSTEM BOOT SEQUENCE INITIATED...
-// DATE: ${new Date().toLocaleDateString()}
-// USER: DAVIES_AJAYI
-
-const initializeDeveloper = async () => {
-  try {
-    const profile = new Engineer({
-      name: "Davies Ajayi",
-      role: "Full-Stack Developer",
-      status: "ONLINE"
-    });
-
-    console.log("Loading core competencies...");
-    await profile.loadModules([
-      "React", 
-      "TypeScript", 
-      "Node.js", 
-      "System_Architecture"
-    ]);
-
-    profile.setAesthetic("NEO_BRUTALISM");
-    
-    return profile.deploy();
-
-  } catch (error) {
-    console.error("FATAL_ERROR: Coffee levels critically low.");
-  }
+const CODE_SNIPPET = `type ProjectSignal = {
+  product: string;
+  system: string;
+  polish: string;
 };
 
-initializeDeveloper();`;
+const buildPortfolio = (work: ProjectSignal[]) => {
+  return work.map((project) => ({
+    ...project,
+    readableForRecruiters: true,
+    maintainableForEngineers: true,
+  }));
+};
+
+buildPortfolio([
+  {
+    product: "Clear user flows",
+    system: "Typed React + cloud APIs",
+    polish: "Fast, accessible, responsive UI",
+  },
+]);`;
 
 export const CodeShowcase: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -51,7 +42,7 @@ export const CodeShowcase: React.FC = () => {
     setIsTyping(true);
 
     let currentIndex = 0;
-    const typingDelay = shouldReduceMotion ? 50 : 150;
+    const typingDelay = shouldReduceMotion ? 1 : 12;
     const typingInterval = window.setInterval(() => {
       currentIndex += 1;
       setDisplayedCode(CODE_SNIPPET.slice(0, currentIndex));
@@ -100,7 +91,7 @@ export const CodeShowcase: React.FC = () => {
               {"// 02"}
             </span>
             <h2 className="text-portfolio-fg font-mono tracking-widest uppercase text-sm font-bold">
-              SYS.INITIALIZATION
+              Engineering Snapshot
             </h2>
             <div className="h-[2px] flex-1 bg-portfolio-fg/10" />
           </div>
@@ -124,7 +115,7 @@ export const CodeShowcase: React.FC = () => {
                   <line x1="12" y1="19" x2="20" y2="19"></line>
                 </svg>
                 <span className="font-mono text-portfolio-bg text-[10px] sm:text-xs font-black uppercase tracking-widest">
-                  ROOT@DAVIES_AJAYI:~
+                  portfolio/signal.ts
                 </span>
               </div>
               <div className="flex gap-2">
@@ -183,13 +174,13 @@ export const CodeShowcase: React.FC = () => {
                   NORMAL
                 </span>
                 <span className="text-portfolio-fg/50 font-mono text-[9px] sm:text-[10px]">
-                  src/core/profile.ts
+                  typed, focused, maintainable
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-portfolio-accent animate-pulse" />
                 <span className="text-portfolio-accent font-mono text-[9px] sm:text-[10px] font-bold">
-                  {isTyping ? "COMPILING..." : "SYSTEM_READY"}
+                  {isTyping ? "Writing..." : "Ready"}
                 </span>
               </div>
             </div>

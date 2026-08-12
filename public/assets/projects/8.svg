@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#06121E" />
+    </linearGradient>
+
+    <!-- Teal Brand Gradients -->
+    <linearGradient id="tealGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2E8B8B" stop-opacity="0" />
+      <stop offset="50%" stop-color="#3AA9A9" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#2E8B8B" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14B8A6" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#2E8B8B" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </linearGradient>
+
+    <radialGradient id="centerHub" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3AA9A9" stop-opacity="0.9" />
+      <stop offset="30%" stop-color="#2E8B8B" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#2E8B8B" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Blur Filters -->
+    <filter id="blurLarge" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="80" />
+    </filter>
+    <filter id="blurMedium" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="675" fill="url(#bgGrad)" />
+
+  <!-- Ambient Backdrop Lights -->
+  <circle cx="600" cy="337" r="300" fill="#2E8B8B" opacity="0.25" filter="url(#blurLarge)" />
+  <circle cx="200" cy="150" r="200" fill="#0D9488" opacity="0.15" filter="url(#blurLarge)" />
+  <circle cx="1000" cy="500" r="250" fill="#14B8A6" opacity="0.12" filter="url(#blurLarge)" />
+
+  <!-- Grid Perspective Lines -->
+  <g opacity="0.1" stroke="#2E8B8B" stroke-width="1">
+    <line x1="0" y1="135" x2="1200" y2="135" />
+    <line x1="0" y1="270" x2="1200" y2="270" />
+    <line x1="0" y1="405" x2="1200" y2="405" />
+    <line x1="0" y1="540" x2="1200" y2="540" />
+    <line x1="240" y1="0" x2="240" y2="675" />
+    <line x1="480" y1="0" x2="480" y2="675" />
+    <line x1="720" y1="0" x2="720" y2="675" />
+    <line x1="960" y1="0" x2="960" y2="675" />
+  </g>
+
+  <!-- Abstract Converging Waves (Event Streams) -->
+  <path d="M-100,500 C300,550 450,200 600,337 C750,474 900,150 1300,200" fill="none" stroke="url(#lineGrad1)" stroke-width="3" />
+  <path d="M-100,200 C250,100 450,450 600,337 C750,225 950,550 1300,450" fill="none" stroke="url(#lineGrad1)" stroke-width="2" />
+  <path d="M-100,337 C300,337 480,180 600,337 C720,494 900,337 1300,337" fill="none" stroke="#2E8B8B" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.6" />
+
+  <!-- Central Convergence Hub (ReDi Community Core) -->
+  <circle cx="600" cy="337" r="180" fill="url(#centerHub)" />
+  <circle cx="600" cy="337" r="90" fill="none" stroke="#3AA9A9" stroke-width="1.5" opacity="0.4" stroke-dasharray="8 4" />
+  <circle cx="600" cy="337" r="45" fill="none" stroke="#5EEAD4" stroke-width="2" filter="url(#glow)" opacity="0.8" />
+  <circle cx="600" cy="337" r="8" fill="#5EEAD4" filter="url(#glow)" />
+
+  <!-- Network Nodes & Mesh Connections -->
+  <g stroke="#3AA9A9" stroke-width="1" opacity="0.5">
+    <!-- Links -->
+    <line x1="600" y1="337" x2="420" y2="220" />
+    <line x1="600" y1="337" x2="780" y2="250" />
+    <line x1="600" y1="337" x2="480" y2="480" />
+    <line x1="600" y1="337" x2="740" y2="450" />
+
+    <line x1="420" y1="220" x2="280" y2="180" />
+    <line x1="780" y1="250" x2="920" y2="190" />
+    <line x1="480" y1="480" x2="320" y2="520" />
+    <line x1="740" y1="450" x2="880" y2="510" />
+  </g>
+
+  <!-- Node Dots -->
+  <g filter="url(#glow)">
+    <circle cx="420" cy="220" r="5" fill="#2E8B8B" />
+    <circle cx="780" cy="250" r="6" fill="#3AA9A9" />
+    <circle cx="480" cy="480" r="5" fill="#14B8A6" />
+    <circle cx="740" cy="450" r="6" fill="#5EEAD4" />
+
+    <circle cx="280" cy="180" r="3" fill="#2E8B8B" opacity="0.7" />
+    <circle cx="920" cy="190" r="4" fill="#3AA9A9" opacity="0.7" />
+    <circle cx="320" cy="520" r="3" fill="#14B8A6" opacity="0.7" />
+    <circle cx="880" cy="510" r="4" fill="#5EEAD4" opacity="0.7" />
+  </g>
+
+  <!-- Ambient Light Accents -->
+  <rect x="0" y="0" width="1200" height="675" fill="none" stroke="#2E8B8B" stroke-width="1" opacity="0.2" />
+</svg>
