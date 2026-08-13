@@ -3,6 +3,13 @@ import { motion } from "motion/react";
 import { aboutMe } from "../lib/data";
 
 export const AboutSection: React.FC = () => {
+  const workingStyle = [
+    "Product-first engineering",
+    "API-first architecture",
+    "Cloud-ready delivery",
+    "Accessible UX",
+  ];
+
   return (
     <section
       id="about"
@@ -105,14 +112,14 @@ export const AboutSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="space-y-12"
             >
-              {/* Skills Grid */}
+              {/* Working Style */}
               <div>
                 <h3 className="font-mono text-portfolio-accent mb-4 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-2">
                   <span className="w-2 h-2 bg-portfolio-accent" />
-                  Core Stack
+                  Working Style
                 </h3>
                 <div className="flex flex-wrap gap-2 md:gap-3">
-                  {aboutMe.tech.map((skill) => (
+                  {workingStyle.map((skill) => (
                     <motion.div
                       key={skill}
                       className="px-3 md:px-4 py-2 bg-portfolio-surface border border-portfolio-fg/10 text-portfolio-fg font-mono text-[10px] md:text-xs uppercase font-bold transition-colors cursor-default"

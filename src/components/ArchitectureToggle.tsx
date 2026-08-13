@@ -95,24 +95,24 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
             linear-gradient(${accentColor}40 1px, transparent 1px),
             linear-gradient(90deg, ${accentColor}40 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "clamp(18px, 2vw, 40px) clamp(18px, 2vw, 40px)",
         }}
       />
 
       {/* Title Section */}
       <div
-        className="text-left pt-6 px-6 md:pt-8 md:px-10 relative z-10 shrink-0 border-b-2 border-dashed pb-4"
+        className="text-left pt-4 px-4 pb-3 md:pt-8 md:px-10 md:pb-4 relative z-10 shrink-0 border-b-2 border-dashed"
         style={{ borderColor: `${accentColor}40` }}
       >
-        <h4 className="text-white font-clash text-sm md:text-2xl mb-1 uppercase tracking-tight">
+        <h4 className="text-white font-clash text-xs sm:text-sm md:text-2xl mb-1 uppercase tracking-tight">
           {projectTitle} Architecture
         </h4>
-        <p className="text-portfolio-fg/80 text-[10px] md:text-xs tracking-widest uppercase font-mono">
+        <p className="text-portfolio-fg/80 text-[8px] sm:text-[9px] md:text-xs tracking-widest uppercase font-mono">
           System topology
         </p>
       </div>
 
-      <div className="relative flex-1 mt-4 mb-4 mx-3 sm:mx-8 md:mt-8 md:mb-8 md:mx-12 z-10">
+      <div className="relative flex-1 mt-3 mb-3 mx-2 sm:mx-8 md:mt-8 md:mb-8 md:mx-12 z-10">
         {nodes.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center text-white/40 font-mono text-xs text-center px-4 uppercase">
             [ Schematic Data Pending ]
@@ -151,18 +151,19 @@ export const SystemArchitecture: React.FC<SystemArchitectureProps> = ({
         {nodes.map((node, idx) => (
           <motion.div
             key={node.id}
-            className="absolute px-2 py-1 sm:p-2 md:px-4 md:py-2 flex items-center justify-center z-10 bg-portfolio-surface"
+            className="absolute z-10 flex items-center justify-center bg-portfolio-surface px-1.5 py-1 sm:px-2 sm:py-1.5 md:px-4 md:py-2"
             style={{
               left: `${node.x}%`,
               top: `${node.y}%`,
               border: `2px solid ${accentColor}`,
               boxShadow: `0 14px 36px ${accentColor}30`,
+              maxWidth: "min(26vw, 130px)",
             }}
             initial={{ scale: 0, opacity: 0, x: "-50%", y: "-40%" }}
             animate={{ scale: 1, opacity: 1, x: "-50%", y: "-50%" }}
             transition={{ duration: 0.3, delay: idx * 0.1 }}
           >
-            <div className="text-white text-[9px] sm:text-xs md:text-sm whitespace-nowrap font-mono font-bold uppercase tracking-wider">
+            <div className="text-center text-[7px] leading-[1.1] text-white sm:text-[9px] md:text-sm font-mono font-bold uppercase tracking-wider whitespace-normal max-w-[18vw] sm:max-w-[15vw] md:max-w-none">
               {node.label}
             </div>
           </motion.div>

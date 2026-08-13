@@ -6,13 +6,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "motion/react";
-import { aboutMe } from "../lib/data";
-
-const TRUST_SIGNALS = [
-  "React / TypeScript / Node",
-  "AWS + PostgreSQL",
-  "Germany / Remote-ready",
-];
+import { aboutMe, TRUST_SIGNALS } from "../lib/data";
 
 export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
@@ -58,9 +52,9 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            className="mb-5 font-mono text-xs font-bold uppercase tracking-[0.22em] text-portfolio-accent"
+            className="mb-5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-portfolio-accent sm:text-xs"
           >
-            Full-stack developer / React / Cloud
+            Full-stack engineer
           </motion.p>
 
           <motion.div
@@ -124,13 +118,13 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.36 }}
-            className="mt-8 grid gap-2 sm:grid-cols-3"
+            className="mt-8 grid max-w-[420px] grid-cols-2 gap-1.5 sm:max-w-none sm:grid-cols-3"
             aria-label="Portfolio credibility signals"
           >
             {TRUST_SIGNALS.map((signal) => (
               <div
                 key={signal}
-                className="border border-portfolio-fg/10 bg-portfolio-surface/70 px-4 py-3 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-portfolio-muted font-mono md:text-left"
+                className="flex min-h-[38px] items-center justify-center border border-portfolio-fg/10 bg-portfolio-surface/70 px-1.5 py-1.5 text-center text-[7px] font-bold uppercase leading-[1.2] tracking-[0.12em] text-portfolio-muted font-mono sm:min-h-[42px] sm:px-2 sm:text-[8px] md:min-h-[52px] md:px-3 md:text-[10px]"
               >
                 {signal}
               </div>

@@ -330,14 +330,14 @@ export const aboutMe: AboutMe = {
   descriptionTwo: `I care about readable code, responsive interfaces, accessible details, and systems another engineer can understand without needing extra context from the original builder.`,
   image: "/assets/me.webp",
   tech: [
-    "React & Next.js",
+    "React / Next.js",
     "TypeScript",
-    "Node.js & Express",
-    "AWS (Serverless & Cloud)",
-    "MongoDB & PostgreSQL",
-    "Python & Django",
-    "Docker & CI/CD",
-    "Tailwind CSS",
+    "Python / FastAPI",
+    "Node.js / Express",
+    "AWS / Serverless",
+    "PostgreSQL / MongoDB",
+    "Docker / CI/CD",
+    "Cloud Architecture",
   ],
   email: "daviesajayi7@gmail.com",
   social: [
@@ -353,3 +353,51 @@ export const aboutMe: AboutMe = {
     "WCAG Compliance: Web Accessibility Best Practices - Coursera Certificate of Completion",
   ],
 };
+
+export const TRUST_SIGNALS = [
+  "Python / TypeScript",
+  "Cloud Systems",
+  "Django / FastAPI",
+  "Germany / Remote",
+];
+
+export const CAPABILITIES = [
+  {
+    title: "Frontend Engineering",
+    detail:
+      "React, Next.js, TypeScript, accessible UI systems, and polished product experiences.",
+  },
+  {
+    title: "Python & APIs",
+    detail:
+      "Python, FastAPI, Django, service design, and production-ready backend logic.",
+  },
+  {
+    title: "Cloud & Delivery",
+    detail:
+      "AWS, serverless architecture, CI/CD, Docker, and scalable deployment workflows.",
+  },
+  {
+    title: "Product Thinking",
+    detail:
+      "UX clarity, performance tuning, maintainable architecture, and shipping with intent.",
+  },
+];
+
+export const TOOLS = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "Python",
+  "FastAPI",
+  "Django",
+  "AWS",
+  "Docker",
+  "PostgreSQL",
+  "MongoDB",
+  "Tailwind",
+  "Vite",
+  "CI/CD",
+  "GitHub",
+];

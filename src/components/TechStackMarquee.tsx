@@ -1,38 +1,5 @@
 import React from "react";
-
-const CAPABILITIES = [
-  {
-    title: "Frontend",
-    detail: "React, Next.js, TypeScript, Tailwind, motion systems",
-  },
-  {
-    title: "Backend",
-    detail: "Node.js, Express, REST APIs, auth flows, data modeling",
-  },
-  {
-    title: "Cloud",
-    detail: "AWS Lambda, API Gateway, DynamoDB, S3, serverless patterns",
-  },
-  {
-    title: "Product Polish",
-    detail: "Responsive UI, accessibility, performance, recruiter-ready demos",
-  },
-];
-
-const TOOLS = [
-  "React",
-  "TypeScript",
-  "Node.js",
-  "Next.js",
-  "AWS",
-  "PostgreSQL",
-  "MongoDB",
-  "Firebase",
-  "Python",
-  "Docker",
-  "Tailwind",
-  "Vite",
-];
+import { CAPABILITIES, TOOLS } from "../lib/data";
 
 export const TechStackMarquee: React.FC = () => {
   return (
