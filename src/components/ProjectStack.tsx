@@ -93,7 +93,7 @@ const FeaturedProject: React.FC<{ project: Project }> = ({ project }) => {
               </span>
             </div>
 
-            <h4 className="font-clash text-3xl uppercase text-white md:text-5xl">
+            <h4 className="font-clash text-[clamp(1.25rem,4vw,3rem)] uppercase text-white">
               {project.title}
             </h4>
             <p className="mt-5 text-base leading-7 text-portfolio-fg">
@@ -253,7 +253,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             ))}
           </div>
 
-          <h4 className="font-clash text-2xl uppercase text-white">
+          <h4 className="max-w-full whitespace-normal wrap-break-word  font-clash text-xl uppercase text-white sm:text-2xl md:text-4xl lg:text-5xl">
             {project.title}
           </h4>
           <p className="mt-4 text-sm leading-6 text-portfolio-fg">
